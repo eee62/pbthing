@@ -1,0 +1,167 @@
+# Assembly simulation (rigid bodies + flexible ribbon/wires) and the radar-at-6.2 mm study
+
+Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm, plus a heatsink for 11.7 mm total height
+(heatsink 8 × 8 × 6.1 mm, **size assumed**). Ribbon exit: out of the head's +y edge, 65 mm, minimum bend radius 2.0 mm, route in
+`src/wires.py` (verified numerically: no pinch, radius ≥ 2.0 mm, 111 PASS / 0 FAIL in `out/logs/verify.txt`).
+
+## 1. Bottom line
+
+**Observed (slow quasi-static runs, 3 mm/s, `out/sim/*.log`):**
+* **No rigid jam and no rigid collision at any step** (radar, tact, keepers A/B/C, camera + heatsink, XIAO stack, sleeve):
+  contact depth 0.000 mm, hand lag ≤ 0.02 mm, every part goes in with a pure +z move.
+* **The ribbon over-bends and is pinched if the XIAO is held only 6 mm aside** while the camera and keeper B go in: the
+  heatsink (S4) and then keeper B (S5) drive through the pre-dressed ribbon loop: radius **0.70 mm**, strain 74 %
+  (`out/sim/render/fail_hold6_S4_*.png`, `fail_hold6_S5_*.png`, video `render/fail_hold6_video/`).
+  Cause (geometry): the ribbon's down-run (y = 47.85, z 105–124.5) lies inside the camera's drop path
+  (y 46.4–55.05, heatsink bottom travelling z 113.2 → 127.2). **Hold the XIAO ≥ 11.7 mm above the seat until keeper B is in**
+  (simulated 14 and 25 mm: ribbon radius ≥ 1.8 mm = the design corner, no pinch, S1–S5).
+* **The ribbon still dips to 1.56 mm (limit 2.0 mm) at the connector exit during the last part of the XIAO descent (S6)**,
+  with 14 mm and with 25 mm hold-off, and recovers to 1.96 mm when the XIAO is seated. This is an over-bend event. It is
+  not fixed: the route has no margin (the two first corners use 4.0 of the 4.06 mm between the connector and the downward
+  run). Guide the ribbon by hand during that step; a larger radius needs about 0.6 mm more room in y.
+* **Loose wires get pinched.** With the 30 mm service slack of ASSEMBLY.md the four radar wires end up under keeper A's plate and are
+  squeezed 0.40 mm (the lane between the plate top face z 135.7 and the radar back components z 136.4 is 0.7 mm, the wire is
+  1.1 mm), and one button wire is caught at the sleeve rim in S8 (squeeze 0.85 mm, strain 33 %). Laying the radar wires
+  straight into keeper A's slot before it is lowered removes both; what is left is one 0.30 mm contact of the radar GND wire with
+  the tact switch / keeper A cup (17.7, 30.0, 132.9). Slack of 8 and 12 mm is too short with the XIAO held aside (wire strain 33–66 %).
+
+**Theory / interpretation:** the design's lanes are clear on paper (CAD centre-line clearance ≥ 1.7 mm to the insert, ≥ 3.5 mm to the
+sleeve); every wire event comes from slack wire that nobody dressed, so the fix is procedure, not geometry. The ribbon-dip at S6 is a
+real geometric tightness of the route.
+
+**Radar at 6.2 mm:** impossible above the lip (bore depth 2.7 mm vs 6.2 mm + 1.2 mm PCB); possible behind the lip (H = 5.2–6.2 mm)
+but needs a new retainer. Details in §4.
+
+## 2. What was simulated, and how far to trust it
+
+**Frame and order.** The module is assembled face down on glass (front face down, gravity toward +z). Parts are lowered
+by +z moves in the documented order: radar → tact → keeper A → camera + heatsink → keeper B → XIAO stack → keeper C →
+sleeve over the whole module. The XIAO is held above the work from the start (it carries the soldered wires and the
+plugged ribbon), every other part starts 8–14 mm above its seat.
+
+**Rigid bodies** are the real tessellated parts (insert, keepers A/B/C, radar, tact, camera + heatsink, XIAO stack with
+expansion board, the sleeve STL). Each part has an exact signed-distance field on a 0.1 mm grid (0.15 mm for the sleeve);
+contact = surface sample points against the other parts' fields, resolved by position-level push-out (translation + rotation),
+frictionless. A compliant "hand" follows the scripted path; **jam = the part lags the hand by > 1.2 mm after the move.**
+
+**Flexible bodies.**
+* **Camera ribbon:** 3-wide strip, rows 0.8 mm apart, 65 mm long (59.1 mm visible), inextensible (hard stretch, cross and
+  shear links), soft bending (EI ≈ 18 N·mm²), 13 mm wide, both ends anchored to their rigid owner (XIAO connector, camera head),
+  collides with every active part at its current pose, Coulomb friction μ = 0.2. Bend radius is measured on the centre line
+  of the free part.
+* **Wires** (4 radar, 2 button, U.FL coax, 2 × 150 mm battery leads): limp chains (1.5 mm particles, Ø1.1 mm), cannot stretch,
+  can go slack, same collision and friction. Anchored at both ends or, for the coax and battery leads, fed from a fixed far end.
+* Events: **over-bend** (ribbon radius < 2.0 mm), **taut** (stretch strain), **squeeze/pinch** (residual penetration of a
+  flexible body into a rigid part after the solver > 0.03 mm), rigid penetration, jam.
+
+**Validation done:** SDF value and gradient exact (-0.200 at 0.2 mm inside); dense 200 k-point re-check of the rigid contacts (true
+penetration ≤ 0.008 mm); the S4 ribbon strain peak scales with hand speed (18.7 % at 12 mm/s, 6.6 % at 4, 2.4 % at 1.5 mm/s),
+so it is solver lag, not geometry. **All results below are therefore from quasi-static runs at 3 mm/s** (hand lag ≤ 0.02 mm).
+
+**Limits (read before trusting a number).**
+* Quasi-static position-based relaxation with *qualitative* stiffness; it finds conflicts and tight bends, it does not predict forces.
+* Frictionless rigid contacts; 0.1 mm field resolution; thin walls can be tunnelled by a flexible body after a large squeeze
+  (one S8 event ends with a wire beyond the front face: treat squeezes ≥ 0.8 mm as "something is caught", not as a shape).
+* Assumed inputs: heatsink 8 × 8 mm, base thickness 0.4 mm, radar component heights (front 0.85 / back 1.1 mm), wire Ø1.1 mm,
+  ribbon EI, starting loop shape, the staging offsets and the wire slack.
+* Wires are not tucked or dressed by the "assembler"; where a result says "caught", a person would lay the wire in its lane.
+* The plug sub-assembly is not simulated.
+* Squeeze partners printed for runs made before the tracker fix (`fail_hold6`, `final_s30`, `final_h14_s12`, `final_h14_s20`, `runA…runH22`) can be wrong for S1–S5; the squeeze and radius values themselves are right.
+
+## 3. Results per step
+
+Final procedure simulated (`out/sim/final_h14_s16_dress.*`): XIAO held 14 mm up and aside through S1–S5, wire slack 16 mm, the four
+radar wires laid straight into keeper A's slot before S3, hand speed 3 mm/s. Values are the worst over the step.
+
+| step | rigid contact depth (mm) | hand lag (mm) | jam | ribbon min radius (mm) | ribbon max strain | worst wire strain | worst squeeze (mm) |
+|---|---|---|---|---|---|---|---|
+| S1 radar | 0.000 | 0.02 | no | 1.83 | 0.2 % | 0.5 % (radar OT1 -> XIAO D7) | 0.00 (ribbon, vs None) |
+| S2 tact switch | 0.000 | 0.02 | no | 2.12 | 0.1 % | 0.1 % (button leg B -> XIAO D9 (driven LOW)) | 0.00 (ribbon, vs None) |
+| S3 keeper A | 0.000 | 0.02 | no | 2.28 | 0.1 % | 40.9 % (radar 3V3 -> XIAO 3V3) | 0.30 (radar GND -> XIAO GND, vs tact) |
+| S4 camera + heatsink | 0.000 | 0.02 | no | 2.37 | 4.2 % | 14.2 % (radar GND -> XIAO GND) | 0.30 (radar GND -> XIAO GND, vs tact) |
+| S5 keeper B | 0.000 | 0.02 | no | 2.38 | 0.3 % | 11.5 % (radar GND -> XIAO GND) | 0.30 (radar GND -> XIAO GND, vs tact) |
+| S6 XIAO stack | 0.000 | 0.02 | no | 1.56 | 2.5 % | 11.5 % (radar GND -> XIAO GND) | 0.30 (radar GND -> XIAO GND, vs tact) |
+| S7 keeper C | 0.000 | 0.02 | no | 1.56 | 0.9 % | 2.2 % (radar 3V3 -> XIAO 3V3) | 0.30 (radar GND -> XIAO GND, vs keeper_a) |
+| S8 sleeve over module | 0.000 | 0.02 | no | 1.96 | 0.2 % | 2.2 % (radar 3V3 -> XIAO 3V3) | 0.30 (radar GND -> XIAO GND, vs keeper_a) |
+
+Same run without dressing (slack 20, `final_h14_s20`): ribbon identical; radar wires squeezed 0.40 mm from S3 to S8; wire strain
+5.9–8.7 %.
+
+Failure case, XIAO held only 6 mm aside (`fail_hold6`, slack 30):
+
+| step | rigid contact depth (mm) | hand lag (mm) | jam | ribbon min radius (mm) | ribbon max strain | worst wire strain | worst squeeze (mm) |
+|---|---|---|---|---|---|---|---|
+| S1 radar | 0.000 | 0.02 | no | 1.82 | 0.3 % | 0.3 % (radar OT1 -> XIAO D7) | 0.00 (ribbon, vs None) |
+| S2 tact switch | 0.000 | 0.02 | no | 2.09 | 0.1 % | 0.0 % (button leg A -> XIAO D10 (input, pull-up)) | 0.00 (ribbon, vs None) |
+| S3 keeper A | 0.000 | 0.02 | no | 2.22 | 0.1 % | 1.2 % (radar OT1 -> XIAO D7) | 0.40 (radar OT1 -> XIAO D7, vs radar) |
+| S4 camera + heatsink | 0.000 | 0.02 | no | 0.96 | 27.7 % | 1.0 % (radar GND -> XIAO GND) | 0.40 (radar OT1 -> XIAO D7, vs radar) |
+| S5 keeper B | 0.000 | 0.02 | no | 0.70 | 74.2 % | 1.0 % (radar GND -> XIAO GND) | 0.40 (radar OT1 -> XIAO D7, vs radar) |
+| S6 XIAO stack | 0.000 | 0.02 | no | 0.70 | 74.2 % | 1.1 % (radar GND -> XIAO GND) | 0.40 (radar OT1 -> XIAO D7, vs radar) |
+| S7 keeper C | 0.000 | 0.02 | no | 0.77 | 29.5 % | 19.2 % (radar GND -> XIAO GND) | 0.90 (radar 3V3 -> XIAO 3V3, vs keeper_c) |
+| S8 sleeve over module | 0.000 | 0.02 | no | 0.77 | 29.5 % | 51.0 % (U.FL coax) | 0.90 (radar 3V3 -> XIAO 3V3, vs keeper_c) |
+
+Other runs kept in `out/sim/` for the record: `final_s30` (hold-off 25 mm, slack 30: S8 button wire caught, 0.85 mm), `final_s8`
+(slack 8: wires taut 66 %, squeeze 1.10 mm), `final_h14_s12` (slack 12: button wire taut 33 %, squeeze 1.10 mm), `runA…runH22`
+(faster 6–20 mm/s runs from before the speed check; their ribbon-strain peaks are partly solver lag, see §2).
+
+**Images and video** (frames: ribbon coloured by bend radius, red < 2 mm; wires coloured by role; red dots = squeezed):
+* per-step key frames: `out/sim/render/final/step_S*.png`; whole assembly: `out/sim/render/final/assembly_simulation.mp4`
+* tightest-bend / worst-squeeze close-ups per step: `out/sim/render/final_dress_S*.png`, `…_events_all_steps.png`
+* failure case: `out/sim/render/fail_hold6_S*.png` and `render/fail_hold6_video/assembly_simulation.mp4`
+* radar study: `out/sim/render/radar_R*.png`, `radar_all_cases.png`
+
+## 4. Can the radar sit ~6.2 mm behind the window?
+
+**Answer: not in the current architecture. Yes geometrically if the board moves behind the lip, but then nothing holds it.**
+
+Hi-Link's radome guide asks for an antenna-to-radome distance of an integer multiple of the half-wavelength in air
+(λ/2 = 6.2 mm at 24.125 GHz), tolerance ±1.2 mm, so the antenna plane (PCB front face) must be at z = 133.5 (132.3–134.7).
+Window inner face z = 139.7 (0.8 mm window, front face z = 140.5). Lip slab z 134.5–137.0, opening 19.4 × 67.2.
+
+| Option | Antenna to window H | Verdict | What blocks it (dimension) |
+|---|---|---|---|
+| **A. Current: board on top of the lip, in the bore** | 1.0 mm (max 1.5 mm with the board touching the lip top) | does not reach 6.2 | bore depth between lip top (z 137.0) and window inner face (z 139.7) is **2.7 mm**; the 1.2 mm PCB takes 1.2 of it, so H ≤ 1.5 mm. 4.7 mm short. The sleeve STL is fixed. |
+| B. Recessed window | ≤ 1.0 mm | no gain | the window already sits at the front face (z 139.7–140.5). A recess can only move it *inward*, which reduces H. A thinner window gains 0.4 mm at most (0.8 → 0.4 mm), and costs RF margin. |
+| C. Different orientation (45°, on edge) in the bore | n/a | does not fit | the board is 20 mm in both directions; the bore is 2.7 mm deep. Any tilt that raises a board edge to H = 6.2 mm puts that edge inside the 2.5 mm lip slab. |
+| D. Different board position in x/y | unchanged | no effect | H depends only on z. x/y only changes which part of the opening the board covers. |
+| **E. Board behind the lip (below z 134.5), antenna plane z 133.5 … 134.5** | **5.2 – 6.2 mm** (6.05 with the front components touching the lip underside) | **geometrically possible** | the 20.0 mm board is wider than the 19.4 mm opening, so it only overlaps the lip by 0.3 mm per side (long edges). It can be loaded **from the bottom** (the open end). Nothing in the current insert retains it there, so a retainer must be added (below). |
+
+### Physical simulation of option E (same engine, real sleeve mesh)
+
+| Case | Result |
+|---|---|
+| R1 flat, pushed in from the front through the opening (board free to rock) | passes, rocks ~4°, ends flat at z_ant = 133.5 (H = 6.2) |
+| Tilt locked at 0° / 2° | **jams** at z_ant = 137.7 / 137.2 (the 20.0 mm edge hits the 19.4 mm opening); hand lag 4.2 / 3.7 mm |
+| Tilt locked at ≥ 4° | passes (analytic threshold 20·sinθ + 1.2·cosθ ≥ 2.5 → θ ≈ 3.3°) |
+| R2/R2b tilted 20°/15° from the front | passes, reaches H = 6.2 |
+| R4 on edge (90°) | passes, reaches H = 6.2 |
+| R3 flat from the bottom, pushed up | stops against the lip underside; the hand-guided board ends tilted 7.5° (H = 4.0 mm at the centre); flat against the underside would be H = 5.2 mm (geometry, not simulated flat) |
+
+Penetration after contact resolution ≤ 0.08 mm; 200 k-point re-check ≤ 0.008 mm.
+
+**Field of view cost** (ray trace through the lip opening, window transparent): at H = 6.2 the board centre sees ±60° in
+x–z and ±79° in y–z (current design: ±81° / ±85°). A patch edge at x = ±8 mm sees −26° … +71° (current: −67° … +85°). The
+x-direction cone narrows by about a quarter; for a presence sensor at 24 GHz that is the price.
+
+### What would have to be designed for option E (not designed, not verified)
+* A bottom-loaded retainer, glued to the sleeve walls, that presses the board against the lip underside along the two
+  0.3 mm long-edge strips (or a 0.5 mm-thick frame that spans it). Everything below the lip belongs to the sleeve, which cannot change.
+* The keepers and the insert faceplate would no longer carry the radar pocket; the radar harness would exit toward the XIAO
+  through the bottom instead of through keeper A's wire slot.
+* This changes the face-down assembly order (the radar becomes the last part inserted, from the bottom).
+
+Recommendation: keep option A unless a range test on the coupon shows the 1 mm configuration is too weak; option E is the
+only route to 6.2 mm and needs its own design round.
+
+## 5. Re-run
+
+```
+python src/sim/build_sdfs.py                      # signed-distance fields (cached in out/sim/cache, ~6 min)
+python src/sim/scenario.py --slack 16 --xiao-stage 14 --speed 3 --dress --out out/sim/run.pkl   # ~25 min
+python src/sim/report_sim.py out/sim/run_events.json
+python src/sim/render_sim.py out/sim/run.pkl out/sim/render/run       # key frames + mp4
+python src/sim/render_events.py out/sim/run.pkl out/sim/render run    # tightest-bend / worst-squeeze close-ups
+python src/sim/radar_study.py ; python src/sim/radar_study.py extra ; python src/sim/render_radar.py
+python src/sim/speed_test.py S4 12 4 1.5          # solver-lag check
+```
+Files: `src/sim/{meshes,sdf,physim,scenario,render_sim,render_events,render_radar,radar_study,report_sim,diag_ribbon,speed_test}.py`.

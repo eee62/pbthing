@@ -122,6 +122,8 @@ def main(pkl, outdir):
     steps = summarize(frames)
     # ---- key frames per step: start, 1/3, 2/3, end, + worst frame (max pinch or min ribbon radius)
     for label, i0, i1 in steps:
+        if ' ' not in label:            # the pre-roll ('stage') has no step name
+            continue
         sel = [i0, i0 + (i1 - i0) // 3, i0 + 2 * (i1 - i0) // 3, i1]
         worst = max(range(i0, i1 + 1), key=lambda k: max(frames[k]['pinch'][n].max() for n in frames[k]['pinch']))
         tiles = []

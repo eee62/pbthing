@@ -7,3 +7,5 @@ S4 camera + heatsink     rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.37
 S5 keeper B              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.38 | wire Rmin 1.76 | max strain 11.5% (radar GND -> XIAO GND) | max squeeze 0.30 (radar GND -> XIAO GND) [151s]
 S6 XIAO stack            rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 1.76 | max strain 11.5% (radar GND -> XIAO GND) | max squeeze 0.30 (radar GND -> XIAO GND) [158s]
 S7 keeper C              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 1.76 | max strain 2.2% (radar 3V3 -> XIAO 3V3) | max squeeze 0.30 (radar GND -> XIAO GND) [182s]
+S8 sleeve over module    rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.96 | wire Rmin 1.76 | max strain 2.2% (radar 3V3 -> XIAO 3V3) | max squeeze 0.30 (radar GND -> XIAO GND) [678s]
+saved out/sim/final_h14_s16_dress.pkl 2025 frames
