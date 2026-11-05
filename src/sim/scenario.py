@@ -111,10 +111,10 @@ def build_world(slack_signal=6.0, quick=False, xiao_stage=6.0, kb='keeper_b'):
     for w in W.button_wires():
         flex.append(wire(w['name'], w['pts'], B['tact'], stage['tact'], X, dX, slack_signal, '#f77f00'))
     cx = W.coax()
-    flex.append(wire('U.FL coax', cx['pts'], X, dX, None, 0, 4.0, '#ffbe0b', hand_end=cx['pts'][-1], r=0.57))
+    flex.append(wire('U.FL coax', cx['pts'], X, dX, None, 0, dX + 4.0, '#ffbe0b', hand_end=cx['pts'][-1], r=0.57))   # service slack is fed through as the XIAO lowers
     for nm, (px, pz) in (('BAT+', W.PADS['BAT+']), ('BAT-', W.PADS['BAT-'])):
         pts = [(px, W.Y_WIRE, pz), (px, W.Y_WIRE, pz - 75.0), (px, W.Y_WIRE, pz - 150.0)]
-        f = wire(nm + ' lead', pts, X, dX, None, 0, 0.0, '#ff006e', hand_end=(px, W.Y_WIRE, pz - 150.0))
+        f = wire(nm + ' lead', pts, X, dX, None, 0, dX + 10.0, '#ff006e', hand_end=(px, W.Y_WIRE, pz - 150.0))   # leads are fed through the hand as the XIAO lowers
         flex.append(f)
     # ignore collisions within 2.5 mm of anchors (they sit inside connectors / on pads)
     for f in flex:

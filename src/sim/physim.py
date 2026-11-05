@@ -275,11 +275,13 @@ class Flex:
             n = g[hit] / np.maximum(np.linalg.norm(g[hit], axis=1, keepdims=True), 1e-9)
             push = n * (-pen[hit])[:, None]
             self.pos[hit] += push
-            # friction: remove part of the tangential motion this substep
+            # Coulomb friction: the tangential slip removed is limited to mu x (normal correction applied here)
             dp = self.pos[hit] - self.prev[hit]
             dn = np.einsum('ij,ij->i', dp, n)[:, None] * n
             tang = dp - dn
-            self.pos[hit] -= self.mu * tang * 0.5
+            tn = np.maximum(np.linalg.norm(tang, axis=1, keepdims=True), 1e-12)
+            cap = self.mu * (-pen[hit])[:, None]
+            self.pos[hit] -= tang / tn * np.minimum(tn, cap)
         if last:
             d2, g2, bid2 = env_query(self.pos, bodies, pad=self.r + 1.0)
             p2 = -(d2 - self.r)

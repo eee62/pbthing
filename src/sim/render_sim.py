@@ -81,13 +81,13 @@ def draw_frame(pl, fr, M, meta, show_sleeve=True, hide=()):
             pl.add_mesh(pv.PolyData(pos[hit]), color='red', point_size=14, render_points_as_spheres=True)
 
 
-VIEWS = {
-    'side': dict(pos=(260, 38, 122), focal=(15, 38, 122), up=(0, 0, -1), zoom=1.0),
-    'oblique': dict(pos=(120, -90, 95), focal=(15, 36, 126), up=(0, 0, -1), zoom=1.0),
-    'xiao_close': dict(pos=(220, 40, 125), focal=(15, 42, 125), up=(0, 0, -1), zoom=2.2),
-    'radar_close': dict(pos=(220, 20, 130), focal=(15, 20, 131), up=(0, 0, -1), zoom=3.2),
-    'cam_close': dict(pos=(220, 50, 124), focal=(15, 50, 124), up=(0, 0, -1), zoom=2.6),
-    'cam_obl': dict(pos=(150, -20, 100), focal=(15, 50, 122), up=(0, 0, -1), zoom=1.6),
+VIEWS = {   # scale = half the visible height in mm (parallel projection); up = -z so the front face (z 140.5) is at the bottom, like the glass plate
+    'side': dict(pos=(260, 40, 120), focal=(15, 40, 120), up=(0, 0, -1), scale=42),
+    'oblique': dict(pos=(120, -90, 95), focal=(15, 36, 120), up=(0, 0, -1), scale=42),
+    'xiao_close': dict(pos=(220, 42, 125), focal=(15, 42, 125), up=(0, 0, -1), scale=17),
+    'radar_close': dict(pos=(220, 20, 131), focal=(15, 20, 131), up=(0, 0, -1), scale=12),
+    'cam_close': dict(pos=(220, 50, 124), focal=(15, 50, 124), up=(0, 0, -1), scale=15),
+    'cam_obl': dict(pos=(150, -20, 100), focal=(15, 50, 120), up=(0, 0, -1), scale=26),
 }
 
 
@@ -96,9 +96,8 @@ def render(fr, M, meta, view='side', size=(900, 700), title='', zoom=None, hide=
     draw_frame(pl, fr, M, meta, show_sleeve=sleeve, hide=hide)
     v = VIEWS[view]
     pl.camera_position = [v['pos'], v['focal'], v['up']]
-    if parallel:
-        pl.enable_parallel_projection()
-    pl.camera.zoom(zoom or v['zoom'])
+    pl.enable_parallel_projection()
+    pl.camera.parallel_scale = v['scale'] / (zoom or 1.0)
     if title:
         pl.add_text(title, font_size=10, color='black')
     img = pl.screenshot(return_img=True)

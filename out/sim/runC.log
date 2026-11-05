@@ -6,3 +6,6 @@ S3 keeper A              rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 2.15
 S4 camera + heatsink     rigid depth 0.000 lag 0.08 jam False | ribbon Rmin 2.00 | wire Rmin 2.42 | max strain 15.7% (ribbon) | max squeeze 0.40 (radar RX -> XIAO D8) [54s]
 S5 keeper B              rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 1.95 | wire Rmin 2.42 | max strain 9.0% (button leg A -> XIAO D10 (input, pull-up)) | max squeeze 0.40 (radar RX -> XIAO D8) [51s]
 S6 XIAO stack            rigid depth 0.000 lag 0.05 jam False | ribbon Rmin 1.56 | wire Rmin 2.41 | max strain 42.3% (BAT- lead) | max squeeze 0.40 (radar RX -> XIAO D8) [142s]
+S7 keeper C              rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 1.55 | wire Rmin 2.43 | max strain 41.0% (BAT- lead) | max squeeze 0.40 (radar RX -> XIAO D8) [61s]
+S8 sleeve over module    rigid depth 0.000 lag 0.15 jam False | ribbon Rmin 1.66 | wire Rmin 2.36 | max strain 41.0% (BAT- lead) | max squeeze 0.85 (button leg B -> XIAO D9 (driven LOW)) [116s]
+saved out/sim/runC.pkl 727 frames
