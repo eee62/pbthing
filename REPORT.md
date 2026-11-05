@@ -317,10 +317,10 @@ Renders: `out/img/front.png`, `front_caps_off.png`, `bottom.png`, `exploded.png`
 ---------------------------------------------------------------------------------------
 ## 10. Latest update: OV5640 + heatsink, assembly simulation, radar at 6.2 mm
 
-* **Camera model:** lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm, heatsink to 11.7 mm total (heatsink 8 × 8 × 6.1 mm and
-  base thickness 0.4 mm are assumptions). Ribbon: 65 mm, exits the head's +y edge, 2.0 mm minimum radius, no pinch (verify: 0 failed checks).
+* **Camera model:** lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm, heatsink 7.0 (x) × 7.1 (y) × 6.0 mm on a 0.1 mm pad, centred on the base, 11.7 mm total (base thickness 0.4 mm
+  and the pad footprint are assumptions). Ribbon: 65 mm, exits the head's +y edge, 2.0 mm minimum radius, no pinch (verify: 0 failed checks).
 * **Physical assembly simulation** (`SIMULATION.md`, frames and video in `out/sim/render/`): no rigid jam or collision in any step. Found: (1) the XIAO must be held
-  ≥ 11.7 mm aside until keeper B is in, otherwise the heatsink and keeper B drag the ribbon to 0.70 mm radius; (2) the ribbon's first bend
+  ≥ 12.5 mm aside until keeper B is in (minimum 12.1 mm, set by keeper B's floor; 11 mm fails), otherwise keeper B drags the ribbon to 0.5–0.7 mm radius; (2) the ribbon's first bend
   dips to 1.56 mm (limit 2.0) during the last part of the XIAO descent: not fixed, guide it by hand; (3) loose wires get pinched by keeper A
   (0.40 mm), keeper C (0.18 mm) and the sleeve rim (0.85 mm): dress them before each part, 16–22 mm service slack.
 * **Radar at 6.2 mm:** not possible above the lip (2.7 mm bore); possible behind the lip (H = 5.2–6.2 mm) by tilting the board ≥ 4°

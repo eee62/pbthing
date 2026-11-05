@@ -1,7 +1,9 @@
 # Assembly simulation (rigid bodies + flexible ribbon/wires) and the radar-at-6.2 mm study
 
-Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm, plus a heatsink for 11.7 mm total height
-(heatsink 8 × 8 × 6.1 mm, **size assumed**). Ribbon exit: out of the head's +y edge, 65 mm, minimum bend radius 2.0 mm, route in
+Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm (base bottom to lens top), heatsink
+**7.0 mm (x) × 7.1 mm (y) × 6.0 mm high**, centred on the base (offset 0 in x and y: base centre x 14.70, y 50.725; heatsink x 11.20–18.20,
+y 47.175–54.275), glued behind the base with a **0.1 mm pad** (same footprint as the heatsink, footprint assumed). Total
+5.6 + 0.1 + 6.0 = **11.7 mm**, z 127.2–138.9 (unchanged). Fins are not modelled (solid envelope). Ribbon exit: out of the head's +y edge, 65 mm, minimum bend radius 2.0 mm, route in
 `src/wires.py` (verified numerically: no pinch, radius ≥ 2.0 mm, 111 PASS / 0 FAIL in `out/logs/verify.txt`).
 
 ## 1. Bottom line
@@ -10,13 +12,14 @@ Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm
 * **No rigid jam and no rigid collision at any step** (radar, tact, keepers A/B/C, camera + heatsink, XIAO stack, sleeve):
   contact depth 0.000 mm, hand lag ≤ 0.02 mm, every part goes in with a pure +z move.
 * **The ribbon over-bends and is pinched if the XIAO is held only 6 mm aside** while the camera and keeper B go in: the
-  heatsink (S4) and then keeper B (S5) drive through the pre-dressed ribbon loop: radius **0.70 mm**, strain 74 %
-  (`out/sim/render/fail_hold6_S4_*.png`, `fail_hold6_S5_*.png`, video `render/fail_hold6_video/`).
-  Cause (geometry): the ribbon's down-run (y = 47.85, z 105–124.5) lies inside the camera's drop path
-  (y 46.4–55.05, heatsink bottom travelling z 113.2 → 127.2). **Hold the XIAO ≥ 11.7 mm above the seat until keeper B is in**
-  (simulated 14 and 25 mm: ribbon radius ≥ 1.8 mm = the design corner, no pinch, S1–S5).
+  heatsink (S4) and then keeper B (S5) drive through the pre-dressed ribbon loop: radius **0.72 mm**, strain 51 % with the
+  7.0 × 7.1 × 6.0 heatsink (0.70 mm / 74 % with the earlier assumed 8 × 8 × 6.1; images and video `fail_hold6_*` were rendered with that
+  earlier heatsink).
+  Cause (geometry): the ribbon's down-run (y = 47.85, top at z = 124.52 − hold-off) lies inside the drop path of the camera
+  (y 46.4–55.05) and of keeper B's floor (y 46.2–54.75). **Hold the XIAO ≥ 12.5 mm above the seat until keeper B is in**
+  (analytic minimum 12.1 mm, set by keeper B's floor underside, see §3b; simulated: 11 mm fails, 12.5, 14 and 25 mm clean).
 * **The ribbon still dips to 1.56 mm (limit 2.0 mm) at the connector exit during the last part of the XIAO descent (S6)**,
-  with 14 mm and with 25 mm hold-off, and recovers to 1.96 mm when the XIAO is seated. This is an over-bend event. It is
+  with 14 mm and with 25 mm hold-off (1.54 mm at 12.5 mm), unchanged by the new heatsink, and recovers to 1.96 mm when the XIAO is seated. This is an over-bend event. It is
   not fixed: the route has no margin (the two first corners use 4.0 of the 4.06 mm between the connector and the downward
   run). Guide the ribbon by hand during that step; a larger radius needs about 0.6 mm more room in y.
 * **Loose wires get pinched.** With the 30 mm service slack of ASSEMBLY.md the four radar wires end up under keeper A's plate and are
@@ -65,15 +68,16 @@ so it is solver lag, not geometry. **All results below are therefore from quasi-
 * Quasi-static position-based relaxation with *qualitative* stiffness; it finds conflicts and tight bends, it does not predict forces.
 * Frictionless rigid contacts; 0.1 mm field resolution; thin walls can be tunnelled by a flexible body after a large squeeze
   (one S8 event ends with a wire beyond the front face: treat squeezes ≥ 0.8 mm as "something is caught", not as a shape).
-* Assumed inputs: heatsink 8 × 8 mm, base thickness 0.4 mm, radar component heights (front 0.85 / back 1.1 mm), wire Ø1.1 mm,
+* Assumed inputs: pad footprint = heatsink footprint, fins not modelled, base thickness 0.4 mm, radar component heights (front 0.85 / back 1.1 mm), wire Ø1.1 mm,
   ribbon EI, starting loop shape, the staging offsets and the wire slack.
 * Wires are not tucked or dressed by the "assembler"; where a result says "caught", a person would lay the wire in its lane.
 * The plug sub-assembly is not simulated.
+* The ribbon radius is measured on the centre line with 0.8 mm row spacing, starting 2.4 mm from the anchored rows: the designed 2.0 mm corner itself reads 1.8–2.4 mm depending on the state, so treat ±0.3 mm as noise. The 1.56 mm dip is 0.3–0.8 mm below those readings.
 * Squeeze partners printed for runs made before the tracker fix (`fail_hold6`, `final_s30`, `final_h14_s12`, `final_h14_s20`, `runA…runH22`) can be wrong for S1–S5; the squeeze and radius values themselves are right.
 
 ## 3. Results per step
 
-Final procedure simulated (`out/sim/final_h14_s16_dress.*`): XIAO held 14 mm up and aside through S1–S5, wire slack 16 mm, the four
+Final procedure simulated (`out/sim/hs7_final_h14_s16_dress.*`, new heatsink; identical to the earlier `final_h14_s16_dress` with the 8 × 8 × 6.1 heatsink): XIAO held 14 mm up and aside through S1–S5, wire slack 16 mm, the four
 radar wires laid straight into keeper A's slot before S3, hand speed 3 mm/s. Values are the worst over the step.
 
 | step | rigid contact depth (mm) | hand lag (mm) | jam | ribbon min radius (mm) | ribbon max strain | worst wire strain | worst squeeze (mm) |
@@ -113,8 +117,35 @@ Other runs kept in `out/sim/` for the record: `final_s30` (hold-off 25 mm, slack
 **Images and video** (frames: ribbon coloured by bend radius, red < 2 mm; wires coloured by role; red dots = squeezed):
 * per-step key frames: `out/sim/render/final/step_S*.png`; whole assembly: `out/sim/render/final/assembly_simulation.mp4`
 * tightest-bend / worst-squeeze close-ups per step: `out/sim/render/final_dress_S*.png`, `…_events_all_steps.png`
-* failure case: `out/sim/render/fail_hold6_S*.png` and `render/fail_hold6_video/assembly_simulation.mp4`
+* failure case (rendered with the earlier 8 × 8 × 6.1 heatsink; numbers for the new one are in §3b): `out/sim/render/fail_hold6_S*.png` and `render/fail_hold6_video/assembly_simulation.mp4`
 * radar study: `out/sim/render/radar_R*.png`, `radar_all_cases.png`
+
+### 3b. Heatsink changed to 7.0 × 7.1 × 6.0 (+ 0.1 mm pad): what moved
+
+Re-run with the same engine, 3 mm/s. **Final procedure (14 mm hold-off, dressed wires, 16 mm slack): every number in the table above is
+identical to three digits** (ribbon radius per step, strain, wire strain, squeeze, S6 dip 1.56 mm at (15.3, 45.3, 124.0)). Reason: at 14 mm hold-off
+nothing flexible comes near the heatsink (closest ribbon centre line 2.43 mm from the camera/heatsink surface, wires > 9.5 mm), so its size cannot matter.
+
+**Hold-off scan** (S1–S3 assumed done; S4 camera, S5 keeper B, S6 XIAO descent; parts start 14 mm above their seats; `out/sim/hold_*.json`):
+
+| XIAO hold-off | S4 ribbon R / strain | S5 ribbon R / strain | S6 ribbon R | verdict |
+|---|---|---|---|---|
+| 6 mm | 1.46 mm / 3.7 % (was 0.96 / 27.7 % with 8 × 8 × 6.1) | **0.72 mm / 51 %**, squeeze 0.21 | 0.71 mm | fails (S5, keeper B) |
+| 10 mm | 1.67 mm / 4.0 % | **0.59 mm / 96 %** | 1.76 mm | fails (S5) |
+| 11 mm | 1.83 mm / 4.0 % | **0.52 mm / 76 %** | 1.59 mm | fails (S5) |
+| 12.5 mm | 1.83 mm / 4.1 % | 2.14 mm / 0.3 % | 1.54 mm | clean |
+| 14 mm (full run) | 2.37 mm / 4.2 % | 2.38 mm / 0.3 % | 1.56 mm | clean |
+
+* **The 11.7 mm hold-off was wrong, but not because of the heatsink.** It came from the heatsink bottom (z 127.2, staged z 113.2, needs hold-off
+  > 124.52 − 113.2 = 11.3 mm). Keeper B's floor underside is 0.8 mm lower (z 126.4, staged 112.4) and needs > 124.52 − 112.4 = **12.1 mm**.
+  The new heatsink has the same bottom z, so the heatsink-only threshold stays 11.3 mm; the simulation shows keeper B failing at 11 mm.
+  **Use ≥ 12.5 mm** (valid when parts start 14 mm above their seats; the rule is that the ribbon's down-run must stay behind the underside of
+  the part being lowered).
+* **What the heatsink change did change:** with the XIAO held 6 mm aside the S4 camera drop is much gentler (R 0.96 → 1.46 mm, strain 28 → 3.7 %)
+  because the narrower, shorter heatsink covers less of the ribbon's down-run (y 47.85 is now 0.68 mm inside the heatsink's y edge at 47.175,
+  was 1.1 mm). The S5 keeper-B failure is the same as before (0.72 vs 0.70 mm).
+* **The S6 dip does not change:** 1.56 mm (14 mm hold-off), 1.54 mm (12.5), 1.59 mm (11); same place, the first bend below the connector. The ribbon is
+  nowhere near the heatsink during S6.
 
 ## 4. Can the radar sit ~6.2 mm behind the window?
 
@@ -169,5 +200,6 @@ python src/sim/render_sim.py out/sim/run.pkl out/sim/render/run       # key fram
 python src/sim/render_events.py out/sim/run.pkl out/sim/render run    # tightest-bend / worst-squeeze close-ups
 python src/sim/radar_study.py ; python src/sim/radar_study.py extra ; python src/sim/render_radar.py
 python src/sim/speed_test.py S4 12 4 1.5          # solver-lag check
+python src/sim/speed_test.py hold 12.5 3          # S4-S6 at one hold-off (-> out/sim/hold_12.5.json)
 ```
 Files: `src/sim/{meshes,sdf,physim,scenario,render_sim,render_events,render_radar,radar_study,report_sim,diag_ribbon,speed_test}.py`.
