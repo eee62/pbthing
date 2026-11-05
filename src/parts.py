@@ -184,9 +184,13 @@ def keeper_a():
     return k.intersect(lip_envelope())
 
 
-def keeper_b():
-    """Camera keeper: floor carries the head base; ears in the insert seam."""
+def keeper_b(slot=False):
+    """Camera keeper: floor carries the heatsink bottom; ears in the insert seam.
+    slot=True cuts a 1.4 mm slot across the floor so keeper B can be fitted AFTER the camera ribbon is routed
+    (the ribbon's down-run at y = FPC_Y_DOWN passes through it). Found by the assembly simulation."""
     k = box(IN_X0 + 0.05, IN_X1 - 0.05, CAM_Y0 - 0.2, CAM_Y1 - 0.3, KB_FLOOR_Z0, KB_FLOOR_Z1)
+    if slot:
+        k = k.cut(box(FPC_X - FPC_W / 2 - 0.4, FPC_X + FPC_W / 2 + 0.4, FPC_Y_DOWN - 0.7, FPC_Y_DOWN + 0.7, KB_FLOOR_Z0 - 1, KB_FLOOR_Z1 + 1))
     k = _ears(k, KB_EY0, KB_EY1, KB_FLOOR_Z0)
     return k.intersect(lip_envelope())
 

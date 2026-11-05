@@ -1,0 +1,8 @@
+bodies ready 5s
+flex bodies: 10, particles 486  5s
+S1 radar                 rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 1.90 | wire Rmin 2.42 | max strain 7.3% (button leg A -> XIAO D10 (input, pull-up)) | max squeeze 0.25 (button leg A -> XIAO D10 (input, pull-up)) [34s]
+S2 tact switch           rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 2.05 | wire Rmin 2.41 | max strain 8.4% (button leg A -> XIAO D10 (input, pull-up)) | max squeeze 0.25 (button leg A -> XIAO D10 (input, pull-up)) [31s]
+S3 keeper A              rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 2.15 | wire Rmin 2.42 | max strain 8.8% (button leg A -> XIAO D10 (input, pull-up)) | max squeeze 0.40 (radar RX -> XIAO D8) [44s]
+S4 camera + heatsink     rigid depth 0.000 lag 0.08 jam False | ribbon Rmin 2.00 | wire Rmin 2.42 | max strain 15.7% (ribbon) | max squeeze 0.40 (radar RX -> XIAO D8) [54s]
+S5 keeper B              rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 1.95 | wire Rmin 2.42 | max strain 9.0% (button leg A -> XIAO D10 (input, pull-up)) | max squeeze 0.40 (radar RX -> XIAO D8) [51s]
+S6 XIAO stack            rigid depth 0.000 lag 0.05 jam False | ribbon Rmin 1.56 | wire Rmin 2.41 | max strain 42.3% (BAT- lead) | max squeeze 0.40 (radar RX -> XIAO D8) [142s]

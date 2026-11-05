@@ -10,23 +10,23 @@ import components as C
 
 # ---------------- camera FPC ----------------------------------------------
 def fpc_points(z_loop):
+    """Ribbon route (exit direction is free; chosen: out of the head's +y edge in the base plane).
+    mouth -> up -> bend +y under the SD socket -> bend down past keeper C -> U-loop -> up -> bend into the head."""
     x = FPC_X
-    y0, y1, y2, y3 = FPC_Y_SLOT, FPC_Y_UP, FPC_Y_DOWN, FPC_Y_UP2
-    zb = FPC_Z_STIFF + FPC_R1        # horizontal hop under the SD socket (centre line)
+    y0, yd, yu = FPC_Y_SLOT, FPC_Y_DOWN, FPC_Y_UP2
+    zb = FPC_Z_STIFF + FPC_R1
     return [
         (x, y0, FPC_Z_MOUTH),        # connector front
-        (x, y0, zb),                 # corner -> bend toward +y (r FPC_R1)
-        (x, y1, zb),                 # corner -> bend up (r FPC_R2)
-        (x, y1, FPC_Z_APEX),         # corner \ 180 deg fold
-        (x, y2, FPC_Z_APEX),         # corner /
-        (x, y2, z_loop),             # corner \ U loop (r FPC_R_LOOP)
-        (x, y3, z_loop),             # corner /
-        (x, y3, FPC_Z_HEAD),         # corner -> 90 deg into head
-        (x, CAM_Y1, FPC_Z_HEAD),   # head edge; FPC_HEAD_IN more is inside the head
+        (x, y0, zb),                 # corner: bend toward +y (r FPC_R1)
+        (x, yd, zb),                 # corner: bend down (r FPC_R2)
+        (x, yd, z_loop),             # corner: U loop (r FPC_R_LOOP)
+        (x, yu, z_loop),             # corner: U loop
+        (x, yu, FPC_Z_HEAD),         # corner: 90 deg into the head (r FPC_RHEAD)
+        (x, CAM_Y1, FPC_Z_HEAD),     # head edge; FPC_HEAD_IN more is inside the head
     ]
 
 
-FPC_RADII = [FPC_R1, FPC_R2, FPC_RFOLD, FPC_RFOLD, None, None, FPC_RHEAD]
+FPC_RADII = [FPC_R1, FPC_R2, None, None, FPC_RHEAD]
 
 
 def _path_with_radii(pts, radii, default):
@@ -63,7 +63,7 @@ def fpc_length(z_loop):
 
 
 def solve_fpc_loop(length=FPC_LEN):
-    lo, hi = 60.0, FPC_Z_HEAD - FPC_R_LOOP - 3
+    lo, hi = 60.0, FPC_Z_STIFF + FPC_R1 - FPC_R2 - FPC_R_LOOP - 0.01
     f = lambda z: fpc_length(z) - length
     if f(hi) > 0:
         pass

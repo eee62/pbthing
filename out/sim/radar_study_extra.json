@@ -1,0 +1,218 @@
+{
+ "tilt_sweep": [
+  {
+   "tilt_deg": 0,
+   "passed": false,
+   "reached_z_ant": 137.7,
+   "hand_lag": 4.21,
+   "stuck_penetration": 0.065
+  },
+  {
+   "tilt_deg": 2,
+   "passed": false,
+   "reached_z_ant": 137.22,
+   "hand_lag": 3.74,
+   "stuck_penetration": 0.014
+  },
+  {
+   "tilt_deg": 4,
+   "passed": true,
+   "reached_z_ant": 133.5,
+   "hand_lag": 0.0,
+   "stuck_penetration": 0.029
+  },
+  {
+   "tilt_deg": 6,
+   "passed": true,
+   "reached_z_ant": 133.48,
+   "hand_lag": 0.02,
+   "stuck_penetration": 0.008
+  },
+  {
+   "tilt_deg": 8,
+   "passed": true,
+   "reached_z_ant": 133.47,
+   "hand_lag": 0.24,
+   "stuck_penetration": 0.004
+  },
+  {
+   "tilt_deg": 10,
+   "passed": true,
+   "reached_z_ant": 133.45,
+   "hand_lag": 0.26,
+   "stuck_penetration": 0.002
+  },
+  {
+   "tilt_deg": 12,
+   "passed": true,
+   "reached_z_ant": 133.44,
+   "hand_lag": 0.29,
+   "stuck_penetration": 0.002
+  },
+  {
+   "tilt_deg": 14,
+   "passed": true,
+   "reached_z_ant": 133.5,
+   "hand_lag": 0.28,
+   "stuck_penetration": 0.0
+  }
+ ],
+ "fov": {
+  "below lip, H=6.2 (z_ant 133.5)": {
+   "centre": {
+    "x": [
+     -60.0,
+     60.0
+    ],
+    "y": [
+     -79.0,
+     79.0
+    ]
+   },
+   "patch edge -x (x=-8)": {
+    "x": [
+     -26.0,
+     71.0
+    ],
+    "y": [
+     -79.0,
+     79.0
+    ]
+   },
+   "patch edge +x (x=+8)": {
+    "x": [
+     -71.0,
+     26.0
+    ],
+    "y": [
+     -79.0,
+     79.0
+    ]
+   },
+   "patch y=-8": {
+    "x": [
+     -60.0,
+     60.0
+    ],
+    "y": [
+     -76.0,
+     81.0
+    ]
+   },
+   "patch y=+8": {
+    "x": [
+     -60.0,
+     60.0
+    ],
+    "y": [
+     -81.0,
+     76.0
+    ]
+   }
+  },
+  "below lip touching underside (z_ant 134.5, H=5.2)": {
+   "centre": {
+    "x": [
+     -64.0,
+     64.0
+    ],
+    "y": [
+     -80.0,
+     80.0
+    ]
+   },
+   "patch edge -x (x=-8)": {
+    "x": [
+     -34.0,
+     73.0
+    ],
+    "y": [
+     -80.0,
+     80.0
+    ]
+   },
+   "patch edge +x (x=+8)": {
+    "x": [
+     -73.0,
+     34.0
+    ],
+    "y": [
+     -80.0,
+     80.0
+    ]
+   },
+   "patch y=-8": {
+    "x": [
+     -64.0,
+     64.0
+    ],
+    "y": [
+     -78.0,
+     82.0
+    ]
+   },
+   "patch y=+8": {
+    "x": [
+     -64.0,
+     64.0
+    ],
+    "y": [
+     -82.0,
+     78.0
+    ]
+   }
+  },
+  "current design above the lip (z_ant 138.7, H=1.0)": {
+   "centre": {
+    "x": [
+     -81.0,
+     81.0
+    ],
+    "y": [
+     -85.0,
+     85.0
+    ]
+   },
+   "patch edge -x (x=-8)": {
+    "x": [
+     -67.0,
+     85.0
+    ],
+    "y": [
+     -85.0,
+     85.0
+    ]
+   },
+   "patch edge +x (x=+8)": {
+    "x": [
+     -85.0,
+     67.0
+    ],
+    "y": [
+     -85.0,
+     85.0
+    ]
+   },
+   "patch y=-8": {
+    "x": [
+     -81.0,
+     81.0
+    ],
+    "y": [
+     -85.0,
+     85.0
+    ]
+   },
+   "patch y=+8": {
+    "x": [
+     -81.0,
+     81.0
+    ],
+    "y": [
+     -85.0,
+     85.0
+    ]
+   }
+  }
+ }
+}

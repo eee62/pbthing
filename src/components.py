@@ -75,11 +75,14 @@ def tact_leg_points():
 
 
 def camera():
+    """OV5640 module: base PCB, square lens-holder block, Ø3.8 barrel, and the heatsink glued behind the base.
+    Axis +z (lens toward the front face). Total lens-top to heatsink-bottom = 11.7 mm."""
     x0, x1 = CX - CAM_W / 2, CX + CAM_W / 2
     base = box(x0, x1, CAM_Y0, CAM_Y1, CAM_Z0, CAM_Z0 + CAM_BASE_T)
     body = box(x0, x1, CAM_Y0, CAM_Y1, CAM_Z0 + CAM_BASE_T, CAM_Z0 + CAM_BASE_T + CAM_BODY_H)
     bar = cyl(CX, CAM_Y, CAM_TOP - CAM_BARREL_H, CAM_TOP, CAM_BARREL_D)
-    return union_all([base, body, bar])
+    hs = box(CX - CAM_HS_W / 2, CX + CAM_HS_W / 2, CAM_Y - CAM_HS_W / 2, CAM_Y + CAM_HS_W / 2, CAM_ZH0, CAM_Z0 + 0.01)
+    return union_all([base, body, bar, hs])
 
 
 def main_switch(h=SW_H_DEFAULT, pressed=0.0):

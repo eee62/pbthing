@@ -1,0 +1,92 @@
+[
+ {
+  "case": "R1 flat, loaded from the front",
+  "requested_end_z_ant": 133.5,
+  "final_front_centre": [
+   14.7,
+   38.6,
+   133.5
+  ],
+  "hand_lag_mm": 0.0,
+  "jam": false,
+  "jam_at": null,
+  "worst_penetration_mm": 0.062,
+  "final_tilt_deg": 0.0,
+  "H_at_centre_mm": 6.2
+ },
+ {
+  "case": "R2 tilted 20 deg, loaded from the front",
+  "requested_end_z_ant": 133.5,
+  "final_front_centre": [
+   14.78,
+   38.6,
+   133.5
+  ],
+  "hand_lag_mm": 0.08,
+  "jam": false,
+  "jam_at": null,
+  "worst_penetration_mm": 0.002,
+  "final_tilt_deg": 20.6,
+  "H_at_centre_mm": 6.2
+ },
+ {
+  "case": "R2b tilted 15 deg, loaded from the front",
+  "requested_end_z_ant": 133.5,
+  "final_front_centre": [
+   14.94,
+   38.6,
+   133.5
+  ],
+  "hand_lag_mm": 0.22,
+  "jam": false,
+  "jam_at": null,
+  "worst_penetration_mm": 0.002,
+  "final_tilt_deg": 16.2,
+  "H_at_centre_mm": 6.2
+ },
+ {
+  "case": "R3 flat, loaded from the bottom",
+  "requested_end_z_ant": 136.0,
+  "final_front_centre": [
+   14.33,
+   38.6,
+   135.73
+  ],
+  "hand_lag_mm": 0.38,
+  "jam": false,
+  "jam_at": null,
+  "worst_penetration_mm": 0.076,
+  "final_tilt_deg": 7.5,
+  "H_at_centre_mm": 3.97
+ },
+ {
+  "case": "R4 on edge (90 deg), loaded from the front",
+  "requested_end_z_ant": 133.5,
+  "final_front_centre": [
+   14.7,
+   38.6,
+   133.5
+  ],
+  "hand_lag_mm": 0.0,
+  "jam": false,
+  "jam_at": null,
+  "worst_penetration_mm": 0.0,
+  "final_tilt_deg": "edge-on",
+  "H_at_centre_mm": 6.2
+ },
+ {
+  "case": "R5 flat, current design (rests above the lip)",
+  "requested_end_z_ant": 137.0,
+  "final_front_centre": [
+   14.45,
+   38.6,
+   137.23
+  ],
+  "hand_lag_mm": 0.4,
+  "jam": false,
+  "jam_at": null,
+  "worst_penetration_mm": 0.059,
+  "final_tilt_deg": 5.8,
+  "H_at_centre_mm": 2.47
+ }
+]

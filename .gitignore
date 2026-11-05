@@ -2,3 +2,5 @@ out/assembly/
 __pycache__/
 *.pyc
 *.zip
+out/sim/cache/
+out/sim/*.pkl

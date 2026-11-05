@@ -1,0 +1,9 @@
+  sdf tact: dims (np.int64(105), np.int64(91), np.int64(110)) (1.1 M pts) 2s
+  sdf camera: dims (np.int64(118), np.int64(118), np.int64(148)) (2.1 M pts) 2s
+  sdf keeper_a: dims (np.int64(267), np.int64(303), np.int64(98)) (7.9 M pts) 13s
+  sdf keeper_b: dims (np.int64(267), np.int64(117), np.int64(151)) (4.7 M pts) 4s
+  sdf keeper_c: dims (np.int64(267), np.int64(168), np.int64(280)) (12.6 M pts) 23s
+  sdf xiao: dims (np.int64(209), np.int64(112), np.int64(259)) (6.1 M pts) 33s
+  sdf insert: dims (np.int64(270), np.int64(748), np.int64(376)) (75.9 M pts) 233s
+  sdf sleeve: dims (np.int64(211), np.int64(529), np.int64(385)) (43.0 M pts) 85s
+all sdfs built 405 s
