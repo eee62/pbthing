@@ -5,3 +5,8 @@ S4 camera                rigid depth 0.000 lag 0.09 jam False | ribbon Rmin 1.88
 --- S4 at 4.0 mm/s
 bodies ready 2s
 flex bodies: 10, particles 486  2s
+S4 camera                rigid depth 0.000 lag 0.03 jam False | ribbon Rmin 1.89 | wire Rmin 4.54 | max strain 6.6% (ribbon) | max squeeze 0.00 (ribbon) [114s]
+--- S4 at 1.5 mm/s
+bodies ready 4s
+flex bodies: 10, particles 486  4s
+S4 camera                rigid depth 0.000 lag 0.01 jam False | ribbon Rmin 1.89 | wire Rmin 4.54 | max strain 2.4% (ribbon) | max squeeze 0.00 (ribbon) [271s]

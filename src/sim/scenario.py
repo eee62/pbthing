@@ -196,7 +196,7 @@ def do_step(label, body, B, flex, env, rec, t, x0, xf, speed, n_settle, quick, h
     return t
 
 
-def run(slack=6.0, quick=False, out=None, xiao_stage=6.0, kb='keeper_b'):
+def run(slack=6.0, quick=False, out=None, xiao_stage=6.0, kb='keeper_b', speed=None):
     B, flex, stage = build_world(slack, quick, xiao_stage, kb)
     env = env_list(B)
     Hand.bodies_for_contact = env
@@ -213,12 +213,12 @@ def run(slack=6.0, quick=False, out=None, xiao_stage=6.0, kb='keeper_b'):
              ('S4 camera + heatsink', 'camera', 14, 10.0), ('S5 keeper B', 'keeper_b', 14, 12.0),
              ('S6 XIAO stack', 'xiao', xiao_stage, 6.0), ('S7 keeper C', 'keeper_c', 14, 12.0)]
     settle = 60 if quick else 150
-    for label, name, dist, speed in order:
+    for label, name, dist, sp0 in order:
         b = B[name]; b.active = True
-        t = do_step(label, b, B, flex, env, rec, t, b.x.copy(), b.com.copy(), speed, settle, quick)
+        t = do_step(label, b, B, flex, env, rec, t, b.x.copy(), b.com.copy(), (speed or sp0), settle, quick)
     b = B['sleeve']; b.active = True
     b.translate_from_final((0, 0, -50.0))
-    t = do_step('S8 sleeve over module', b, B, flex, env, rec, t, b.x.copy(), b.com.copy(), 20.0, settle, quick)
+    t = do_step('S8 sleeve over module', b, B, flex, env, rec, t, b.x.copy(), b.com.copy(), (speed or 20.0), settle, quick)
     out = out or os.path.join(ROOT, 'out', 'sim', 'run.pkl')
     with open(out, 'wb') as fh:
         pickle.dump(dict(frames=rec.frames, summary=rec.step_summary, flex_meta=[(f.name, f.kind, f.r, f.W, f.nr, f.nc, f.color, f.rmin) for f in flex],
@@ -234,5 +234,6 @@ if __name__ == '__main__':
     ap.add_argument('--out', default=None)
     ap.add_argument('--xiao-stage', type=float, default=6.0)
     ap.add_argument('--kb', default='keeper_b')
+    ap.add_argument('--speed', type=float, default=None, help='hand speed in mm/s for every step (default: 5-20 mm/s per step)')
     a = ap.parse_args()
-    run(a.slack, a.quick, a.out, a.xiao_stage, a.kb)
+    run(a.slack, a.quick, a.out, a.xiao_stage, a.kb, a.speed)

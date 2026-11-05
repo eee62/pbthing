@@ -127,7 +127,7 @@ ASSEMBLY §0.
 | FPC 65 mm | loop bottom z 112.2, 15.2 above holder; 40–85 mm lengths also fit |
 | Main switch, H = 10…14 | no overlap in released/latched/full states; recess 1.00 / 2.50 / 3.50 for every H |
 | Front button | icon depth 0.80, line 0.80, land 0.83; flexure strain 0.85 % at 0.45 mm, force 0.54 N |
-| Radar window | 0.8 mm ≤ λ/8 for εr ≤ 3.8; antenna-to-window H = 1.00 mm (risk) |
+| Radar window | 0.8 mm vs λ/8 = 0.78–0.87 mm for εr 4.0–3.2 (9000HE datasheet: 3.2–4.0 at 1 MHz, no 24 GHz value): marginal at εr = 4.0; antenna-to-window H = 1.00 mm (risk) |
 | Lens field of view | 123.9° unvignetted (assumed Ø5 front glass) |
 
 ---------------------------------------------------------------------------------------
@@ -233,7 +233,7 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | G3 | Lens front glass Ø5, FOV 120° | `LENS_*` | coupon; unvignetted limit computed |
 | G4 | Radar front components ≤ 0.85 mm; back components ≤ 1.1 mm and ≥ 1.5 mm from the edge at the 3 keeper posts | `RAD_FRONT_H`, posts | coupon step 1; calipers |
 | G5 | Radar J2 hole 1.27 from the edge, pin order OT2-RX-OT1-GND-3V3 from the −x end | `RAD_PIN_*` | look at the board |
-| G6 | 9000HE relative permittivity 2.6–3.8 at 24 GHz | window 0.8 | radar range test on the coupon |
+| G6 | 9000HE relative permittivity 3.2–4.0 (datasheet value at 1 MHz; the 24 GHz value is unknown; the earlier 2.6–3.8 was wrong) | window 0.8 | radar range test on the coupon |
 | G7 | Tact switch: body 3.5 + Ø3.5 actuator, legs 6.5 x 4.5, travel 0.25 | `TACT_*` | coupon step 2 |
 | G8 | Your switch knob height H; latched-closed contacts 2-3 / 5-6 | carrier variants | calipers, multimeter |
 | G9 | Holder 76 x 61 x 20 ±0.2; leads leave its −y end face near the bottom (z 25) | `HOLDER_*` | look at the holder; re-route if not |
@@ -264,20 +264,11 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 ---------------------------------------------------------------------------------------
 ## 8. Highest risks (ranked)
 
-1. **Radar performance behind the window.** 1.0 mm air gap instead of the recommended 6.2 mm
-   cannot be changed: the lip at 3.5 mm depth forces the 20 mm board into the bore zone. Test on
-   the coupon before ordering the insert. If range is poor there is no geometric fix inside this
-   sleeve; the alternative is a radar ≤ 19 mm wide that can sit below the lip.
-2. **Camera module geometry and FPC behaviour** (G1–G3). The fold under keeper B has 0.25 mm
-   clearance above it and 0.25 mm to keeper B. A thicker stiffener, wider FPC or different exit
-   edge breaks the route. Measure the module first.
-3. **USB-C cable fit and retention.** Receptacle 1.97 mm below the face in a 12.9 x 7.0 pocket;
-   large overmolds will not seat. Pull-out force goes into the insert seam glue (G1).
-4. **Cap/cover friction fit.** Brittle resin, ±0.25 per-side combined error, drift after delivery:
-   one of A/B/C should hold, but it may need a drop of paint/varnish to tighten later.
-5. **Assembly difficulty.** Wiring the XIAO bottom pads with joints kept inside the board
-   outline (0.55 mm margin), dressing the FPC fold, gluing three keepers face-down, and splicing
-   the battery leads inside the 24 x 72 mm cavity.
+1. **Radar performance behind the window.** 1.0 mm air gap instead of the recommended 6.2 mm. In the current
+   architecture it cannot be changed: the bore above the lip is 2.7 mm deep (lip top z 137.0, window inner face z 139.7)
+   and the 1.2 mm PCB uses 1.2 of it, so H ≤ 1.5 mm. The assembly simulation (SIMULATION.md §4) shows the 20 mm board *can*
+   be threaded through the 19.4 mm opening at ≥ 4° tilt and parked behind the lip (H = 5.2–6.2 mm), but then nothing
+   retains it: that needs a new bottom-loaded retainer and a new assembly order. Test on the coupon before ordering the insert.
 
 Further risks: holder lead exit position (G9); radar rattle ≤ 0.3 mm if keeper A ends up
 resting on the rim instead of the radar (glue fills it); ±0.45 mm lost motion of the main
