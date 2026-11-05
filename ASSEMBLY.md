@@ -103,7 +103,9 @@ Notes
   per side between the XIAO edge and the lip opening.
 * Switch OFF = battery fully disconnected; USB still powers the XIAO; no charging while OFF.
 
-Wire lengths in the model (add 30 mm service slack to each): see `out/logs/verify.txt` §6.
+Wire lengths in the model: see `out/logs/verify.txt` §6. Add **16–22 mm** service slack to each signal wire (not 30 mm and not below ~14 mm):
+the assembly simulation (`SIMULATION.md`) shows 8–12 mm too short with the XIAO held aside (wires taut, 33–66 % strain, 1.1 mm squeeze) and 30 mm
+leaves loops that the next part catches. Every wire loop must be moved out of the next part's path before that part goes in (steps 4.4, 4.8, 6.3).
 
 ---------------------------------------------------------------------------------------
 ## 3. Bench preparation (before anything goes into a printed part)
@@ -138,7 +140,7 @@ in from the inside and later glued only by its ears in the insert seam.
 | 4.5 | camera head with heatsink, lens into the Ø8.4 opening, FPC trailing toward +y. **Keep the XIAO stack (wires soldered, FPC plugged in) at least 12 mm above the seat and beside the work (simulated: 14 mm) until keeper B is in, and do not pre-dress the FPC loop**: with the XIAO only 6 mm up the heatsink and keeper B drag the ribbon through a 0.70 mm radius (`SIMULATION.md` §1) | +z | camera install path in `SIMULATION.md` |
 | 4.6 | **keeper B** onto the head base | +z | keeper_b install path: no hits |
 | 4.7 | XIAO stack, USB-C first into the closed collar; dress the FPC: out of the connector toward the USB end, kink outward (r 2) just below the SD socket, up past the socket, 180° fold under keeper B, down, U-loop (bottom ≈ z 112), up and 90° into the head (see `out/img/section_top_x14.7.png`). Lay the signal wires into their lanes (straight toward the XIAO edge). Lower the XIAO slowly and guide the ribbon with tweezers during the last 10 mm: its first bend below the connector tightens to about 1.6 mm (limit 2.0 mm) in the simulation and relaxes to 1.96 mm when seated. | +z | XIAO install path: no hits |
-| 4.8 | **keeper C**: U-foot under the XIAO bottom end; the battery leads pass its −y-open notch, the coax its +y-open notch | +z | keeper_c install path: no hits (wires already in place) |
+| 4.8 | **keeper C** (first move every radar-wire loop away from the U-foot and its arms: in one simulation run keeper C caught a radar wire, 0.18 mm squeeze, 51 % strain): U-foot under the XIAO bottom end; the battery leads pass its −y-open notch, the coax its +y-open notch | +z | keeper_c install path: no hits (wires already in place) |
 | 4.9 | antenna FPC on the +y face of the FPC guide wall (its own adhesive backing), coax along the model route | — | coax clear of all parts |
 | 4.10 | Test everything again (USB-C cable into the collar, camera image, radar, button). | | |
 
@@ -165,7 +167,8 @@ in from the inside and later glued only by its ears in the insert seam.
    (nominal): the epoxy fills that gap and fixes the keepers.
 2. Thread the BAT+ and BAT− leads up through the sleeve from its front opening and out of
    its open bottom end.
-3. Lower the sleeve, front face first, over the top module until the sleeve's front face
+3. Before the sleeve comes down, tuck every signal-wire loop into the module's footprint (toward the holder side, away from the rim): in the simulation a loose button wire
+   was caught at the sleeve rim (0.85 mm squeeze, 33 % strain). Lower the sleeve, front face first, over the top module until the sleeve's front face
    sits on the glass. The pads now float 0.25 mm under the lip (epoxy-filled). Push four
    0.2 mm paper strips into the visible 0.25 mm seam (one per side) to centre the faceplate.
    Put ~300 g on the sleeve. Cure.

@@ -313,3 +313,17 @@ Renders: `out/img/front.png`, `front_caps_off.png`, `bottom.png`, `exploded.png`
 (switch, carrier, plug, holder), `section_y38.6_switch.png`, `section_y30.45_button.png`,
 `section_full_x14.7.png`, `wires_all.png`, `wires_top.png`, `wires_top_side.png`,
 `print_coupon.png`, `print_tray.png`, `insert_from_below.png`.
+
+---------------------------------------------------------------------------------------
+## 10. Latest update: OV5640 + heatsink, assembly simulation, radar at 6.2 mm
+
+* **Camera model:** lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm, heatsink to 11.7 mm total (heatsink 8 × 8 × 6.1 mm and
+  base thickness 0.4 mm are assumptions). Ribbon: 65 mm, exits the head's +y edge, 2.0 mm minimum radius, no pinch (verify: 0 failed checks).
+* **Physical assembly simulation** (`SIMULATION.md`, frames and video in `out/sim/render/`): no rigid jam or collision in any step. Found: (1) the XIAO must be held
+  ≥ 11.7 mm aside until keeper B is in, otherwise the heatsink and keeper B drag the ribbon to 0.70 mm radius; (2) the ribbon's first bend
+  dips to 1.56 mm (limit 2.0) during the last part of the XIAO descent: not fixed, guide it by hand; (3) loose wires get pinched by keeper A
+  (0.40 mm), keeper C (0.18 mm) and the sleeve rim (0.85 mm): dress them before each part, 16–22 mm service slack.
+* **Radar at 6.2 mm:** not possible above the lip (2.7 mm bore); possible behind the lip (H = 5.2–6.2 mm) by tilting the board ≥ 4°
+  through the opening, but it then needs a new bottom-loaded retainer. 9000HE εr is 3.2–4.0 (datasheet, 1 MHz), not 2.6–3.8.
+* **Simulation limits:** quasi-static solver with qualitative stiffness, 0.1 mm fields, frictionless rigid contacts, assumed heatsink and radar-component sizes,
+  undressed wires, plug not simulated.

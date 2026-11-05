@@ -24,6 +24,9 @@ Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm
   1.1 mm), and one button wire is caught at the sleeve rim in S8 (squeeze 0.85 mm, strain 33 %). Laying the radar wires
   straight into keeper A's slot before it is lowered removes both; what is left is one 0.30 mm contact of the radar GND wire with
   the tact switch / keeper A cup (17.7, 30.0, 132.9). Slack of 8 and 12 mm is too short with the XIAO held aside (wire strain 33–66 %).
+  **No slack value was clean on its own:** with 22 mm slack and the same dressing (`final_h14_s22_dress`) keeper C caught a radar wire
+  (S7: 0.18 mm squeeze, 51 % strain) while S4–S6 and the sleeve (S8) were clean. Wires have to be dressed before every part that comes
+  down on them (keeper A, keeper C, sleeve); a slack of 16–22 mm is the working range.
 
 **Theory / interpretation:** the design's lanes are clear on paper (CAD centre-line clearance ≥ 1.7 mm to the insert, ≥ 3.5 mm to the
 sleeve); every wire event comes from slack wire that nobody dressed, so the fix is procedure, not geometry. The ribbon-dip at S6 is a
@@ -99,6 +102,9 @@ Failure case, XIAO held only 6 mm aside (`fail_hold6`, slack 30):
 | S6 XIAO stack | 0.000 | 0.02 | no | 0.70 | 74.2 % | 1.1 % (radar GND -> XIAO GND) | 0.40 (radar OT1 -> XIAO D7, vs radar) |
 | S7 keeper C | 0.000 | 0.02 | no | 0.77 | 29.5 % | 19.2 % (radar GND -> XIAO GND) | 0.90 (radar 3V3 -> XIAO 3V3, vs keeper_c) |
 | S8 sleeve over module | 0.000 | 0.02 | no | 0.77 | 29.5 % | 51.0 % (U.FL coax) | 0.90 (radar 3V3 -> XIAO 3V3, vs keeper_c) |
+
+Confirmatory run with 22 mm slack (`final_h14_s22_dress`): ribbon identical to the table above (S6 1.56 mm, S8 1.96 mm); wires clean in S4–S6 and S8; S3 and S7 show
+transient wire tension (47 % / 51 %), S7 with a 0.18 mm squeeze against keeper C.
 
 Other runs kept in `out/sim/` for the record: `final_s30` (hold-off 25 mm, slack 30: S8 button wire caught, 0.85 mm), `final_s8`
 (slack 8: wires taut 66 %, squeeze 1.10 mm), `final_h14_s12` (slack 12: button wire taut 33 %, squeeze 1.10 mm), `runA…runH22`
