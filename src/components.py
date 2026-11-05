@@ -76,13 +76,15 @@ def tact_leg_points():
 
 def camera():
     """OV5640 module: base PCB, square lens-holder block, Ø3.8 barrel, and the heatsink glued behind the base.
-    Axis +z (lens toward the front face). Total lens-top to heatsink-bottom = 11.7 mm."""
+    Axis +z (lens toward the front face). Total lens-top to heatsink-bottom = 5.6 + 0.1 pad + 6.0 heatsink = 11.7 mm."""
     x0, x1 = CX - CAM_W / 2, CX + CAM_W / 2
     base = box(x0, x1, CAM_Y0, CAM_Y1, CAM_Z0, CAM_Z0 + CAM_BASE_T)
     body = box(x0, x1, CAM_Y0, CAM_Y1, CAM_Z0 + CAM_BASE_T, CAM_Z0 + CAM_BASE_T + CAM_BODY_H)
     bar = cyl(CX, CAM_Y, CAM_TOP - CAM_BARREL_H, CAM_TOP, CAM_BARREL_D)
-    hs = box(CX - CAM_HS_W / 2, CX + CAM_HS_W / 2, CAM_Y - CAM_HS_W / 2, CAM_Y + CAM_HS_W / 2, CAM_ZH0, CAM_Z0 + 0.01)
-    return union_all([base, body, bar, hs])
+    hx0, hx1, hy0, hy1 = CX - CAM_HS_W / 2, CX + CAM_HS_W / 2, CAM_Y - CAM_HS_L / 2, CAM_Y + CAM_HS_L / 2     # centred on the base
+    hs = box(hx0, hx1, hy0, hy1, CAM_ZH0, CAM_ZH0 + CAM_HS_H)                                  # heatsink 7.0 x 7.1 x 6.0
+    pad = box(hx0, hx1, hy0, hy1, CAM_ZH0 + CAM_HS_H, CAM_Z0 + 0.01)                           # 0.1 mm pad (+0.01 overlap into the base)
+    return union_all([base, body, bar, hs, pad])
 
 
 def main_switch(h=SW_H_DEFAULT, pressed=0.0):

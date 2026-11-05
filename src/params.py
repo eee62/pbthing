@@ -122,8 +122,11 @@ CAM_LENS_H = 5.6             # [USER] base bottom to lens top
 CAM_BARREL_D, CAM_BARREL_H = 3.8, 1.0    # [USER] lens barrel diameter, [GUESS] barrel height
 CAM_BODY_H = CAM_LENS_H - CAM_BASE_T - CAM_BARREL_H   # 4.2  square lens-holder / VCM block (full base width) [GUESS]
 CAM_TOTAL_H = 11.7           # [USER] camera + heatsink, lens top to heatsink bottom
-CAM_HS_H = CAM_TOTAL_H - CAM_LENS_H    # 6.1  heatsink glued behind the base (includes its adhesive pad)
-CAM_HS_W = 8.0               # [GUESS] heatsink footprint (square envelope; fins not modelled)
+CAM_HS_W = 7.0               # [USER] heatsink width (x)
+CAM_HS_L = 7.1               # [USER] heatsink length (y); centred on the base in x and y (offset 0, 0)
+CAM_HS_H = 6.0               # [USER] heatsink height (fins not modelled, solid envelope)
+CAM_PAD_T = 0.1              # [USER] adhesive / thermal pad between base and heatsink (same footprint as the heatsink) [GUESS footprint]
+assert abs(CAM_LENS_H + CAM_HS_H + CAM_PAD_T - CAM_TOTAL_H) < 1e-9     # 5.6 + 6.0 + 0.1 = 11.7
 CAP_POCKET_D, CAP_T = 11.0, 1.2
 CAP_UNDER_GAP = 0.4          # barrel top to cap underside
 LENS_OPEN_D = 4.8            # barrel clearance hole (0.5 per side around the 3.8 barrel)
@@ -135,7 +138,7 @@ CAM_Y0 = CAM_Y1 - CAM_W
 CAM_Y = (CAM_Y0 + CAM_Y1) / 2
 CAM_TOP = Z_FRONT - CAP_T - CAP_UNDER_GAP          # barrel top 138.9
 CAM_Z0 = CAM_TOP - CAM_LENS_H        # base bottom 133.3
-CAM_ZH0 = CAM_Z0 - CAM_HS_H          # heatsink bottom 127.2
+CAM_ZH0 = CAM_Z0 - CAM_PAD_T - CAM_HS_H   # heatsink bottom 127.2 (unchanged: 133.3 - 0.1 - 6.0)
 CAM_POCKET_CLR = 0.25
 
 # FPC [GUESS] (24 pin 0.5 mm)
