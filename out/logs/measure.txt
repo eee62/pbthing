@@ -1,0 +1,31 @@
+== SLEEVE zen_v7_sleeve.stl ==
+faces 704 watertight True volume_mm3 68449.22
+bounds_min [0.0, 0.0, 0.0] bounds_max [29.4, 77.2, 140.5]
+distinct z levels of vertices [0.0, 134.5, 137.0, 140.5]
+cavity_z=1: outer [0.0, 0.0, 29.4, 77.2] r~7.05 | inner [2.5, 2.5, 26.9, 74.7] size 24.400 x 72.200 r~4.03
+cavity_z=70: outer [0.0, 0.0, 29.4, 77.2] r~7.05 | inner [2.5, 2.5, 26.9, 74.7] size 24.400 x 72.200 r~4.03
+cavity_z=134: outer [0.0, 0.0, 29.4, 77.2] r~7.05 | inner [2.5, 2.5, 26.9, 74.7] size 24.400 x 72.200 r~4.03
+lip_z=135.75: outer [0.0, 0.0, 29.4, 77.2] r~7.05 | inner [5.0, 5.0, 24.4, 72.2] size 19.400 x 67.200 r~1.51
+bore_z=138.75: outer [0.0, 0.0, 29.4, 77.2] r~7.05 | inner [2.5, 2.5, 26.9, 74.7] size 24.400 x 72.200 r~4.03
+bore_z=140.4: outer [0.0, 0.0, 29.4, 77.2] r~7.05 | inner [2.5, 2.5, 26.9, 74.7] size 24.400 x 72.200 r~4.03
+
+== XIAO_ESP32S3_Sense.step (STEP frame) ==
+solids 103
+  10067099-200LF v1:1                           X_s    0.11..   5.61  Y_s   5.13..  7.78  Z_s  -12.08..  -0.68
+  =>[0:1:1:35]                                  X_s   -8.67..  12.28  Y_s  -0.25..  1.00  Z_s  -15.00..   2.78
+  Camer Module:1                                X_s   -7.20..  12.75  Y_s   5.60.. 13.71  Z_s  -13.00..  -0.50
+  DF40C-30DP-0.4V_51_ v1:1                      X_s   -8.41..  -5.44  Y_s   1.00..  2.14  Z_s   -7.72..  -0.20
+  DF40HC(3.0)-30DS:1                            X_s   -8.41..  -5.03  Y_s   1.03..  3.93  Z_s   -8.26..   0.34
+  JUSHUO AFC01-S24FCA-00:1                      X_s   -8.84..  -2.84  Y_s   5.17..  7.18  Z_s  -14.18..   2.02
+  MicroSD v2:1                                  X_s    0.33..  15.39  Y_s   6.60..  8.25  Z_s  -12.52..  -1.34
+  PCB:1                                         X_s   -8.97..   5.70  Y_s   3.93..  5.18  Z_s  -14.50..   2.28
+  SKTAAAE010 v1:1                               X_s    9.15..  12.24  Y_s   1.00..  1.73  Z_s   -0.99..   0.61
+  SKTAAAE010 v1:2                               X_s    9.16..  12.25  Y_s   1.00..  1.73  Z_s  -12.84.. -11.24
+  Shield:1                                      X_s   -5.03..   5.57  Y_s   0.30..  3.00  Z_s  -12.41..   0.19
+  U.FL-R-SMT-1_10_ v1:1                         X_s   -8.45..  -5.45  Y_s   1.00..  2.25  Z_s  -12.39..  -9.29
+  USB TYPE C PORT:1                             X_s    5.91..  13.81  Y_s   0.01..  4.21  Z_s  -10.59..  -1.65
+Notes: "MicroSD v2" is the inserted card (X_s up to 15.39, beyond the USB tip 13.81);
+       it is EXCLUDED (no card is used). "10067099-200LF" is the socket and is kept.
+       "Camer Module" is the stock OV2640 and is EXCLUDED (user camera modelled separately).
+       Stock FPC tail in the connector: X_s -7.2..-2.2, Y_s 5.6..5.88, Z_s -13.0..-0.5 (12.5 wide);
+       the FPC leaves the connector toward +X_s (toward the USB end).

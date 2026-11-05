@@ -1,0 +1,8 @@
+cadquery==2.8.0
+trimesh
+manifold3d
+numpy
+scipy
+shapely
+rtree
+pyvista

@@ -1,0 +1,715 @@
+{
+ "sleeve": {
+  "stl_vol": 68449.21750160959,
+  "rebuilt_vol": 68509.48658583623,
+  "max_dev": 3.4943453840526927e-06
+ },
+ "parts": {
+  "insert": {
+   "volume": 4061.8529573413643,
+   "bbox": [
+    23.9,
+    71.7,
+    34.5
+   ]
+  },
+  "plug": {
+   "volume": 7412.0941065746065,
+   "bbox": [
+    23.9,
+    71.7,
+    27.0
+   ]
+  },
+  "tray": {
+   "volume": 10375.044761658202,
+   "bbox": [
+    100.25000000000001,
+    63.200000000000045,
+    27.80000000000001
+   ]
+  },
+  "coupon": {
+   "volume": 4283.668661998107,
+   "bbox": [
+    23.9,
+    74.05000000000001,
+    17.960000000000008
+   ]
+  },
+  "keeper_a": {
+   "volume": 444.11101013546727,
+   "bbox": [
+    23.6,
+    27.200000000000042,
+    6.7000000000000455
+   ]
+  },
+  "keeper_b": {
+   "volume": 216.19200000000217,
+   "bbox": [
+    23.6,
+    8.400000000000006,
+    6.200000000000017
+   ]
+  },
+  "keeper_c": {
+   "volume": 748.5633999999998,
+   "bbox": [
+    23.6,
+    13.650000000000006,
+    24.80000000000001
+   ]
+  },
+  "carrier_H10": {
+   "volume": 875.3650000000005,
+   "bbox": [
+    17.25,
+    10.400000000000006,
+    15.7
+   ]
+  },
+  "carrier_H11": {
+   "volume": 875.3650000000007,
+   "bbox": [
+    17.25,
+    10.400000000000006,
+    15.7
+   ]
+  },
+  "carrier_H12": {
+   "volume": 875.3650000000008,
+   "bbox": [
+    17.25,
+    10.400000000000006,
+    15.7
+   ]
+  },
+  "carrier_H13": {
+   "volume": 875.3650000000008,
+   "bbox": [
+    17.25,
+    10.400000000000006,
+    15.7
+   ]
+  },
+  "carrier_H13.5": {
+   "volume": 875.3650000000009,
+   "bbox": [
+    17.25,
+    10.400000000000006,
+    15.7
+   ]
+  },
+  "carrier_H14": {
+   "volume": 875.3650000000005,
+   "bbox": [
+    17.25,
+    10.400000000000006,
+    15.7
+   ]
+  },
+  "lens_cap_A": {
+   "volume": 110.83966911000266,
+   "bbox": [
+    10.866871790987858,
+    10.9,
+    1.2000000000000002
+   ]
+  },
+  "usb_cover_A": {
+   "volume": 123.31111485475917,
+   "bbox": [
+    12.8,
+    6.900000000000001,
+    1.5
+   ]
+  },
+  "lens_cap_B": {
+   "volume": 106.7684630114188,
+   "bbox": [
+    10.66624867740402,
+    10.7,
+    1.2000000000000002
+   ]
+  },
+  "usb_cover_B": {
+   "volume": 118.07916814417449,
+   "bbox": [
+    12.600000000000001,
+    6.700000000000001,
+    1.5
+   ]
+  },
+  "lens_cap_C": {
+   "volume": 102.77266655426993,
+   "bbox": [
+    10.465601595214114,
+    10.5,
+    1.2000000000000002
+   ]
+  },
+  "usb_cover_C": {
+   "volume": 112.94146921319754,
+   "bbox": [
+    12.400000000000002,
+    6.500000000000001,
+    1.5
+   ]
+  }
+ },
+ "interference": {
+  "bodies": 29,
+  "pairs": 406,
+  "max_overlap": 0.0
+ },
+ "gaps": {
+  "insert-sleeve": 0.24999999999997158,
+  "keeper_a-sleeve": 0.2499999999999524,
+  "keeper_b-sleeve": 0.29999999999999716,
+  "keeper_c-sleeve": 0.29999999999999716,
+  "plug-sleeve": 0.24999999999998784,
+  "holder-sleeve": 2.1999999999999993,
+  "insert-xiao": 0.04834131441359091,
+  "keeper_c-xiao": 0.09665868558643353,
+  "insert-radar": 0.0,
+  "keeper_a-radar": 0.0,
+  "insert-camera": 0.24999999999999784,
+  "keeper_b-camera": 0.0,
+  "insert-tact": 0.19999999999998863,
+  "fpc-xiao": 0.053105571855553535,
+  "fpc-insert": 0.07499999999998863,
+  "fpc-keeper_b": 0.24999999999997158,
+  "fpc-camera": 8.526512829121202e-14,
+  "fpc-holder": 15.210353001942494,
+  "carrier-plug": 0.0,
+  "switch-carrier": 0.0,
+  "switch-plug": 0.6499999999999986,
+  "holder-plug": 0.0,
+  "lens_cap-insert": 0.0,
+  "usb_cover-insert": 0.04999999999999468,
+  "lens_cap-camera": 0.4000000000000057,
+  "usb_cover-xiao": 0.5213601642597325
+ },
+ "walls": {
+  "insert": {
+   "min_wall": 0.7998877929687467,
+   "min_gap": 0.7981470412906878
+  },
+  "plug": {
+   "min_wall": 0.799900011920929,
+   "min_gap": 2.6184800243005952
+  },
+  "keeper_a": {
+   "min_wall": 0.7998877929687467,
+   "min_gap": 2.099898474121094
+  },
+  "keeper_b": {
+   "min_wall": 0.7998877929687467,
+   "min_gap": NaN
+  },
+  "keeper_c": {
+   "min_wall": 0.7998997138977053,
+   "min_gap": NaN
+  },
+  "carrier_H13.5": {
+   "min_wall": 0.9499007629394498,
+   "min_gap": NaN
+  },
+  "lens_cap_A": {
+   "min_wall": 1.1999000476837156,
+   "min_gap": 1.1999000476837154
+  },
+  "usb_cover_A": {
+   "min_wall": 1.4999,
+   "min_gap": 1.1999000476837158
+  },
+  "coupon": {
+   "min_wall": 0.7998877929687467,
+   "min_gap": 0.798763727952366
+  }
+ },
+ "tolerances": [
+  {
+   "fit": "faceplate edge to sleeve bore (per side)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "insert / keepers to lip opening (per side)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "pads to lip top (glue line, z)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "keeper ears to lip top (z)",
+   "nominal": 0.5,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.3,
+   "note": ""
+  },
+  {
+   "fit": "keeper ears to faceplate rim (z, glue fills; foot/posts touch first)",
+   "nominal": 0.2,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.0,
+   "note": ">=0 means the keeper rests on its part, not on the rim"
+  },
+  {
+   "fit": "radar PCB to radar pocket walls (per side)",
+   "nominal": 0.3,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.09999999999999998,
+   "note": "radar 20.0 +-0.1 [GUESS tol]"
+  },
+  {
+   "fit": "radar PCB back to lip top (z, PCB overhangs lip 0.3)",
+   "nominal": 0.5,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.12,
+   "worst": 0.18,
+   "note": ""
+  },
+  {
+   "fit": "radar front components to window (z)",
+   "nominal": 0.15,
+   "tolA": 0.2,
+   "tolB": 0.0,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": "component height is [GUESS]"
+  },
+  {
+   "fit": "tact switch to its pocket (per side)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "button nub to tact actuator (pre-travel)",
+   "nominal": 0.2,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.0,
+   "note": ""
+  },
+  {
+   "fit": "button pad ring slot (single part, stays open)",
+   "nominal": 0.8,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.6000000000000001,
+   "note": ""
+  },
+  {
+   "fit": "hidden beam to skin gap (single part, stays open)",
+   "nominal": 0.8,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.6000000000000001,
+   "note": ""
+  },
+  {
+   "fit": "USB-C shell to collar opening (hole, per side)",
+   "nominal": 0.3,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "XIAO bottom face to top rib (backup stop)",
+   "nominal": 0.29999999999999716,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.09999999999999715,
+   "note": ""
+  },
+  {
+   "fit": "XIAO bottom face to keeper C -y wall",
+   "nominal": 0.2,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.0,
+   "note": ""
+  },
+  {
+   "fit": "XIAO connector housing to keeper C +y lip",
+   "nominal": 0.21999999999999886,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.019999999999998852,
+   "note": ""
+  },
+  {
+   "fit": "camera head to pocket (per side)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": "head size [GUESS]"
+  },
+  {
+   "fit": "lens barrel to lens opening (hole, per side)",
+   "nominal": 0.25,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.0,
+   "note": ""
+  },
+  {
+   "fit": "lens barrel top to cap underside (z)",
+   "nominal": 0.4,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.1,
+   "worst": 0.1,
+   "note": ""
+  },
+  {
+   "fit": "lens cap A in cap pocket (hole, per side)",
+   "nominal": 0.05,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": -0.2,
+   "note": "friction fit: pick the variant that holds",
+   "friction": true
+  },
+  {
+   "fit": "USB cover A in overmold pocket (per side)",
+   "nominal": 0.05,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": -0.2,
+   "note": "friction fit",
+   "friction": true
+  },
+  {
+   "fit": "lens cap B in cap pocket (hole, per side)",
+   "nominal": 0.15,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": -0.1,
+   "note": "friction fit: pick the variant that holds",
+   "friction": true
+  },
+  {
+   "fit": "USB cover B in overmold pocket (per side)",
+   "nominal": 0.15,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": -0.1,
+   "note": "friction fit",
+   "friction": true
+  },
+  {
+   "fit": "lens cap C in cap pocket (hole, per side)",
+   "nominal": 0.25,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.0,
+   "note": "friction fit: pick the variant that holds",
+   "friction": false
+  },
+  {
+   "fit": "USB cover C in overmold pocket (per side)",
+   "nominal": 0.25,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.0,
+   "note": "friction fit",
+   "friction": false
+  },
+  {
+   "fit": "cable overmold 12.35 x 6.5 [GUESS] in pocket (per side, short side)",
+   "nominal": 0.25,
+   "tolA": 0.3,
+   "tolB": 0.0,
+   "extra": 0.0,
+   "worst": 0.1,
+   "note": ""
+  },
+  {
+   "fit": "holder to plug cradle walls (per side)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": "holder tol [GUESS] +-0.2"
+  },
+  {
+   "fit": "plug to cavity wall (glue line, per side)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "switch carrier to plug pocket (per side, y)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "switch carrier to pocket roof (z)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": ""
+  },
+  {
+   "fit": "switch body to carrier walls (per side)",
+   "nominal": 0.25,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.04999999999999999,
+   "note": "datasheet: +-0.2 over 1.5 mm"
+  },
+  {
+   "fit": "switch body top to carrier bridge (z, lost motion)",
+   "nominal": 0.15,
+   "tolA": 0.2,
+   "tolB": 0.1,
+   "extra": 0.0,
+   "worst": -2.7755575615628914e-17,
+   "note": ""
+  },
+  {
+   "fit": "knob (3.9 sq, diag 5.52) to knob hole D7.4 incl. 0.6 carrier play",
+   "nominal": 0.3422835533724645,
+   "tolA": 0.3,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.09228355337246452,
+   "note": ""
+  },
+  {
+   "fit": "knob to carrier shelf slot (per side)",
+   "nominal": 0.30000000000000004,
+   "tolA": 0.2,
+   "tolB": 0.2,
+   "extra": 0.0,
+   "worst": 0.10000000000000003,
+   "note": ""
+  }
+ ],
+ "wires": [
+  {
+   "name": "camera FPC 13.0 x 0.15",
+   "length": 65.00000000000003,
+   "min_radius": 2.0,
+   "clear": 8.526512829121202e-14,
+   "clear_wires": 6.164999999999999
+  },
+  {
+   "name": "radar RX -> XIAO D8",
+   "length": 28.53318530717959,
+   "min_radius": 2.0,
+   "clear": 0.0,
+   "clear_wires": 1.4399999999999948
+  },
+  {
+   "name": "radar OT1 -> XIAO D7",
+   "length": 33.61318530717958,
+   "min_radius": 2.0,
+   "clear": 0.0,
+   "clear_wires": 1.4399999999999948
+  },
+  {
+   "name": "radar GND -> XIAO GND",
+   "length": 24.080600565549748,
+   "min_radius": 2.0,
+   "clear": 0.0,
+   "clear_wires": 0.8499999999999375
+  },
+  {
+   "name": "radar 3V3 -> XIAO 3V3",
+   "length": 28.53318530717961,
+   "min_radius": 2.0,
+   "clear": 0.0,
+   "clear_wires": 0.41999999999999815
+  },
+  {
+   "name": "button leg A -> XIAO D10 (input, pull-up)",
+   "length": 14.423185307179518,
+   "min_radius": 2.0,
+   "clear": 0.2500000149011583,
+   "clear_wires": 1.4399999999999693
+  },
+  {
+   "name": "button leg B -> XIAO D9 (driven LOW)",
+   "length": 19.063185307179527,
+   "min_radius": 2.0,
+   "clear": 0.2500000149011583,
+   "clear_wires": 0.18024389337134594
+  },
+  {
+   "name": "jumper pin2-pin5",
+   "length": 4.799999999999997,
+   "min_radius": null,
+   "clear": 0.45276925690687375,
+   "clear_wires": 1.2000000000000028
+  },
+  {
+   "name": "jumper pin3-pin6",
+   "length": 4.799999999999997,
+   "min_radius": null,
+   "clear": 0.45276925690687375,
+   "clear_wires": 1.2000000000000028
+  },
+  {
+   "name": "holder B+ (red) -> switch pin 2",
+   "length": 38.670777117310514,
+   "min_radius": 2.0,
+   "clear": 0.05000000000000071,
+   "clear_wires": 0.09999999999999787
+  },
+  {
+   "name": "switch pin 3 -> XIAO BAT+",
+   "length": 168.45184831867215,
+   "min_radius": 2.0,
+   "clear": 0.10000000000000142,
+   "clear_wires": 0.09999999999999787
+  },
+  {
+   "name": "holder B- (black) -> XIAO BAT-",
+   "length": 138.0989608793873,
+   "min_radius": 2.0,
+   "clear": 0.05000000000000071,
+   "clear_wires": 0.09999999999999787
+  },
+  {
+   "name": "U.FL coax -> antenna",
+   "length": 37.83976899238932,
+   "min_radius": 2.5,
+   "clear": 0.49825826639748527,
+   "clear_wires": 2.3581109973624392
+  }
+ ],
+ "fpc": {
+  "z_loop": 112.2853530019425,
+  "loop_bottom": 112.2103530019425,
+  "min_radius": 2.0,
+  "radii": [
+   2.0,
+   2.0,
+   2.0,
+   2.0,
+   2.349999999999998,
+   2.349999999999998,
+   2.0
+  ],
+  "length": 65.00000000000003
+ },
+ "switch": [
+  {
+   "H": 10.0,
+   "recess_released": 1.0,
+   "recess_latched": 2.5,
+   "recess_full": 3.5,
+   "pin_tip_z": 14.5,
+   "room_to_holder": 6.5
+  },
+  {
+   "H": 11.0,
+   "recess_released": 1.0,
+   "recess_latched": 2.5,
+   "recess_full": 3.5,
+   "pin_tip_z": 15.5,
+   "room_to_holder": 5.5
+  },
+  {
+   "H": 12.0,
+   "recess_released": 1.0,
+   "recess_latched": 2.5,
+   "recess_full": 3.5,
+   "pin_tip_z": 16.5,
+   "room_to_holder": 4.5
+  },
+  {
+   "H": 13.0,
+   "recess_released": 1.0,
+   "recess_latched": 2.5,
+   "recess_full": 3.5,
+   "pin_tip_z": 17.5,
+   "room_to_holder": 3.5
+  },
+  {
+   "H": 13.5,
+   "recess_released": 1.0,
+   "recess_latched": 2.5,
+   "recess_full": 3.5,
+   "pin_tip_z": 18.0,
+   "room_to_holder": 3.0
+  },
+  {
+   "H": 14.0,
+   "recess_released": 1.0,
+   "recess_latched": 2.5,
+   "recess_full": 3.5,
+   "pin_tip_z": 18.5,
+   "room_to_holder": 2.5
+  }
+ ],
+ "button": {
+  "icon_depth": 0.8000000000000114,
+  "icon_width": 0.7990679882841505,
+  "land": 0.8256978414729019,
+  "flex_strain": 0.00847399945548598,
+  "flex_force": 0.544514021236047
+ },
+ "optics": {
+  "radar_H": 1.0,
+  "fov": 123.85502612829427
+ }
+}
