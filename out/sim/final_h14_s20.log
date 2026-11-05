@@ -1,3 +1,9 @@
 bodies ready 5s
 flex bodies: 10, particles 466  5s
 S1 radar                 rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.83 | wire Rmin 4.96 | max strain 0.4% (radar OT1 -> XIAO D7) | max squeeze 0.00 (ribbon) [95s]
+S2 tact switch           rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.12 | wire Rmin 4.99 | max strain 0.1% (ribbon) | max squeeze 0.00 (ribbon) [81s]
+S3 keeper A              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.27 | wire Rmin 1.54 | max strain 5.9% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [127s]
+S4 camera + heatsink     rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.37 | wire Rmin 2.14 | max strain 7.8% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [153s]
+S5 keeper B              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.37 | wire Rmin 2.24 | max strain 8.1% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [161s]
+S6 XIAO stack            rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 2.25 | max strain 8.4% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [159s]
+S7 keeper C              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 2.26 | max strain 8.5% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [179s]
