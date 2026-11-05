@@ -6,7 +6,7 @@
  },
  "parts": {
   "insert": {
-   "volume": 4783.864438001972,
+   "volume": 4061.8529573413643,
    "bbox": [
     23.9,
     71.7,
@@ -14,11 +14,11 @@
    ]
   },
   "plug": {
-   "volume": 7822.620301158612,
+   "volume": 7412.0941065746065,
    "bbox": [
     23.9,
     71.7,
-    39.9
+    27.0
    ]
   },
   "tray": {
@@ -159,12 +159,12 @@
   }
  },
  "interference": {
-  "bodies": 32,
-  "pairs": 496,
+  "bodies": 29,
+  "pairs": 406,
   "max_overlap": 0.0
  },
  "gaps": {
-  "insert-sleeve": 2.842170943040401e-14,
+  "insert-sleeve": 0.24999999999997158,
   "keeper_a-sleeve": 0.2499999999999524,
   "keeper_b-sleeve": 0.29999999999999716,
   "keeper_c-sleeve": 0.29999999999999716,
@@ -189,21 +189,16 @@
   "lens_cap-insert": 0.0,
   "usb_cover-insert": 0.04999999999999468,
   "lens_cap-camera": 0.4000000000000057,
-  "usb_cover-xiao": 0.5213601642597325,
-  "ph-sleeve": 0.5499999999999998,
-  "ph-holder": 0.5500000000000016,
-  "ph-plug": 0.29999999999999716,
-  "antenna-insert": 0.04999999999999716,
-  "antenna-sleeve": 1.5
+  "usb_cover-xiao": 0.5213601642597325
  },
  "walls": {
   "insert": {
    "min_wall": 0.7998877929687467,
-   "min_gap": 0.7985648490632593
+   "min_gap": 0.7981470412906878
   },
   "plug": {
    "min_wall": 0.799900011920929,
-   "min_gap": 1.4999000000000002
+   "min_gap": 2.6184800243005952
   },
   "keeper_a": {
    "min_wall": 0.7998877929687467,
@@ -546,51 +541,6 @@
    "extra": 0.0,
    "worst": 0.10000000000000003,
    "note": ""
-  },
-  {
-   "fit": "JST-PH pair to sleeve cavity wall (-y), y",
-   "nominal": 0.5499999999999998,
-   "tolA": 0.0,
-   "tolB": 0.2,
-   "extra": 0.0,
-   "worst": 0.44999999999999984,
-   "note": "sleeve nominal (STL), PH +-0.2 [GUESS]"
-  },
-  {
-   "fit": "JST-PH pair to holder -y face, y",
-   "nominal": 0.5500000000000016,
-   "tolA": 0.2,
-   "tolB": 0.2,
-   "extra": 0.0,
-   "worst": 0.3500000000000016,
-   "note": "holder tol [GUESS]"
-  },
-  {
-   "fit": "JST-PH pair to cage ribs (per side, x)",
-   "nominal": 0.3,
-   "tolA": 0.2,
-   "tolB": 0.2,
-   "extra": 0.0,
-   "worst": 0.09999999999999998,
-   "note": ""
-  },
-  {
-   "fit": "JST-PH pair to cage stop bar / bridge (z)",
-   "nominal": 0.4,
-   "tolA": 0.2,
-   "tolB": 0.1,
-   "extra": 0.0,
-   "worst": 0.25,
-   "note": ""
-  },
-  {
-   "fit": "cage rib to sleeve cavity corner (clearance, x=ribs outer, y=3.0)",
-   "nominal": 0.4,
-   "tolA": 0.2,
-   "tolB": 0.0,
-   "extra": 0.0,
-   "worst": 0.30000000000000004,
-   "note": "cavity corner r4 at x=23.45 is y=2.54"
   }
  ],
  "wires": [
@@ -641,7 +591,7 @@
    "length": 19.063185307179527,
    "min_radius": 2.0,
    "clear": 0.2500000149011583,
-   "clear_wires": 0.1802438933714527
+   "clear_wires": 0.18024389337134594
   },
   {
    "name": "jumper pin2-pin5",
@@ -655,49 +605,35 @@
    "length": 4.799999999999997,
    "min_radius": null,
    "clear": 0.45276925690687375,
-   "clear_wires": 1.1790628060612676
-  },
-  {
-   "name": "holder B+ (red) -> switch pin 2",
-   "length": 38.41647824871272,
-   "min_radius": 2.0,
-   "clear": 0.05000000000000071,
    "clear_wires": 1.2000000000000028
   },
   {
-   "name": "switch pin 3 -> PH tail B+ (plug module)",
-   "length": 37.23681602202747,
+   "name": "holder B+ (red) -> switch pin 2",
+   "length": 38.670777117310514,
    "min_radius": 2.0,
-   "clear": 0.019999999999999574,
-   "clear_wires": 0.8999999999999986
+   "clear": 0.05000000000000071,
+   "clear_wires": 0.09999999999999787
   },
   {
-   "name": "holder B- (black) -> PH tail B- (plug module)",
-   "length": 4.371592653589795,
+   "name": "switch pin 3 -> XIAO BAT+",
+   "length": 168.45184831867215,
    "min_radius": 2.0,
-   "clear": 0.019999999999999574,
-   "clear_wires": 0.8999999999999986
+   "clear": 0.10000000000000142,
+   "clear_wires": 0.09999999999999787
   },
   {
-   "name": "PH housing B+ -> XIAO BAT+",
-   "length": 118.3829455003509,
+   "name": "holder B- (black) -> XIAO BAT-",
+   "length": 138.0989608793873,
    "min_radius": 2.0,
-   "clear": 0.020000000000003126,
-   "clear_wires": 0.09999999999999498
-  },
-  {
-   "name": "PH housing B- -> XIAO BAT-",
-   "length": 120.26651154842845,
-   "min_radius": 2.0,
-   "clear": 0.020000000000003126,
-   "clear_wires": 0.09999999999999498
+   "clear": 0.05000000000000071,
+   "clear_wires": 0.09999999999999787
   },
   {
    "name": "U.FL coax -> antenna",
-   "length": 48.27476899238932,
+   "length": 37.83976899238932,
    "min_radius": 2.5,
    "clear": 0.49825826639748527,
-   "clear_wires": 2.3581109973624423
+   "clear_wires": 2.3581109973624392
   }
  ],
  "fpc": {
@@ -775,66 +711,5 @@
  "optics": {
   "radar_H": 1.0,
   "fov": 123.85502612829427
- },
- "review": {
-  "ph_zone": {
-   "w": 5.9,
-   "d": 4.5,
-   "l": 11.4
-  },
-  "length": {
-   "B_plus": 173.0197615223784,
-   "B_minus": 142.03810420201825,
-   "wire_B_plus": 155.61976152237838,
-   "wire_B_minus": 124.63810420201825,
-   "extra_bodies": 11.4,
-   "allowance": 6.0,
-   "rcy": false,
-   "baseline_Bp": 168.5,
-   "baseline_Bn": 138.1
-  },
-  "wifi": [
-   {
-    "item": "camera head (metal VCM/shield)",
-    "old": 3.8500000000000014,
-    "new": 15.350000000000001
-   },
-   {
-    "item": "camera FPC ribbon (copper)",
-    "old": 1.7749999999999986,
-    "new": 13.274999999999999
-   },
-   {
-    "item": "cell tops (steel cans, holder top z=97)",
-    "old": 9.5,
-    "new": 11.076551810017413
-   },
-   {
-    "item": "XIAO + expansion board",
-    "old": 13.06999998509886,
-    "new": 24.56999998509886
-   },
-   {
-    "item": "main switch (steel/brass)",
-    "old": 90.14639482530625,
-    "new": 94.45010587606559
-   },
-   {
-    "item": "radar PCB",
-    "old": 33.61487765856066,
-    "new": 45.10000000000001
-   },
-   {
-    "item": "XIAO RF shield can",
-    "old": 17.84999998509884,
-    "new": 29.34999998509884
-   }
-  ],
-  "heat": {
-   "Shield:1": 2.4233727647729375,
-   "=>[0:1:1:35]": 0.04834131441359091
-  },
-  "free_volume_cm3": 129.5383299279586,
-  "er_note": "9000HE er 3.2-4.0 at 1 MHz; no value at 2.4 or 24 GHz is published"
  }
 }

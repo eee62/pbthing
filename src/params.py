@@ -202,37 +202,5 @@ KB_FLOOR_Z0, KB_FLOOR_Z1 = 132.1, CAM_Z0   # keeper B floor (supports the head b
 FPC_Z_APEX = KB_FLOOR_Z0 - 0.25 - FPC_T / 2   # top-fold apex (centre line)
 FPCW_Y0 = FPC_Y_UP2 + 0.6               # FPC guide wall
 FPCW_Y1 = FPCW_Y0 + 1.2
-
-# ---------------- connectors ---------------------------------------------------------
-import os as _os
-# JST PH series, 2 circuits. Source: JST "PH CONNECTOR" catalog pp.1-2 (B2B-PH-K-S header, PHR-2 housing,
-# SPH-002T-P0.5S contact). [JST]
-PH_PITCH = 2.0
-PH_W = 5.9            # header "B" dimension, 2 circuits (PHR-2 housing is 5.8)
-PH_D = 4.5            # depth
-PH_H_HDR = 6.0        # header body above the seating plane
-PH_H_MATED = 8.0      # "8.0 mm in height after mounting" (header + mated housing)
-PH_TAIL = 3.4         # solder tails below the seating plane (through-hole header, flying leads soldered here)
-PH_L = PH_H_MATED + PH_TAIL        # 11.4  mated pair incl. tails, along the wire axis
-PH_ALLOW = 3.0        # [GUESS] strip + solder + heat-shrink allowance per soldered joint, along the wire
-PH_WIRE_OD = (0.9, 1.5)            # SPH-002T-P0.5S insulation O.D. range [JST]; our 1.1 mm wire fits
-PH_AWG = (24, 30)                  # SPH-002T-P0.5S applicable wire [JST]
-# RCY (SYP/SYR) splice, user-supplied numbers. Width not retrievable (JST site blocked, Farnell 503). 
-RCY_L, RCY_T = 23.3, 4.0           # [USER] mated length, thickness
-RCY_W = 7.0                        # [GUESS] width
-RCY_ALLOW = 4.0                    # [GUESS] crimp/strip allowance per side
-RCY_SPLICE = _os.environ.get('PB_RCY', '0') == '1'   # optional, off in the default build
-
-# plug zone P1: mated PH pair in the -y end column, caged by printed ribs on the plug
-PH_XC, PH_YC = 19.0, 5.3
-PH_Z0 = 27.0                       # bottom of the pin tails
-PH_PIN_X = (PH_XC - PH_PITCH / 2, PH_XC + PH_PITCH / 2)   # 19.5 (B+), 21.5 (B-)
-PH_CLR = 0.30                      # connector to cage ribs, per side
-RIB_T = 1.2
-RCY_XC, RCY_YC, RCY_Z0 = 19.0, 5.3, 50.0
-
-# antenna moved to the +y end wall (see REVIEW_CONNECTORS_WIFI_SEAL.md)
-ANTW_Y0 = 70.75                    # antenna wall inner face (wall is 1.2 thick, to the lip-opening edge)
-ANT_Y0 = ANTW_Y0 - ANT_T - 0.05
-ANT_Z0 = 108.0
-ANT_WALL_Z0 = 106.0
+ANT_Y0 = FPCW_Y1 + 0.05                 # antenna FPC on the +y face of the guide wall
+ANT_Z0 = 106.5

@@ -128,19 +128,3 @@ def sleeve():
     bore = rrect(CAV_X0, CAV_X1, CAV_Y0, CAV_Y1, LIP_Z1, SLV_Z + 1, CAV_R)
     lip = rrect(LIP_X0, LIP_X1, LIP_Y0, LIP_Y1, LIP_Z0 - 0.5, LIP_Z1 + 0.5, LIP_R)
     return outer.cut(cav).cut(bore).cut(lip)
-
-
-def ph_pair():
-    """Mated JST PH-2 pair as a free-standing in-line connector: header body 5.9 x 4.5 x 6.0, mated housing
-    +2.0 (8.0 total above the seating plane), two 0.6 mm square tails 3.4 long (flying leads soldered there).
-    Vertical axis, tails down."""
-    x0 = PH_XC - PH_W / 2
-    body = box(x0, x0 + PH_W, PH_YC - PH_D / 2, PH_YC + PH_D / 2, PH_Z0 + PH_TAIL, PH_Z0 + PH_L)
-    pins = [box(px - 0.3, px + 0.3, PH_YC - 0.3, PH_YC + 0.3, PH_Z0, PH_Z0 + PH_TAIL + 0.01) for px in PH_PIN_X]
-    return union_all([body] + pins)
-
-
-def rcy_splice():
-    """Optional red RCY (SYP/SYR) mated pair: 23.3 long x 4.0 thick x W (W is a [GUESS])."""
-    return box(RCY_XC - RCY_W / 2, RCY_XC + RCY_W / 2, RCY_YC - RCY_T / 2, RCY_YC + RCY_T / 2,
-               RCY_Z0, RCY_Z0 + RCY_L)

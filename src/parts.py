@@ -60,7 +60,7 @@ def insert():
     zp0 = LIP_Z1 + G_GLUE
     for (x0, x1, y0, y1) in [(FP_X0 + 0.15, IN_X0 + 0.01, KC_EY1 + 0.6, KB_EY0 - 0.6), (IN_X1 - 0.01, FP_X1 - 0.15, KC_EY1 + 0.6, KB_EY0 - 0.6),
                              (FP_X0 + 0.15, IN_X0 + 0.01, KB_EY1 + 1.0, 68.0), (IN_X1 - 0.01, FP_X1 - 0.15, KB_EY1 + 1.0, 68.0),
-                             (9.0, 20.4, IN_Y1 - 0.05, FP_Y1 - 0.15)]:   # +y pad merges with the antenna wall (no 0.4 mm slot)
+                             (9.0, 20.4, 72.35, FP_Y1 - 0.15)]:
         body = body.union(box(x0, x1, y0, y1, zp0, Z_RIM + 0.01))
 
     # --- radar pocket (open below) and 4 ledges under the window
@@ -107,10 +107,8 @@ def insert():
     body = body.cut(cyl(CX, CAM_Y, Z_RIM - 0.05, Z_FRONT - CAP_T + 0.01, LENS_OPEN_D))
     body = body.cut(cyl(CX, CAM_Y, Z_FRONT - CAP_T, Z_FRONT + 0.1, CAP_POCKET_D))
 
-    # --- FPC guide wall
+    # --- FPC guide wall (+ antenna on its +y face)
     body = body.union(box(IN_X0, IN_X1, FPCW_Y0, FPCW_Y1, FPCW_Z0, Z_RIM + 0.01))
-    # --- antenna wall at the +y end (antenna FPC sticks on its -y face, away from the camera ribbon)
-    body = body.union(box(IN_X0, IN_X1, ANTW_Y0, IN_Y1, ANT_WALL_Z0, Z_RIM + 0.01))
 
     # --- front button: ring seam, hidden cantilever beam, pad, nub, engraved icon
     body = body.cut(cyl(BTN_X, BTN_Y, Z_RIM - 0.05, Z_FRONT + 0.1, BTN_D + 2 * BTN_SLOT))   # visible ring seam
@@ -254,13 +252,12 @@ def plug():
     sup = sup.cut(box(hx0 + 3.0, hx1 - 3.6, CY - 10, CY + 10, -1, 30))      # centre pair only at the x walls
     p = union_all([base, rim, housing, walls, sup])
     # wire passage through the -y thin wall (switch wires and holder leads run up the -y end gap)
-    p = p.cut(box(10.7, 21.0, hy0 - 1.3, hy0 + 0.1, HOLDER_Z0 - 4.1, HOLDER_Z0 - 0.1))
+    p = p.cut(box(CX - 4.0, CX + 4.0, hy0 - 1.3, hy0 + 0.1, HOLDER_Z0 - 4.1, HOLDER_Z0 - 0.1))
     # wire passage through the -y thin wall (switch wires and holder leads go up the -y end)
     # carrier pocket: open at the -x face
     p = p.cut(box(PLUG_X0 - 1, CAR_X1 + POCKET_CLR, SW_Y - hy, SW_Y + hy, PLUG_SKIN, POCKET_Z1))
     # roof slot for switch pins / wires (open at -x face)
     p = p.cut(box(PLUG_X0 - 1, SW_X + 4.0, SW_Y - 3.8, SW_Y + 3.8, POCKET_Z1 - 0.1, POCKET_Z1 + ROOF_T + 1))
-    p = p.union(ph_cage())
     # knob hole + conical finger dimple in the flat bottom face
     p = p.cut(cyl(SW_X, SW_Y, -1, PLUG_SKIN + 0.1, KNOB_HOLE_D2))
     p = p.cut(cone(SW_X, SW_Y, -0.001, DIMPLE_DEPTH, DIMPLE_D2, KNOB_HOLE_D2))
@@ -306,20 +303,6 @@ def usb_cover(c, at_origin=True):
     if not at_origin:
         cov = cov.translate((CX, USB_Y, Z_FRONT - COVER_T))
     return cov
-
-
-def ph_cage():
-    """Plug zone P1: two ribs (x sides), a stop bar under the header body and a back bridge above the housing.
-    Open toward +y so the mated pair slides in along -y at the bench (holder not yet fitted)."""
-    y0, y1 = PH_YC - PH_D / 2 - 0.25 + 0.0, PH_YC + PH_D / 2 + 0.05          # 3.05-0.25 .. 7.6
-    ztop = PH_Z0 + PH_L + 1.5
-    xa0 = PH_XC - PH_W / 2 - PH_CLR - RIB_T
-    xb0 = PH_XC + PH_W / 2 + PH_CLR
-    ribs = [box(xa0, xa0 + RIB_T, y0, y1, 1.9, ztop), box(xb0, xb0 + RIB_T, y0, y1, 1.9, ztop)]
-    xi0, xi1 = xa0 + RIB_T - 0.01, xb0 + 0.01
-    bar = box(xi0, xi1, y0, PH_YC - 0.8, PH_Z0 + PH_TAIL - 1.0 - 0.4, PH_Z0 + PH_TAIL - 0.4)    # 0.4 under the body
-    bridge = box(xi0, xi1, y0, PH_YC - 0.8, PH_Z0 + PH_L + 0.5, ztop)                          # 0.5 over the housing
-    return union_all(ribs + [bar, bridge])
 
 
 # ======================================================================== coupon

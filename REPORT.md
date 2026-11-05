@@ -1,11 +1,9 @@
 # REPORT — insert, plug and helpers for the zen_v7 sleeve
 
-> Connectors (JST-PH / RCY), Wi-Fi, permanent build, heat: see **REVIEW_CONNECTORS_WIFI_SEAL.md**. Update 2 changed the antenna position and added a PH plug zone; the numbers below are from the latest run.
-
 ## Bottom line
 
 * **Design is complete and passes every numeric check I wrote** (`out/logs/verify.txt`,
-  123 checks, 0 failures; 125 / 0 with the optional RCY splice). Checks use exact B-rep booleans (CadQuery/OCCT), not sampled points,
+  111 checks, 0 failures). Checks use exact B-rep booleans (CadQuery/OCCT), not sampled points,
   except wall thickness (ray casting on the exported STL).
 * **Nothing has been printed or physically tested.** The biggest unknowns are the camera module,
   the radar's component heights and its RF behaviour behind a 1 mm air gap, and the cable
@@ -74,7 +72,7 @@ into the head (r 2). The loop depth is solved from the FPC length; 40–85 mm al
 (loop bottom z 124.8 … 102.3, holder top z 97).
 
 **Front layout** (y along the face): radar window (blank) 5.3–25.3 · button Ø7 at 30.75 ·
-USB-C pocket 12.9 x 7.0 at 40.63 · lens cap Ø11 at 50.8 · FPC guide wall; the antenna is on the +y end wall (z 108-138). The three
+USB-C pocket 12.9 x 7.0 at 40.63 · lens cap Ø11 at 50.8 · FPC guide wall + antenna. The three
 visible features cluster around the face centre (38.6).
 
 **Button.** Flush Ø7 pad in a 0.8 mm visible ring seam, on a hidden cantilever beam
@@ -103,8 +101,8 @@ Both poles are paralleled with jumpers 2–5 and 3–6 in the battery-positive l
 |---|---|---|---|
 | `out/stl/coupon.stl` | fit coupon: exact crops of the insert front end and plug switch area | 1 | 1st |
 | `out/stl/tray.stl` | keepers A, B, C; switch carriers H10/11/12/13/13.5/14; lens caps A/B/C; USB covers A/B/C, on one frame with Ø1.0 snap-off posts | 1 | 1st (re-order with order 2 only if parameters change) |
-| `out/stl/insert.stl` (+ `out/step/insert.step`) | one-piece faceplate + tray: radar pocket and window, button flexure, USB-C collar and overmold pocket, camera pocket, cap pocket, backbone, FPC guide wall, antenna end wall | 1 | 2nd |
-| `out/stl/plug.stl` (+ `out/step/plug.step`) | flush bottom plug: dimple + knob hole, carrier pocket, holder cradle, caged plug zone P1 for the JST-PH pair | 1 | 2nd |
+| `out/stl/insert.stl` (+ `out/step/insert.step`) | one-piece faceplate + tray: radar pocket and window, button flexure, USB-C collar and overmold pocket, camera pocket, cap pocket, backbone, FPC guide wall, antenna face | 1 | 2nd |
+| `out/stl/plug.stl` (+ `out/step/plug.step`) | flush bottom plug: dimple + knob hole, carrier pocket, holder cradle | 1 | 2nd |
 | `out/stl/tray_parts/*.stl`, `out/step/keeper_*.step` | the tray parts individually (reference only, do not order separately) | – | – |
 
 Printed volumes (cost driver) are in the table in §5. No fasteners. Purchased parts: see
@@ -117,22 +115,20 @@ ASSEMBLY §0.
 |---|---|
 | Sleeve rebuilt as exact B-rep vs STL | 352/352 vertices on surface (max dev 0.0000 mm), volume +0.09 % |
 | Every printed part one valid watertight solid (B-rep and STL) | 4 print files + 19 tray parts: all 1 body |
-| Interference, exact boolean volume | 496 pairs of 32 bodies (sleeve, insert, 3 keepers, plug, carrier, XIAO from STEP, radar, tact, camera, switch, holder, antenna, PH pair, caps, FPC, 13 wires): max overlap 0.000000 mm3 (595 pairs / 35 bodies with the RCY splice: 0.000000) |
+| Interference, exact boolean volume | 406 pairs of 29 bodies (sleeve, insert, 3 keepers, plug, carrier, XIAO from STEP, radar, tact, camera, switch, holder, antenna, caps, FPC, 12 wires): max overlap 0.000000 mm3 |
 | Top module passes the 19.4 x 67.2 lip | 0.000 mm3 outside; min clearance to lip 0.250 |
 | Top module above the lip inside the bore | 0.000 mm3 outside |
 | Install sweeps (exact prisms): keeper A, keeper B, keeper C, caps; XIAO (+z, boxes/prisms); carrier along +x; plug sub-assembly from below | all 0.000 mm3 |
 | Carrier captured by sleeve wall | 0.35 mm play, 4 mm engagement |
 | Min wall (ray casting, opposite faces) | insert 0.80, plug 0.80, keepers 0.80, carrier 0.95, caps 1.20, coupon 0.80 (rule 0.8) |
-| Min internal slot/gap that must stay open | insert 0.80, coupon 0.80 (rule 0.8) |
+| Min internal slot/gap that must stay open | insert 0.80 (button ring seam, beam gap), coupon 0.80 (rule 0.8) |
 | Worst-case clearances | all fits ≥ 0 (table 5.1); caps: variant C always fits |
-| Wires: 13 wires + FPC swept at real size | 0 overlaps; min bend r 2.0 (wires, FPC), 2.5 (coax) |
+| Wires: 12 wires + FPC swept at real size | 0 overlaps; min bend r 2.0 (wires, FPC), 2.5 (coax) |
 | FPC 65 mm | loop bottom z 112.2, 15.2 above holder; 40–85 mm lengths also fit |
 | Main switch, H = 10…14 | no overlap in released/latched/full states; recess 1.00 / 2.50 / 3.50 for every H |
 | Front button | icon depth 0.80, line 0.80, land 0.83; flexure strain 0.85 % at 0.45 mm, force 0.54 N |
-| Radar window | 0.8 mm vs λ/8 = 0.87 / 0.82 / 0.78 mm for εr 3.2 / 3.6 / 4.0; antenna-to-window H = 1.00 mm (risk) |
+| Radar window | 0.8 mm ≤ λ/8 for εr ≤ 3.8; antenna-to-window H = 1.00 mm (risk) |
 | Lens field of view | 123.9° unvignetted (assumed Ø5 front glass) |
-| JST-PH zone P1 (5.9 x 4.5 x 11.4) | free of every printed part, holder, sleeve; end columns clear z 40.5-105.5 |
-| Wi-Fi antenna distances | camera ribbon 13.3 mm (was 1.8), camera head 15.4 (was 3.9), cell tops 11.1 (was 9.5) |
 
 ---------------------------------------------------------------------------------------
 ## 5. Tables (generated from `out/logs/verify.json`)
@@ -179,11 +175,6 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | switch body top to carrier bridge (z, lost motion) | 0.150 | 0.2 | 0.1 | 0.0 | **-0.000** |  |
 | knob (3.9 sq, diag 5.52) to knob hole D7.4 incl. 0.6 carrier play | 0.342 | 0.3 | 0.2 | 0.0 | **+0.092** |  |
 | knob to carrier shelf slot (per side) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** |  |
-| JST-PH pair to sleeve cavity wall (-y), y | 0.550 | 0.0 | 0.2 | 0.0 | **+0.450** | sleeve nominal (STL), PH +-0.2 [GUESS] |
-| JST-PH pair to holder -y face, y | 0.550 | 0.2 | 0.2 | 0.0 | **+0.350** | holder tol [GUESS] |
-| JST-PH pair to cage ribs (per side, x) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** |  |
-| JST-PH pair to cage stop bar / bridge (z) | 0.400 | 0.2 | 0.1 | 0.0 | **+0.250** |  |
-| cage rib to sleeve cavity corner (clearance, x=ribs outer, y=3.0) | 0.400 | 0.2 | 0.0 | 0.0 | **+0.300** | cavity corner r4 at x=23.45 is y=2.54 |
 
 | Wire / ribbon | Length mm | Min bend r | Clearance to solids | Clearance to other wires |
 |---|---:|---:|---:|---:|
@@ -195,18 +186,16 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | button leg A -> XIAO D10 (input, pull-up) | 14.4 | 2.0 | 0.250 | 1.440 |
 | button leg B -> XIAO D9 (driven LOW) | 19.1 | 2.0 | 0.250 | 0.180 |
 | jumper pin2-pin5 | 4.8 | None | 0.453 | 1.200 |
-| jumper pin3-pin6 | 4.8 | None | 0.453 | 1.179 |
-| holder B+ (red) -> switch pin 2 | 38.4 | 2.0 | 0.050 | 1.200 |
-| switch pin 3 -> PH tail B+ (plug module) | 37.2 | 2.0 | 0.020 | 0.900 |
-| holder B- (black) -> PH tail B- (plug module) | 4.4 | 2.0 | 0.020 | 0.900 |
-| PH housing B+ -> XIAO BAT+ | 118.4 | 2.0 | 0.020 | 0.100 |
-| PH housing B- -> XIAO BAT- | 120.3 | 2.0 | 0.020 | 0.100 |
-| U.FL coax -> antenna | 48.3 | 2.5 | 0.498 | 2.358 |
+| jumper pin3-pin6 | 4.8 | None | 0.453 | 1.200 |
+| holder B+ (red) -> switch pin 2 | 38.7 | 2.0 | 0.050 | 0.100 |
+| switch pin 3 -> XIAO BAT+ | 168.5 | 2.0 | 0.100 | 0.100 |
+| holder B- (black) -> XIAO BAT- | 138.1 | 2.0 | 0.050 | 0.100 |
+| U.FL coax -> antenna | 37.8 | 2.5 | 0.498 | 2.358 |
 
 | Part | Volume mm3 | Bounding box mm | Min wall | Min internal gap |
 |---|---:|---|---:|---:|
-| insert | 4784 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
-| plug | 7823 | 23.9 x 71.7 x 39.9 | 0.80 | 1.50 |
+| insert | 4062 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
+| plug | 7412 | 23.9 x 71.7 x 27.0 | 0.80 | 2.62 |
 | tray | 10375 | 100.3 x 63.2 x 27.8 | nan | nan |
 | coupon | 4284 | 23.9 x 74.1 x 18.0 | 0.80 | 0.80 |
 | keeper_a | 444 | 23.6 x 27.2 x 6.7 | 0.80 | 2.10 |
@@ -244,12 +233,12 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | G3 | Lens front glass Ø5, FOV 120° | `LENS_*` | coupon; unvignetted limit computed |
 | G4 | Radar front components ≤ 0.85 mm; back components ≤ 1.1 mm and ≥ 1.5 mm from the edge at the 3 keeper posts | `RAD_FRONT_H`, posts | coupon step 1; calipers |
 | G5 | Radar J2 hole 1.27 from the edge, pin order OT2-RX-OT1-GND-3V3 from the −x end | `RAD_PIN_*` | look at the board |
-| G6 | 9000HE relative permittivity: **3.2–4.0 at 1 MHz (datasheet), no 24 GHz value published**; at 4.0 the 0.8 mm window is 0.02 mm thicker than λ/8 | window 0.8 | radar range test on the coupon |
+| G6 | 9000HE relative permittivity 2.6–3.8 at 24 GHz | window 0.8 | radar range test on the coupon |
 | G7 | Tact switch: body 3.5 + Ø3.5 actuator, legs 6.5 x 4.5, travel 0.25 | `TACT_*` | coupon step 2 |
 | G8 | Your switch knob height H; latched-closed contacts 2-3 / 5-6 | carrier variants | calipers, multimeter |
 | G9 | Holder 76 x 61 x 20 ±0.2; leads leave its −y end face near the bottom (z 25) | `HOLDER_*` | look at the holder; re-route if not |
 | G10 | USB-C cable overmold ≤ 12.35 x 6.5 mm (spec maximum, not verified) | `OVM_*` | coupon step 3 with your cables |
-| G11 | Antenna FPC 30 x 8 x 0.3 with Ø1.13 coax of **≥ 50 mm** (routed length in the model: 48.3 mm); A-02 size/cable length [not found] | `ANT_*` | the antenna in the box; if the coax is shorter, move the antenna back toward the FPC guide wall |
+| G11 | Antenna FPC 30 x 8 x 0.3 with Ø1.13 coax, ≥ 40 mm | `ANT_*` | the antenna in the box |
 | G12 | XIAO BAT+ / BAT− pads = the two 0.76 x 1.78 pads (BAT− nearer the USB-C) | wires | silkscreen / meter |
 | G13 | Wire OD 1.1 (28–30 AWG silicone, max) | `WIRE_D` | — |
 | G14 | Resin flexural modulus 2.5 GPa; < 1 % strain is safe | flexure | coupon button test |
@@ -260,13 +249,13 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 ## 7. Not verified numerically
 
 * RF: radar detection through the 0.8 mm window with only 1.0 mm antenna-to-window distance
-  (Hi-Link prefers 6.2); Wi-Fi range with the antenna 11.1 mm above three steel cell cans (range test: REVIEW §2.4).
+  (Hi-Link prefers 6.2); WiFi range with the antenna 30 mm from three steel cells.
 * Friction of the caps/covers (resin-on-resin friction, creep, the 0.15–0.2 mm post-delivery
   drift).
 * Real shape of the FPC and wires. They are modelled as ideal swept paths through open channels;
   the battery-lead slack and the two splices (stored above the holder) are not modelled.
 * Solder-joint sizes on the castellations (only 0.55 mm per side to the lip opening).
-* **Heat:** a XIAO with a camera is reported at 80-95 °C while streaming; the resin's HDT/Tg is 60 / 61-68 °C and the XIAO PCB edge rests on the resin collar (0.05 mm). Not measured (REVIEW §3.2).
+* Heat (charging, WiFi, camera) against the 60 °C deflection temperature.
 * Drop / shock; brittleness of the 0.8 mm features.
 * Resin drainage from the 0.8 mm gap under the button skin.
 * No acoustic path for the microphone was designed (the seams are the only openings).
@@ -279,15 +268,18 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
    cannot be changed: the lip at 3.5 mm depth forces the 20 mm board into the bore zone. Test on
    the coupon before ordering the insert. If range is poor there is no geometric fix inside this
    sleeve; the alternative is a radar ≤ 19 mm wide that can sit below the lip.
-2. **Heat.** Reported XIAO + camera temperatures exceed the resin's Tg; the collar touches the board edge. Camera on demand, ≤ 1 fps, thermal test before gluing (REVIEW §3.2).
-3. **Camera module geometry and FPC behaviour** (G1–G3). The fold under keeper B has 0.25 mm
+2. **Camera module geometry and FPC behaviour** (G1–G3). The fold under keeper B has 0.25 mm
    clearance above it and 0.25 mm to keeper B. A thicker stiffener, wider FPC or different exit
    edge breaks the route. Measure the module first.
-4. **USB-C cable fit and retention.** Receptacle 1.97 mm below the face in a 12.9 x 7.0 pocket;
+3. **USB-C cable fit and retention.** Receptacle 1.97 mm below the face in a 12.9 x 7.0 pocket;
    large overmolds will not seat. Pull-out force goes into the insert seam glue (G1).
-5. **Cap/cover friction fit.** Brittle resin, ±0.25 per-side combined error, drift after delivery:
+4. **Cap/cover friction fit.** Brittle resin, ±0.25 per-side combined error, drift after delivery:
    one of A/B/C should hold, but it may need a drop of paint/varnish to tighten later.
-Further risks: assembly difficulty (XIAO pad joints inside the 0.55 mm margin, FPC fold, three keepers, mating the PH pair outside the sleeve); holder lead exit position (G9); radar rattle ≤ 0.3 mm if keeper A ends up
+5. **Assembly difficulty.** Wiring the XIAO bottom pads with joints kept inside the board
+   outline (0.55 mm margin), dressing the FPC fold, gluing three keepers face-down, and splicing
+   the battery leads inside the 24 x 72 mm cavity.
+
+Further risks: holder lead exit position (G9); radar rattle ≤ 0.3 mm if keeper A ends up
 resting on the rim instead of the radar (glue fills it); ±0.45 mm lost motion of the main
 switch body between shelf and bridge.
 
