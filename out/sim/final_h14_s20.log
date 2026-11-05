@@ -7,3 +7,5 @@ S4 camera + heatsink     rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.37
 S5 keeper B              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.37 | wire Rmin 2.24 | max strain 8.1% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [161s]
 S6 XIAO stack            rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 2.25 | max strain 8.4% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [159s]
 S7 keeper C              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 2.26 | max strain 8.5% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [179s]
+S8 sleeve over module    rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.96 | wire Rmin 2.27 | max strain 8.7% (radar OT1 -> XIAO D7) | max squeeze 0.40 (radar RX -> XIAO D8) [671s]
+saved out/sim/final_h14_s20.pkl 2025 frames

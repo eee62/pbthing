@@ -1,0 +1,1314 @@
+[
+ [
+  "S1 radar",
+  {
+   "depth": 0.0,
+   "err": 0.023214285714288962,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.002295206835199348,
+     "R": 1.8320053991675005,
+     "R_pos": [
+      15.3,
+      44.9,
+      110.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 0.003214236820936911,
+     "R": 6.455778831590347,
+     "R_pos": [
+      8.8,
+      20.8,
+      111.9
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 0.004319623333725708,
+     "R": 5.647358199875981,
+     "R_pos": [
+      12.5,
+      35.0,
+      106.2
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 0.0011557383205618166,
+     "R": 5.071011050844487,
+     "R_pos": [
+      14.7,
+      22.5,
+      119.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 0.0019160070445474187,
+     "R": 5.303350839825263,
+     "R_pos": [
+      17.6,
+      22.8,
+      117.2
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.7333333333333285
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 0.0,
+     "R": 4.972385557657609,
+     "R_pos": [
+      17.3,
+      29.2,
+      112.1
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 0.0,
+     "R": 4.956042604551491,
+     "R_pos": [
+      22.8,
+      31.6,
+      112.5
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "U.FL coax": {
+     "strain": 0.0,
+     "R": 5.042452350797178,
+     "R_pos": [
+      19.4,
+      39.6,
+      93.9
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "BAT+ lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      109.8
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    },
+    "BAT- lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      111.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 1.6708333333333287
+    }
+   },
+   "wall_s": 94.89517188072205
+  }
+ ],
+ [
+  "S2 tact switch",
+  {
+   "depth": 0.0,
+   "err": 0.023214285714288962,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.0011635920116173093,
+     "R": 2.122038166351001,
+     "R_pos": [
+      15.3,
+      44.9,
+      110.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 4.455810028503038e-06,
+     "R": 9.034886112404447,
+     "R_pos": [
+      11.0,
+      23.3,
+      111.4
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 4.3138349021809574e-06,
+     "R": 8.397499326808845,
+     "R_pos": [
+      14.4,
+      29.5,
+      106.3
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 1.973497876739394e-05,
+     "R": 7.427616052467341,
+     "R_pos": [
+      19.0,
+      28.5,
+      118.5
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 9.999504155810968e-06,
+     "R": 7.907426823203986,
+     "R_pos": [
+      20.7,
+      26.6,
+      118.3
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 0.00024969300514809945,
+     "R": 4.992895658185531,
+     "R_pos": [
+      18.0,
+      30.3,
+      112.5
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.716666666666662
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 0.0006147514733789716,
+     "R": 5.543807587782811,
+     "R_pos": [
+      23.0,
+      32.9,
+      112.1
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.691666666666664
+    },
+    "U.FL coax": {
+     "strain": 0.0,
+     "R": 5.994922079644442,
+     "R_pos": [
+      20.0,
+      40.1,
+      93.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    },
+    "BAT+ lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      109.8
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    },
+    "BAT- lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      111.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 5.629166666666667
+    }
+   },
+   "wall_s": 81.28408312797546
+  }
+ ],
+ [
+  "S3 keeper A",
+  {
+   "depth": 0.0,
+   "err": 0.023214285714288962,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.0011635920116173093,
+     "R": 2.266815024309705,
+     "R_pos": [
+      15.3,
+      44.9,
+      110.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 8.920833333333148
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 0.03554268090749302,
+     "R": 1.543951593651873,
+     "R_pos": [
+      11.4,
+      17.9,
+      135.3
+     ],
+     "pinch": 0.40000305105002104,
+     "pinch_pos": [
+      9.8,
+      17.9,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 13.170833333332906,
+     "t_R": 11.68333333333299
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 0.058907083986930786,
+     "R": 1.8477694469587385,
+     "R_pos": [
+      15.0,
+      18.6,
+      135.9
+     ],
+     "pinch": 0.4000030510464115,
+     "pinch_pos": [
+      11.9,
+      18.4,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 13.183333333332905,
+     "t_R": 12.820833333332926
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 0.007298782180439556,
+     "R": 2.9892867976774835,
+     "R_pos": [
+      22.5,
+      25.5,
+      136.1
+     ],
+     "pinch": 0.4000030495475075,
+     "pinch_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 13.183333333332905,
+     "t_R": 12.883333333332923
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 0.005421203790402229,
+     "R": 2.3856377502935127,
+     "R_pos": [
+      20.2,
+      20.9,
+      135.7
+     ],
+     "pinch": 0.4000030496094668,
+     "pinch_pos": [
+      21.9,
+      22.1,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 13.183333333332905,
+     "t_R": 12.40833333333295
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 3.3931194849845525e-05,
+     "R": 6.656468133915223,
+     "R_pos": [
+      17.2,
+      29.8,
+      116.2
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 8.970833333333145
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 2.9056089599244217e-05,
+     "R": 7.17156084653675,
+     "R_pos": [
+      19.2,
+      34.2,
+      110.4
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 8.920833333333148
+    },
+    "U.FL coax": {
+     "strain": 0.0,
+     "R": 6.613306300769546,
+     "R_pos": [
+      20.2,
+      40.5,
+      93.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 8.920833333333148
+    },
+    "BAT+ lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      109.8
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 8.920833333333148
+    },
+    "BAT- lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      111.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 8.920833333333148
+    }
+   },
+   "wall_s": 127.4281735420227
+  }
+ ],
+ [
+  "S4 camera + heatsink",
+  {
+   "depth": 0.0,
+   "err": 0.023214285714288962,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.041969023453807264,
+     "R": 2.3652228675462785,
+     "R_pos": [
+      15.3,
+      44.9,
+      110.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 15.458333333332776
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 0.05250923368949767,
+     "R": 2.458860671379643,
+     "R_pos": [
+      13.1,
+      18.4,
+      136.2
+     ],
+     "pinch": 0.4000030510503621,
+     "pinch_pos": [
+      9.8,
+      17.9,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 18.6083333333326,
+     "t_R": 13.545833333332885
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 0.078407072805049,
+     "R": 2.143151906278235,
+     "R_pos": [
+      15.0,
+      18.6,
+      136.2
+     ],
+     "pinch": 0.4000030510474631,
+     "pinch_pos": [
+      11.9,
+      18.4,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 18.75833333333259,
+     "t_R": 13.545833333332885
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 0.0030219262479642683,
+     "R": 3.1852438631126643,
+     "R_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch": 0.400003049547138,
+     "pinch_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 13.545833333332885,
+     "t_R": 13.545833333332885
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 0.0025231013349582554,
+     "R": 2.514469937720606,
+     "R_pos": [
+      20.4,
+      21.3,
+      135.8
+     ],
+     "pinch": 0.40000304960821625,
+     "pinch_pos": [
+      21.9,
+      22.1,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 13.545833333332885,
+     "t_R": 13.545833333332885
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 0.0,
+     "R": 7.155570795834302,
+     "R_pos": [
+      17.1,
+      31.1,
+      119.4
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 18.833333333332586
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 0.0,
+     "R": 8.125049837029982,
+     "R_pos": [
+      21.6,
+      33.5,
+      119.0
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 18.833333333332586
+    },
+    "U.FL coax": {
+     "strain": 0.0,
+     "R": 7.117080440665658,
+     "R_pos": [
+      20.6,
+      40.9,
+      93.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 13.545833333332885
+    },
+    "BAT+ lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      109.8
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 13.545833333332885
+    },
+    "BAT- lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      111.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 13.545833333332885
+    }
+   },
+   "wall_s": 152.57092308998108
+  }
+ ],
+ [
+  "S5 keeper B",
+  {
+   "depth": 0.0,
+   "err": 0.023214285714288962,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.003207262557705093,
+     "R": 2.372444858349292,
+     "R_pos": [
+      15.3,
+      44.9,
+      110.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 24.124999999998952
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 0.053394221968980915,
+     "R": 2.562929251352866,
+     "R_pos": [
+      13.1,
+      18.4,
+      136.2
+     ],
+     "pinch": 0.4000030510503337,
+     "pinch_pos": [
+      9.8,
+      17.9,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 18.837499999999253,
+     "t_R": 18.837499999999253
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 0.08081822493567481,
+     "R": 2.2415767778271016,
+     "R_pos": [
+      15.0,
+      18.6,
+      136.2
+     ],
+     "pinch": 0.4000030510481452,
+     "pinch_pos": [
+      11.9,
+      18.4,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 23.899999999998965,
+     "t_R": 18.837499999999253
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 0.0030294756487492247,
+     "R": 3.2121977286285337,
+     "R_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch": 0.40000304954537586,
+     "pinch_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 18.837499999999253,
+     "t_R": 18.837499999999253
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 0.0029585911313370072,
+     "R": 2.514469937720606,
+     "R_pos": [
+      20.4,
+      21.3,
+      135.8
+     ],
+     "pinch": 0.40000304960651095,
+     "pinch_pos": [
+      21.9,
+      22.1,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 18.837499999999253,
+     "t_R": 18.837499999999253
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 0.0,
+     "R": 7.155317733300031,
+     "R_pos": [
+      17.4,
+      32.2,
+      119.9
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 24.124999999998952
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 0.0,
+     "R": 8.090214525677485,
+     "R_pos": [
+      21.7,
+      33.9,
+      119.1
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 24.124999999998952
+    },
+    "U.FL coax": {
+     "strain": 0.0,
+     "R": 7.43211517699498,
+     "R_pos": [
+      21.0,
+      41.3,
+      93.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 18.837499999999253
+    },
+    "BAT+ lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      109.8
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 18.837499999999253
+    },
+    "BAT- lead": {
+     "strain": 0.0,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      111.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 18.837499999999253
+    }
+   },
+   "wall_s": 160.90902090072632
+  }
+ ],
+ [
+  "S6 XIAO stack",
+  {
+   "depth": 0.0,
+   "err": 0.02321428571427475,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.024622422855201886,
+     "R": 1.5562576558394636,
+     "R_pos": [
+      15.3,
+      45.3,
+      124.0
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 29.416666666665318
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 0.06263366235769352,
+     "R": 2.566720577448938,
+     "R_pos": [
+      13.1,
+      18.4,
+      136.2
+     ],
+     "pinch": 0.4000030510511295,
+     "pinch_pos": [
+      9.8,
+      17.9,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 25.204166666665557,
+     "t_R": 24.12916666666562
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 0.08364634026214013,
+     "R": 2.252317736473215,
+     "R_pos": [
+      15.0,
+      18.6,
+      136.2
+     ],
+     "pinch": 0.40000305104831574,
+     "pinch_pos": [
+      11.9,
+      18.4,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 25.366666666665548,
+     "t_R": 24.12916666666562
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 0.005337331802244494,
+     "R": 3.212803292962906,
+     "R_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch": 0.40000304954534743,
+     "pinch_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 24.12916666666562,
+     "t_R": 24.12916666666562
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 0.003090368809688382,
+     "R": 2.514469937720606,
+     "R_pos": [
+      20.4,
+      21.3,
+      135.8
+     ],
+     "pinch": 0.40000304960844363,
+     "pinch_pos": [
+      21.9,
+      22.1,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 27.916666666665403,
+     "t_R": 24.12916666666562
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 0.00016729957311589772,
+     "R": 4.475365144528569,
+     "R_pos": [
+      18.3,
+      31.5,
+      120.8
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 29.066666666665338
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 0.00031884718032437753,
+     "R": 5.059108281398232,
+     "R_pos": [
+      19.0,
+      35.0,
+      115.2
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 28.916666666665346
+    },
+    "U.FL coax": {
+     "strain": 0.006049265748754529,
+     "R": 5.012406019793499,
+     "R_pos": [
+      23.1,
+      48.7,
+      92.5
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 28.279166666665382
+    },
+    "BAT+ lead": {
+     "strain": 0.01248100348030512,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      109.8
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 24.12916666666562
+    },
+    "BAT- lead": {
+     "strain": 0.012481003480301123,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      111.7
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 24.12916666666562
+    }
+   },
+   "wall_s": 158.77841877937317
+  }
+ ],
+ [
+  "S7 keeper C",
+  {
+   "depth": 0.0,
+   "err": 0.02321428571427475,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.00926136892011975,
+     "R": 1.5559738768051006,
+     "R_pos": [
+      15.3,
+      45.3,
+      124.0
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 29.458333333331982
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 0.06263366261261294,
+     "R": 2.6292262826880326,
+     "R_pos": [
+      13.1,
+      18.4,
+      136.2
+     ],
+     "pinch": 0.40000305105306216,
+     "pinch_pos": [
+      9.8,
+      17.9,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 34.64583333333394,
+     "t_R": 34.70833333333399
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 0.08517698228397341,
+     "R": 2.2649188014233053,
+     "R_pos": [
+      15.0,
+      18.6,
+      136.2
+     ],
+     "pinch": 0.40000305104885575,
+     "pinch_pos": [
+      11.9,
+      18.4,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 34.68333333333397,
+     "t_R": 29.420833333331984
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 0.005703043049405165,
+     "R": 3.252614663340813,
+     "R_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch": 0.40000304954458005,
+     "pinch_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 29.420833333331984,
+     "t_R": 29.420833333331984
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 0.0029519954376018287,
+     "R": 2.514469937720606,
+     "R_pos": [
+      20.4,
+      21.3,
+      135.8
+     ],
+     "pinch": 0.4000030496148385,
+     "pinch_pos": [
+      21.9,
+      22.1,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 29.583333333331975,
+     "t_R": 29.420833333331984
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 0.0,
+     "R": 4.4083420072948245,
+     "R_pos": [
+      18.9,
+      32.5,
+      122.0
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 34.70833333333399
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 4.053216279209515e-05,
+     "R": 2.899582378184441,
+     "R_pos": [
+      22.2,
+      34.5,
+      119.4
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 29.420833333331984
+    },
+    "U.FL coax": {
+     "strain": 0.012332579064761706,
+     "R": 4.296543498638115,
+     "R_pos": [
+      20.6,
+      43.7,
+      100.1
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 29.420833333331984
+    },
+    "BAT+ lead": {
+     "strain": 1.5790622482025896e-05,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      123.2
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 29.420833333331984
+    },
+    "BAT- lead": {
+     "strain": 1.5790622482025896e-05,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      125.1
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 29.420833333331984
+    }
+   },
+   "wall_s": 178.69155073165894
+  }
+ ],
+ [
+  "S8 sleeve over module",
+  {
+   "depth": 0.0,
+   "err": 0.023214285714288962,
+   "jam": false,
+   "first_depth": null,
+   "per": {
+    "ribbon": {
+     "strain": 0.0016491136491985081,
+     "R": 1.9571603208558985,
+     "R_pos": [
+      15.3,
+      44.9,
+      124.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 34.71250000000066
+    },
+    "radar RX -> XIAO D8": {
+     "strain": 0.06537217048347,
+     "R": 2.6292262826370005,
+     "R_pos": [
+      13.1,
+      18.4,
+      136.2
+     ],
+     "pinch": 0.40000305105422745,
+     "pinch_pos": [
+      9.8,
+      17.9,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 49.25000000001223,
+     "t_R": 35.837500000001555
+    },
+    "radar OT1 -> XIAO D7": {
+     "strain": 0.0869121576095051,
+     "R": 2.2721701390427045,
+     "R_pos": [
+      15.0,
+      18.6,
+      136.2
+     ],
+     "pinch": 0.40000305104950945,
+     "pinch_pos": [
+      11.9,
+      18.4,
+      136.2
+     ],
+     "pinch_body": "radar",
+     "t_pinch": 39.27500000000429,
+     "t_R": 34.71250000000066
+    },
+    "radar GND -> XIAO GND": {
+     "strain": 0.005704206108090082,
+     "R": 3.2541463906766706,
+     "R_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch": 0.40000304954458005,
+     "pinch_pos": [
+      20.6,
+      22.4,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 34.71250000000066,
+     "t_R": 34.71250000000066
+    },
+    "radar 3V3 -> XIAO 3V3": {
+     "strain": 0.0029534692708668153,
+     "R": 2.514469937720606,
+     "R_pos": [
+      20.4,
+      21.3,
+      135.8
+     ],
+     "pinch": 0.4000030496148385,
+     "pinch_pos": [
+      21.9,
+      22.1,
+      135.8
+     ],
+     "pinch_body": "keeper_a",
+     "t_pinch": 34.75000000000069,
+     "t_R": 34.71250000000066
+    },
+    "button leg A -> XIAO D10 (input, pull-up)": {
+     "strain": 6.469755564775248e-05,
+     "R": 4.305062527773756,
+     "R_pos": [
+      20.2,
+      33.5,
+      124.2
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 52.00000000001442
+    },
+    "button leg B -> XIAO D9 (driven LOW)": {
+     "strain": 0.0,
+     "R": 4.838040615689445,
+     "R_pos": [
+      22.2,
+      31.6,
+      123.6
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 52.00000000001442
+    },
+    "U.FL coax": {
+     "strain": 1.83455859215087e-06,
+     "R": 6.546327458102044,
+     "R_pos": [
+      22.0,
+      59.2,
+      99.1
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 38.100000000003355
+    },
+    "BAT+ lead": {
+     "strain": 4.440892098500626e-16,
+     "R": 1000000.0,
+     "R_pos": [
+      18.6,
+      37.0,
+      123.2
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 34.71250000000066
+    },
+    "BAT- lead": {
+     "strain": 4.440892098500626e-16,
+     "R": 1000000.0,
+     "R_pos": [
+      19.8,
+      37.0,
+      125.1
+     ],
+     "pinch": 0.0,
+     "pinch_pos": null,
+     "pinch_body": null,
+     "t_pinch": null,
+     "t_R": 34.71250000000066
+    }
+   },
+   "wall_s": 670.7242226600647
+  }
+ ]
+]
