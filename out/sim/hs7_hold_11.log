@@ -1,2 +1,5 @@
 bodies ready 15s
 flex bodies: 10, particles 461  16s
+S4 camera                rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.83 | wire Rmin 5.57 | max strain 4.0% (ribbon) | max squeeze 0.00 (ribbon) [216s]
+S5 keeper B              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 0.52 | wire Rmin 6.38 | max strain 76.1% (ribbon) | max squeeze 0.00 (ribbon) [196s]
+S6 XIAO                  rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.59 | wire Rmin 4.06 | max strain 2.0% (ribbon) | max squeeze 0.00 (ribbon) [155s]
