@@ -7,7 +7,7 @@ d = pickle.load(open(sys.argv[1], 'rb'))
 frames = d['frames']
 meta = {m[0]: m for m in d['flex_meta']}
 name, kind, r, W, nr, nc, color, rmin = meta['ribbon']
-L0 = 65.0 / (nr - 1)
+L0 = float(sys.argv[2]) / (nr - 1) if len(sys.argv) > 2 else 59.1 / (nr - 1)   # visible ribbon length (65 mm minus the tails inside the connector and the head)
 seen = []
 for i, f in enumerate(frames):
     if not seen or seen[-1][0] != f['step']:
