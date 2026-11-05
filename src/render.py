@@ -15,7 +15,7 @@ COL = {
     'carrier': ('#8e5bb5', 1.0), 'lens_cap': ('#222222', 1.0), 'usb_cover': ('#222222', 1.0),
     'cmp_radar': ('#2a9d8f', 1.0), 'cmp_tact': ('#555555', 1.0), 'cmp_camera': ('#111111', 1.0),
     'cmp_switch': ('#4a7fd4', 1.0), 'cmp_holder': ('#333333', 1.0), 'cmp_antenna': ('#d4af37', 1.0),
-    'cmp_xiao': ('#1f6b3a', 1.0), 'wire_fpc': ('#d98c1f', 1.0),
+    'cmp_xiao': ('#1f6b3a', 1.0), 'wire_fpc': ('#d98c1f', 1.0), 'cmp_ph': ('#f4d03f', 1.0), 'cmp_rcy': ('#c0392b', 1.0),
 }
 WIRECOL = {'signal': '#e63946', 'power': '#ff006e', 'rf': '#ffbe0b'}
 
@@ -130,6 +130,14 @@ def main():
     # 7 insert alone from below (structure)
     shot({k: v for k, v in full.items() if k in ('insert',)}, 'insert_from_below.png',
          [(120, -90, 60), (14.7, 38.6, 128), (0, 0, 1)], parallel=False, title='insert.stl from below', zoom=1.8)
+    # 8 plug zone P1 close-up (PH pair in its printed cage) and antenna wall
+    ph = {k: v for k, v in full.items() if k in ('plug', 'cmp_ph', 'cmp_holder', 'carrier', 'cmp_switch') or k.startswith('wire_power')}
+    shot(ph, 'ph_zone.png', [(70, 60, 55), (19, 6, 28), (0, 0, 1)], opac={'cmp_holder': 0.18}, parallel=False,
+         title='Plug zone P1: JST-PH pair (yellow) in its cage on the plug; holder translucent', zoom=2.4, size=(1600, 1200))
+    ant = {k: v for k, v in full.items() if k in ('insert', 'cmp_antenna', 'cmp_camera', 'wire_fpc', 'cmp_holder', 'keeper_b') or k.startswith('wire_rf')}
+    shot(ant, 'antenna_wall.png', [(300, 40, 118), (14.7, 40, 118), (0, 0, 1)], clip=((1, 0, 0), (14.7, 0, 0)),
+         opac={'cmp_holder': 0.3}, title='Section x = 14.7: antenna (gold) on the +y end wall, camera ribbon 13 mm away, cell tops below',
+         zoom=2.0, fit=False, size=(1600, 1200))
     print('renders written to', IMG)
 
 

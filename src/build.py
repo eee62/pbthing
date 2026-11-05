@@ -54,7 +54,9 @@ def main():
     export(P.lens_cap(0.1, at_origin=False), os.path.join(asm, 'lens_cap.stl'))
     export(P.usb_cover(0.1, at_origin=False), os.path.join(asm, 'usb_cover.stl'))
     comps = {'radar': C.radar(), 'tact': C.tact(), 'camera': C.camera(), 'switch': C.main_switch(),
-             'holder': C.holder(), 'antenna': C.antenna()}
+             'holder': C.holder(), 'antenna': C.antenna(), 'ph': C.ph_pair()}
+    if RCY_SPLICE:
+        comps['rcy'] = C.rcy_splice()
     for n, wp in comps.items():
         export(wp, os.path.join(asm, f'cmp_{n}.stl'))
     xi = cq.Compound.makeCompound([s for _, s in C.xiao_parts()])

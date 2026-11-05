@@ -7,9 +7,9 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] sleeve rebuild matches STL 
 
 1. Printed parts: single watertight solid (B-rep + exported STL)
-  [PASS] insert           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4061.9 bbox=23.9x71.7x34.5
+  [PASS] insert           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4783.9 bbox=23.9x71.7x34.5
   [PASS] insert           min build size >= 5 mm (smallest bbox side 23.9)
-  [PASS] plug             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=7412.1 bbox=23.9x71.7x27.0
+  [PASS] plug             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=7822.6 bbox=23.9x71.7x39.9
   [PASS] plug             min build size >= 5 mm (smallest bbox side 23.9)
   [PASS] tray             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=10375.0 bbox=100.3x63.2x27.8
   [PASS] tray             min build size >= 5 mm (smallest bbox side 27.8)
@@ -32,9 +32,9 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] usb_cover_C      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=112.9 bbox=12.4x6.5x1.5
 
 2. Interference, exact boolean volume, every pair of placed bodies (default switch H)
-  [PASS] all 406 pairs of 29 bodies max overlap volume = 0.000000 mm3
+  [PASS] all 496 pairs of 32 bodies max overlap volume = 0.000000 mm3
   minimum distance between neighbours (exact):
-    insert     - sleeve       0.250
+    insert     - sleeve       0.000
     keeper_a   - sleeve       0.250
     keeper_b   - sleeve       0.300
     keeper_c   - sleeve       0.300
@@ -60,10 +60,15 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
     usb_cover  - insert       0.050
     lens_cap   - camera       0.400
     usb_cover  - xiao         0.521
+    ph         - sleeve       0.550
+    ph         - holder       0.550
+    ph         - plug         0.300
+    antenna    - insert       0.050
+    antenna    - sleeve       1.500
 
 3. Assembly paths (exact swept volumes)
   [PASS] top module passes the 19.4 x 67.2 lip opening (all bodies below z=137 inside it) max outside volume 0.000000
-  min clearance of the top module to the lip (final position) = 0.250
+  min clearance of the top module to the lip (final position) = 0.000
   [PASS] bottom module (plug, carrier, switch, holder, power wires) inside cavity prism max outside 0.000000
   install order (insert face-down on glass): radar, tact -> keeper A -> camera -> keeper B -> XIAO -> keeper C
   [PASS] keeper_a install path (0, 0, -40) hits: none
@@ -79,9 +84,9 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
 
 4. Wall thickness and minimum features (ray casting on exported STL, opposite-face rays only)
   [PASS] insert         min wall 0.800 >= 0.8 
-  [PASS] insert         min internal gap/slot 0.798 >= 0.8 (no slot that could fuse shut) 
+  [PASS] insert         min internal gap/slot 0.799 >= 0.8 (no slot that could fuse shut) 
   [PASS] plug           min wall 0.800 >= 0.8 
-  [PASS] plug           min internal gap/slot 2.618 >= 0.8 (no slot that could fuse shut) 
+  [PASS] plug           min internal gap/slot 1.500 >= 0.8 (no slot that could fuse shut) 
   [PASS] keeper_a       min wall 0.800 >= 0.8 
   [PASS] keeper_a       min internal gap/slot 2.100 >= 0.8 (no slot that could fuse shut) 
   [PASS] keeper_b       min wall 0.800 >= 0.8 
@@ -132,6 +137,11 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] switch body top to carrier bridge (z, lost motion)         nominal 0.150  tolA 0.2  tolB 0.1  worst -0.000
   [PASS] knob (3.9 sq, diag 5.52) to knob hole D7.4 incl. 0.6 carrier play nominal 0.342  tolA 0.3  tolB 0.2  worst +0.092
   [PASS] knob to carrier shelf slot (per side)                      nominal 0.300  tolA 0.2  tolB 0.2  worst +0.100
+  [PASS] JST-PH pair to sleeve cavity wall (-y), y                  nominal 0.550  tolA 0.0  tolB 0.2  worst +0.450
+  [PASS] JST-PH pair to holder -y face, y                           nominal 0.550  tolA 0.2  tolB 0.2  worst +0.350
+  [PASS] JST-PH pair to cage ribs (per side, x)                     nominal 0.300  tolA 0.2  tolB 0.2  worst +0.100
+  [PASS] JST-PH pair to cage stop bar / bridge (z)                  nominal 0.400  tolA 0.2  tolB 0.1  worst +0.250
+  [PASS] cage rib to sleeve cavity corner (clearance, x=ribs outer, y=3.0) nominal 0.400  tolA 0.2  tolB 0.0  worst +0.300
   [PASS] cap/cover variant set: loosest variant always inserts (worst >= 0), steps <= 0.10 variants [0.05, 0.15, 0.25], combined per-side error +-0.25: actual clearance A -0.20..+0.30, B -0.10..+0.40, C +0.00..+0.50
 
 6. Wires and ribbon: swept at real diameter, zero overlap with every body, minimum bend radius
@@ -143,11 +153,13 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] button leg A -> XIAO D10 (input, pull-up)  d=1.10 len=14.4 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=1.440
   [PASS] button leg B -> XIAO D9 (driven LOW)       d=1.10 len=19.1 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=0.180
   [PASS] jumper pin2-pin5                           d=1.10 len=4.8 min_bend_r=None clear_to_solids=0.453 clear_to_other_wires=1.200
-  [PASS] jumper pin3-pin6                           d=1.10 len=4.8 min_bend_r=None clear_to_solids=0.453 clear_to_other_wires=1.200
-  [PASS] holder B+ (red) -> switch pin 2            d=1.10 len=38.7 min_bend_r=2.0 clear_to_solids=0.050 clear_to_other_wires=0.100
-  [PASS] switch pin 3 -> XIAO BAT+                  d=1.10 len=168.5 min_bend_r=2.0 clear_to_solids=0.100 clear_to_other_wires=0.100
-  [PASS] holder B- (black) -> XIAO BAT-             d=1.10 len=138.1 min_bend_r=2.0 clear_to_solids=0.050 clear_to_other_wires=0.100
-  [PASS] U.FL coax -> antenna                       d=1.13 len=37.8 min_bend_r=2.5 clear_to_solids=0.498 clear_to_other_wires=2.358
+  [PASS] jumper pin3-pin6                           d=1.10 len=4.8 min_bend_r=None clear_to_solids=0.453 clear_to_other_wires=1.179
+  [PASS] holder B+ (red) -> switch pin 2            d=1.10 len=38.4 min_bend_r=2.0 clear_to_solids=0.050 clear_to_other_wires=1.200
+  [PASS] switch pin 3 -> PH tail B+ (plug module)   d=1.10 len=37.2 min_bend_r=2.0 clear_to_solids=0.020 clear_to_other_wires=0.900
+  [PASS] holder B- (black) -> PH tail B- (plug module) d=1.10 len=4.4 min_bend_r=2.0 clear_to_solids=0.020 clear_to_other_wires=0.900
+  [PASS] PH housing B+ -> XIAO BAT+                 d=1.10 len=118.4 min_bend_r=2.0 clear_to_solids=0.020 clear_to_other_wires=0.100
+  [PASS] PH housing B- -> XIAO BAT-                 d=1.10 len=120.3 min_bend_r=2.0 clear_to_solids=0.020 clear_to_other_wires=0.100
+  [PASS] U.FL coax -> antenna                       d=1.13 len=48.3 min_bend_r=2.5 clear_to_solids=0.498 clear_to_other_wires=2.358
   FPC: solved loop bottom z = 112.21 for length 65.0 (holder top z = 97.0, margin 15.2)
      FPC length 40 mm -> loop bottom z 124.8
      FPC length 55 mm -> loop bottom z 117.3
@@ -172,13 +184,45 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] button flexure strain at full travel < 1 % travel 0.45 (pre 0.2 + switch 0.25), beam 4.8 x 2.0 x 0.8, lever 8.3: force 0.54 N, root strain 0.85 %
 
 9. Radar window and lens field of view
-  er=2.6: lambda/8 in resin = 0.96 mm  -> window 0.8 <= lambda/8
-  er=3.0: lambda/8 in resin = 0.90 mm  -> window 0.8 <= lambda/8
-  er=3.4: lambda/8 in resin = 0.84 mm  -> window 0.8 <= lambda/8
-  er=3.8: lambda/8 in resin = 0.80 mm  -> window 0.8 > lambda/8
+  er=3.2: lambda/8 in resin = 0.87 mm  -> window 0.8 <= lambda/8
+  er=3.6: lambda/8 in resin = 0.82 mm  -> window 0.8 <= lambda/8
+  er=4.0: lambda/8 in resin = 0.78 mm  -> window 0.8 > lambda/8
   antenna plane to window inner surface H = 1.00 mm (Hi-Link guide prefers 6.2 / 12.4; <6.2 needs testing) -> RISK, coupon includes the real window for a range test
   [PASS] lens FOV not vignetted up to 120 deg (assumed lens) unvignetted full angle 123.9 deg (cap pocket limit 123.9, opening limit 153.5)
 
+10. Connector zones, length cost, Wi-Fi geometry, heat proximity, free volume
+  [PASS] PH zone P1 (real mated size 5.9 x 4.5 x 11.4 + 0.2 margin) free of every printed part, holder and sleeve overlap 0.000000 mm3, zone 6.3 x 4.9 x 11.6
+  [PASS] -y column z 40.5..105.5: no printed part (kept clear) overlap 0.000000 mm3
+  [PASS] +y column z 40.5..105.5: no printed part (kept clear) overlap 0.000000 mm3
+  end-gap column cross-section: 5.6 mm in y (cavity wall to holder face) x 24.4 mm in x (reach for tweezers/forceps; NOT a fingertip, which needs about 14 mm)
+  conductor path lengths (RCY splice OFF):
+    B+ : wire   155.6 + connector bodies  11.4 + soldered/crimped-joint allowance   6.0 =   173.0 mm  (direct-solder baseline 168.5)
+    B- : wire   124.6 + connector bodies  11.4 + soldered/crimped-joint allowance   6.0 =   142.0 mm  (direct-solder baseline 138.1)
+    z-length of the -y column used: PH 11.4 mm at z 27.0..38.4
+    straight vertical run available for an inline splice: 71.6 mm (PH top to the z=110 lane); RCY needs 31.3 -> margin +40.3 mm
+  [PASS] RCY splice (23.3 mm + 2 x 4 mm allowance) fits the straight run above the PH pair 
+    slack of the XIAO-side pigtails needed to mate the PH pair outside the sleeve: about 87 mm per wire (stored above the holder: free box 24.4 x 72.2 x 15.2 mm)
+  Wi-Fi: lambda(2.45 GHz) = 122.4 mm, lambda/10 = 12.2 mm, lambda/4 = 30.6 mm
+    antenna to camera head (metal VCM/shield)             old position    3.9  new position   15.4 mm
+    antenna to camera FPC ribbon (copper)                 old position    1.8  new position   13.3 mm
+    antenna to cell tops (steel cans, holder top z=97)    old position    9.5  new position   11.1 mm
+    antenna to XIAO + expansion board                     old position   13.1  new position   24.6 mm
+    antenna to main switch (steel/brass)                  old position   90.1  new position   94.5 mm
+    antenna to radar PCB                                  old position   33.6  new position   45.1 mm
+    antenna to XIAO RF shield can                         old position   17.8  new position   29.3 mm
+  [PASS] antenna >= lambda/10 (12.2 mm) from camera head and camera ribbon ribbon 13.3, head 15.4 (was 1.8 / 3.9)
+    cell tops are 11.1 mm below the antenna (was 9.5): below lambda/10; cannot be raised further (antenna top z 138.0, faceplate rim z 138.5); range test decides.
+    antenna to sleeve cavity wall (+y): 4.0 mm of printed resin/air, no metal
+  heat: nearest printed surface to the hottest XIAO parts (forum-reported 80-95 C while streaming):
+    RF shield can   -> keeper_c  2.42 mm
+    XIAO main PCB   -> insert    0.05 mm
+    thermal growth of a 71.7 mm resin dimension at +40 K (CTE 90-103e-6/K): 0.30 mm (our nominal gaps are 0.25-0.25; same-resin parts grow together, a different resin sleeve does not)
+    thermal growth of a 23.9 mm resin dimension at +40 K (CTE 90-103e-6/K): 0.10 mm (our nominal gaps are 0.25-0.25; same-resin parts grow together, a different resin sleeve does not)
+  free internal volume (cavity below the lip top minus all bodies, XIAO as its bounding box): 130 cm3 = 0.130 L
+    if three 2.5 Ah cells all vented at 2 L/Ah (UCL/Sandia figure): 15 L = 116x the free volume; one cell: 5.0 L = 39x
+    if three 3.5 Ah cells all vented at 2 L/Ah (UCL/Sandia figure): 21 L = 162x the free volume; one cell: 7.0 L = 54x
+  swelling room around the 20 x 61 holder: x 2.2 mm per side, y 5.6 mm per end, z 15.2 mm above (FPC loop bottom)
+
 ==============================================================================
 FAILED CHECKS: 0
-run time 260 s
+run time 279 s

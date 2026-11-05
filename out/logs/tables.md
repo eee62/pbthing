@@ -34,6 +34,11 @@
 | switch body top to carrier bridge (z, lost motion) | 0.150 | 0.2 | 0.1 | 0.0 | **-0.000** |  |
 | knob (3.9 sq, diag 5.52) to knob hole D7.4 incl. 0.6 carrier play | 0.342 | 0.3 | 0.2 | 0.0 | **+0.092** |  |
 | knob to carrier shelf slot (per side) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** |  |
+| JST-PH pair to sleeve cavity wall (-y), y | 0.550 | 0.0 | 0.2 | 0.0 | **+0.450** | sleeve nominal (STL), PH +-0.2 [GUESS] |
+| JST-PH pair to holder -y face, y | 0.550 | 0.2 | 0.2 | 0.0 | **+0.350** | holder tol [GUESS] |
+| JST-PH pair to cage ribs (per side, x) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** |  |
+| JST-PH pair to cage stop bar / bridge (z) | 0.400 | 0.2 | 0.1 | 0.0 | **+0.250** |  |
+| cage rib to sleeve cavity corner (clearance, x=ribs outer, y=3.0) | 0.400 | 0.2 | 0.0 | 0.0 | **+0.300** | cavity corner r4 at x=23.45 is y=2.54 |
 
 | Wire / ribbon | Length mm | Min bend r | Clearance to solids | Clearance to other wires |
 |---|---:|---:|---:|---:|
@@ -45,16 +50,18 @@
 | button leg A -> XIAO D10 (input, pull-up) | 14.4 | 2.0 | 0.250 | 1.440 |
 | button leg B -> XIAO D9 (driven LOW) | 19.1 | 2.0 | 0.250 | 0.180 |
 | jumper pin2-pin5 | 4.8 | None | 0.453 | 1.200 |
-| jumper pin3-pin6 | 4.8 | None | 0.453 | 1.200 |
-| holder B+ (red) -> switch pin 2 | 38.7 | 2.0 | 0.050 | 0.100 |
-| switch pin 3 -> XIAO BAT+ | 168.5 | 2.0 | 0.100 | 0.100 |
-| holder B- (black) -> XIAO BAT- | 138.1 | 2.0 | 0.050 | 0.100 |
-| U.FL coax -> antenna | 37.8 | 2.5 | 0.498 | 2.358 |
+| jumper pin3-pin6 | 4.8 | None | 0.453 | 1.179 |
+| holder B+ (red) -> switch pin 2 | 38.4 | 2.0 | 0.050 | 1.200 |
+| switch pin 3 -> PH tail B+ (plug module) | 37.2 | 2.0 | 0.020 | 0.900 |
+| holder B- (black) -> PH tail B- (plug module) | 4.4 | 2.0 | 0.020 | 0.900 |
+| PH housing B+ -> XIAO BAT+ | 118.4 | 2.0 | 0.020 | 0.100 |
+| PH housing B- -> XIAO BAT- | 120.3 | 2.0 | 0.020 | 0.100 |
+| U.FL coax -> antenna | 48.3 | 2.5 | 0.498 | 2.358 |
 
 | Part | Volume mm3 | Bounding box mm | Min wall | Min internal gap |
 |---|---:|---|---:|---:|
-| insert | 4062 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
-| plug | 7412 | 23.9 x 71.7 x 27.0 | 0.80 | 2.62 |
+| insert | 4784 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
+| plug | 7823 | 23.9 x 71.7 x 39.9 | 0.80 | 1.50 |
 | tray | 10375 | 100.3 x 63.2 x 27.8 | nan | nan |
 | coupon | 4284 | 23.9 x 74.1 x 18.0 | 0.80 | 0.80 |
 | keeper_a | 444 | 23.6 x 27.2 x 6.7 | 0.80 | 2.10 |

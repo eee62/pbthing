@@ -72,9 +72,13 @@ plug.
             +------------+--------------------------------------------------+
                          | switched B+                 |
                          |                             |
+                 PH header tails (plug module)  -- JST-PH 2-pin pair, plug zone P1, -y end column
+                 PHR-2 housings (XIAO pigtails) -- (PH housings: 24-28 AWG wire; NOT the 22 AWG RCY wire)
+                         |                             |
                  XIAO bottom pad BAT+          XIAO bottom pad BAT-
                  (pad nearer the board end     (pad nearer the USB-C)
                   away from USB-C)
+   RCY (red SYP/SYR) pairs do not mate with PH (2.5 vs 2.0 mm pitch). They are NOT used in the default build.
 
  HLK-LD2410S J2 (back side, wires soldered straight into the holes, header removed)
    3V3  ---------------------------------  XIAO 3V3   (castellation, 5V/GND/3V3 side)
@@ -88,7 +92,7 @@ plug.
    leg B ---------------------------------  XIAO D9  = GPIO8  (OUTPUT LOW = local ground)
 
  Camera FPC -> expansion-board 24-pin connector (contacts as for the stock camera)
- Antenna U.FL -> XIAO U.FL (under the expansion board), FPC antenna on the insert guide wall
+ Antenna U.FL -> XIAO U.FL (under the expansion board), FPC antenna on the +y end wall of the insert
 ```
 
 Notes
@@ -118,7 +122,9 @@ Wire lengths in the model (add 30 mm service slack to each): see `out/logs/verif
 5. Solder to the XIAO bottom pads, all wires leaving toward the board's long edge that
    faces away from the antenna connector, lying flat:
    radar 3V3/GND/OT1/RX (≈ 30 mm each + slack), button D10/D9 (≈ 20 mm + slack),
-   BAT+ and BAT− (≈ 150 mm each; they will be spliced to the plug harness at step 7.2).
+   BAT+ and BAT− as two pigtails of ≈ 210 mm (24-28 AWG, 1.1 mm OD max) each ending in a crimped
+   PHR-2 housing (SPH-002T-P0.5S contacts). 210 mm = 118 mm to the PH zone + 87 mm so the pair can be
+   mated outside the sleeve (REVIEW §1.3).
 6. Solder the other ends to the radar J2 holes and the tact-switch legs.
 7. Plug the camera FPC into the Sense connector (latch closed) and the antenna U.FL.
 8. Power the whole harness from a bench supply on BAT+/BAT− (3.7 V) and test again.
@@ -139,7 +145,7 @@ in from the inside and later glued only by its ears in the insert seam.
 | 4.6 | **keeper B** onto the head base | +z | keeper_b install path: no hits |
 | 4.7 | XIAO stack, USB-C first into the closed collar; dress the FPC: out of the connector toward the USB end, kink outward (r 2) just below the SD socket, up past the socket, 180° fold under keeper B, down, U-loop (bottom ≈ z 112), up and 90° into the head (see `out/img/section_top_x14.7.png`). Lay the signal wires into their lanes (straight toward the XIAO edge). | +z | XIAO install path: no hits |
 | 4.8 | **keeper C**: U-foot under the XIAO bottom end; the battery leads pass its −y-open notch, the coax its +y-open notch | +z | keeper_c install path: no hits (wires already in place) |
-| 4.9 | antenna FPC on the +y face of the FPC guide wall (its own adhesive backing), coax along the model route | — | coax clear of all parts |
+| 4.9 | antenna FPC on the **−y face of the +y end wall** (its own adhesive backing; 30 mm long, z 108-138, centred), coax along the model route | — | coax clear of all parts |
 | 4.10 | Test everything again (USB-C cable into the collar, camera image, radar, button). | | |
 
 ---------------------------------------------------------------------------------------
@@ -149,11 +155,14 @@ in from the inside and later glued only by its ears in the insert seam.
 2. Carrier slides into the plug through the opening in the plug's −x side face, knob
    travelling in the hidden channel, until it stops at the +x end. The pins and wires come
    up through the roof slot. (The sleeve wall later closes this opening: carrier play 0.35 mm.)
-3. Holder red lead → switch pin 2 (already planned length in the model). Route the
-   switch-out wire and the holder black lead out through the −y wall passage and up the −y
-   end gap.
-4. Holder into the cradle (3 x-wall segments, 2 y-walls): **glue point G3**: a dot of epoxy
-   on each of the 6 support pads under the holder.
+3. Holder red lead → switch pin 2 (planned length in the model). Solder the **B2B-PH-K-S header**
+   (or a "PH 2-pin male with wires" pigtail) as a free-standing in-line connector: switch pin 3 →
+   tail B+ (x = 18.0), holder black lead → tail B− (x = 20.0). Mate the XIAO-side PHR-2 pigtails onto it
+   (the housings face up).
+4. Slide the mated pair into plug zone P1 **from the +y side, along −y** (two ribs, a stop bar under
+   the header body, a bridge above the housing; holder not yet fitted). Then holder into the cradle
+   (3 x-wall segments, 2 y-walls): **glue point G3**: a dot of epoxy on each of the 6 support pads
+   under the holder. Heat-shrink or a drop of flexible adhesive over the mated pair: PH has no lock.
 5. Cells in. With a meter on the two harness ends: switch latched = 3.7–4.2 V, released = open.
 
 ---------------------------------------------------------------------------------------
@@ -163,16 +172,17 @@ in from the inside and later glued only by its ears in the insert seam.
    small bead of slow epoxy on the top of each faceplate pad (5 pads + the radar skirt
    bottom) and on the rim under each keeper ear (6 ears). The ears float 0.2 mm above the rim
    (nominal): the epoxy fills that gap and fixes the keepers.
-2. Thread the BAT+ and BAT− leads up through the sleeve from its front opening and out of
-   its open bottom end.
+2. The XIAO pigtails hang from the module toward the sleeve's open bottom end; the sleeve slides over
+   them in step 3 and the PH housings end up outside the open end.
 3. Lower the sleeve, front face first, over the top module until the sleeve's front face
    sits on the glass. The pads now float 0.25 mm under the lip (epoxy-filled). Push four
    0.2 mm paper strips into the visible 0.25 mm seam (one per side) to centre the faceplate.
    Put ~300 g on the sleeve. Cure.
    * If the sleeve does **not** reach the glass (pads too tall by up to 0.15 mm in the worst
      tolerance case), sand the pads before gluing: see REPORT.
-4. Flip the device. Splice the XIAO leads to the plug harness (switch-out → BAT+, holder
-   black → BAT−) with solder + heat-shrink; stagger the two splices by 15 mm.
+4. Flip the device. The two XIAO pigtails hang out of the open end. Mate their PHR-2 housings
+   onto the plug module's header **outside the sleeve** (section 5.3-5.4), then feed the plug module
+   in. No soldering at this step.
 5. Test before closing (section 7).
 6. Push the slack loops up into the free space above the holder (z 97–112, 24 x 72 mm).
 7. **Glue point G2 — plug seam.** Epoxy on the plug rim (0–6 mm band), insert the plug, stand
@@ -201,6 +211,6 @@ in from the inside and later glued only by its ears in the insert seam.
 | G1 | insert seam: pads ↔ lip top, keeper ears ↔ faceplate rim | holds the top module (USB-C pull-out force) and fixes the three keepers |
 | G2 | plug seam: plug rim ↔ sleeve cavity | permanent bottom closure |
 | G3 | holder base ↔ 6 plug supports | holds the 76 mm holder against shocks; plug sub-assembly only |
-| (adhesive tape) | antenna FPC's own backing on the guide wall | supplied with the antenna |
+| (adhesive tape) | antenna FPC's own backing on the +y end wall | supplied with the antenna |
 
 No other glue is required.

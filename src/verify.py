@@ -131,6 +131,9 @@ def main():
         'lens_cap': solid_of(P.lens_cap(CAP_VARIANTS['A'], at_origin=False)),
         'usb_cover': solid_of(P.usb_cover(CAP_VARIANTS['A'], at_origin=False)),
     }
+    objs['ph'] = solid_of(C.ph_pair())
+    if RCY_SPLICE:
+        objs['rcy'] = solid_of(C.rcy_splice())
     fpc, finfo = W.fpc()
     objs['fpc'] = fpc
     wires = W.all_wires()
@@ -157,7 +160,8 @@ def main():
                  ('keeper_a', 'radar'), ('insert', 'camera'), ('keeper_b', 'camera'), ('insert', 'tact'),
                  ('fpc', 'xiao'), ('fpc', 'insert'), ('fpc', 'keeper_b'), ('fpc', 'camera'), ('fpc', 'holder'),
                  ('carrier', 'plug'), ('switch', 'carrier'), ('switch', 'plug'), ('holder', 'plug'),
-                 ('lens_cap', 'insert'), ('usb_cover', 'insert'), ('lens_cap', 'camera'), ('usb_cover', 'xiao')]:
+                 ('lens_cap', 'insert'), ('usb_cover', 'insert'), ('lens_cap', 'camera'), ('usb_cover', 'xiao'),
+                 ('ph', 'sleeve'), ('ph', 'holder'), ('ph', 'plug'), ('antenna', 'insert'), ('antenna', 'sleeve')]:
         d = dist(objs[a], objs[b])
         gaps[f'{a}-{b}'] = d
         out(f'    {a:10s} - {b:10s} {d:7.3f}')
@@ -187,7 +191,8 @@ def main():
     out(f'  min clearance of the top module to the lip (final position) = {dmin:.3f}')
     # 3b. bottom module inside cavity prism
     cav = rrect(CAV_X0, CAV_X1, CAV_Y0, CAV_Y1, -5, LIP_Z0, CAV_R)
-    bottom_module = ['plug', 'carrier', 'switch', 'holder'] + ['W:' + w['name'] for w in wires if w['group'] == 'power']
+    bottom_module = ['plug', 'carrier', 'switch', 'holder', 'ph'] + (['rcy'] if RCY_SPLICE else []) + \
+        ['W:' + w['name'] for w in wires if w['group'] == 'power']
     worst = max(objs[n].cut(cav.val()).Volume() for n in bottom_module)
     check('bottom module (plug, carrier, switch, holder, power wires) inside cavity prism', worst <= 1e-6,
           f'max outside {worst:.6f}')
@@ -377,7 +382,7 @@ def main():
 
     # ---------------------------------------------------------------- 9. radar window, lens FOV
     out('\n9. Radar window and lens field of view')
-    for er in (2.6, 3.0, 3.4, 3.8):
+    for er in (3.2, 3.6, 4.0):    # 9000HE datasheet: 3.2-4.0 at 1 MHz (no 24 GHz value published)
         l8 = 299.792458 / 24.125 / math.sqrt(er) / 8
         out(f'  er={er}: lambda/8 in resin = {l8:.2f} mm  -> window {WIN_T} {"<=" if WIN_T <= l8 else ">"} lambda/8')
     h_air = (Z_FRONT - WIN_T) - RAD_Z1
@@ -390,13 +395,16 @@ def main():
           f'unvignetted full angle {fov:.1f} deg (cap pocket limit {2 * a_cb:.1f}, opening limit {2 * a_op:.1f})')
     RES['optics'] = dict(radar_H=h_air, fov=fov)
 
+    review_numbers(objs, wires, xparts, finfo, printed)
+
     # ---------------------------------------------------------------- summary
     out('\n' + '=' * 78)
     out(f'FAILED CHECKS: {len(FAILS)}' + ('' if not FAILS else ' -> ' + '; '.join(FAILS)))
     out(f'run time {time.time() - t0:.0f} s')
-    with open(os.path.join(ROOT, 'out', 'logs', 'verify.txt'), 'w') as f:
+    sfx = '_rcy' if RCY_SPLICE else ''
+    with open(os.path.join(ROOT, 'out', 'logs', f'verify{sfx}.txt'), 'w') as f:
         f.write('\n'.join(LOG) + '\n')
-    with open(os.path.join(ROOT, 'out', 'logs', 'verify.json'), 'w') as f:
+    with open(os.path.join(ROOT, 'out', 'logs', f'verify{sfx}.json'), 'w') as f:
         json.dump(RES, f, indent=1, default=float)
     return len(FAILS)
 
@@ -521,8 +529,118 @@ def tolerance_table(g):
     r('switch body top to carrier bridge (z, lost motion)', P.SW_ZCLR, T, 0.1)
     r(f'knob (3.9 sq, diag 5.52) to knob hole D{P.KNOB_HOLE_D2} incl. 0.6 carrier play', (P.KNOB_HOLE_D2 - 3.9 * math.sqrt(2)) / 2 - 0.6, H, 0.2)
     r('knob to carrier shelf slot (per side)', (4.5 - SW_KNOB) / 2, T, 0.2)
+    r('JST-PH pair to sleeve cavity wall (-y), y', PH_YC - PH_D / 2 - CAV_Y0, 0.0, 0.2, note='sleeve nominal (STL), PH +-0.2 [GUESS]')
+    r('JST-PH pair to holder -y face, y', (CY - HOLDER_Y / 2) - (PH_YC + PH_D / 2), 0.2, 0.2, note='holder tol [GUESS]')
+    r('JST-PH pair to cage ribs (per side, x)', PH_CLR, T, 0.2)
+    r('JST-PH pair to cage stop bar / bridge (z)', 0.4, T, 0.1)
+    r('cage rib to sleeve cavity corner (clearance, x=ribs outer, y=3.0)', 0.40, T, 0.0, note='cavity corner r4 at x=23.45 is y=2.54')
     return rows
 
+
+def review_numbers(objs, wires, xparts, finfo, printed):
+    """Numbers behind REVIEW_CONNECTORS_WIFI_SEAL.md: connector zones, length cost, Wi-Fi distances,
+    heat proximity, free volume. Checks are pass/fail where a physical limit exists."""
+    out('\n10. Connector zones, length cost, Wi-Fi geometry, heat proximity, free volume')
+    R = RES.setdefault('review', {})
+    ins = objs['insert']; plug = objs['plug']
+    printed_parts = ['insert', 'keeper_a', 'keeper_b', 'keeper_c']
+    # 10a. plug zone P1: keep-out around the real mated size, free of printed parts
+    zx0, zx1 = PH_XC - PH_W / 2 - 0.2, PH_XC + PH_W / 2 + 0.2
+    body_zone = box(zx0, zx1, PH_YC - PH_D / 2 - 0.2, PH_YC + PH_D / 2 + 0.2, PH_Z0 + PH_TAIL - 0.2, PH_Z0 + PH_L + 0.2).val()
+    tail_zone = box(PH_PIN_X[0] - 0.75, PH_PIN_X[1] + 0.75, PH_YC - 0.75, PH_YC + 0.75, PH_Z0 - 1.0, PH_Z0 + PH_TAIL).val()  # tails + wire
+    zone = cq.Compound.makeCompound([body_zone, tail_zone])
+    ov = sum(vol_common(zone, objs[n]) for n in ['plug', 'insert', 'keeper_a', 'keeper_b', 'keeper_c', 'holder', 'sleeve'])
+    check('PH zone P1 (real mated size 5.9 x 4.5 x 11.4 + 0.2 margin) free of every printed part, holder and sleeve',
+          ov <= 1e-6, f'overlap {ov:.6f} mm3, zone {zx1 - zx0:.1f} x {PH_D + 0.4:.1f} x {PH_L + 0.2:.1f}')
+    R['ph_zone'] = dict(w=PH_W, d=PH_D, l=PH_L)
+    # 10b. end-gap columns (the only vertical open shafts): free of printed parts between the cage and the antenna wall
+    gap_cols = {'-y column': box(CAV_X0, CAV_X1, CAV_Y0, 8.0, 40.5, ANT_WALL_Z0 - 0.5).val(),
+                '+y column': box(CAV_X0, CAV_X1, 69.3, CAV_Y1, 40.5, ANT_WALL_Z0 - 0.5).val()}
+    for nm, col in gap_cols.items():
+        o = sum(vol_common(col, objs[n]) for n in ['plug', 'insert', 'keeper_a', 'keeper_b', 'keeper_c'])
+        check(f'{nm} z 40.5..{ANT_WALL_Z0 - 0.5:.1f}: no printed part (kept clear)', o <= 1e-6, f'overlap {o:.6f} mm3')
+    out(f'  end-gap column cross-section: {CAV_Y0 + 5.6 - CAV_Y0:.1f} mm in y (cavity wall to holder face) x {CAV_X1 - CAV_X0:.1f} mm in x '
+        f'(reach for tweezers/forceps; NOT a fingertip, which needs about 14 mm)')
+    # 10c. length cost
+    pw = {w['name']: w for w in wires if w['group'] == 'power'}
+    base = {'B+ (switch -> XIAO BAT+)': 168.5, 'B- (holder -> XIAO BAT-)': 138.1}   # previous direct-solder harness
+    bp_parts = [w for n, w in pw.items() if n.startswith('switch pin 3') or ('B+' in n and 'XIAO' in n and 'holder' not in n)]
+    bn_parts = [w for n, w in pw.items() if n.startswith('holder B- (black)') or ('B-' in n and 'XIAO' in n)]
+    Lbp = sum(w['length'] for w in bp_parts); Lbn = sum(w['length'] for w in bn_parts)
+    extra = PH_L + (RCY_L if RCY_SPLICE else 0.0)
+    joints = 2 + (2 if RCY_SPLICE else 0)
+    allow = 2 * PH_ALLOW + (2 * RCY_ALLOW if RCY_SPLICE else 0.0)
+    out(f'  conductor path lengths (RCY splice {"ON" if RCY_SPLICE else "OFF"}):')
+    out(f'    B+ : wire {Lbp:7.1f} + connector bodies {extra:5.1f} + soldered/crimped-joint allowance {allow:5.1f} = {Lbp + extra + allow:7.1f} mm'
+        f'  (direct-solder baseline {base["B+ (switch -> XIAO BAT+)"]:.1f})')
+    out(f'    B- : wire {Lbn:7.1f} + connector bodies {extra:5.1f} + soldered/crimped-joint allowance {allow:5.1f} = {Lbn + extra + allow:7.1f} mm'
+        f'  (direct-solder baseline {base["B- (holder -> XIAO BAT-)"]:.1f})')
+    out(f'    z-length of the -y column used: PH {PH_L:.1f} mm at z {PH_Z0:.1f}..{PH_Z0 + PH_L:.1f}'
+        + (f', RCY {RCY_L:.1f} mm at z {RCY_Z0:.1f}..{RCY_Z0 + RCY_L:.1f}' if RCY_SPLICE else ''))
+    run = (110.0 - (PH_Z0 + PH_L))
+    out(f'    straight vertical run available for an inline splice: {run:.1f} mm (PH top to the z=110 lane); '
+        f'RCY needs {RCY_L + 2 * RCY_ALLOW:.1f} -> margin {run - (RCY_L + 2 * RCY_ALLOW):+.1f} mm')
+    check('RCY splice (23.3 mm + 2 x 4 mm allowance) fits the straight run above the PH pair', run >= RCY_L + 2 * RCY_ALLOW)
+    R['length'] = dict(B_plus=Lbp + extra + allow, B_minus=Lbn + extra + allow, wire_B_plus=Lbp, wire_B_minus=Lbn,
+                       extra_bodies=extra, allowance=allow, rcy=RCY_SPLICE, baseline_Bp=168.5, baseline_Bn=138.1)
+    # slack needed to mate outside the sleeve: PH zone to the sleeve mouth + 60 mm of hand room
+    slack = PH_Z0 + 60.0
+    out(f'    slack of the XIAO-side pigtails needed to mate the PH pair outside the sleeve: about {slack:.0f} mm per wire '
+        f'(stored above the holder: free box 24.4 x 72.2 x {finfo["loop_bottom"] - (HOLDER_Z0 + HOLDER_Z):.1f} mm)')
+    # 10d. Wi-Fi geometry
+    lam = 299.792458 / 2.45
+    out(f'  Wi-Fi: lambda(2.45 GHz) = {lam:.1f} mm, lambda/10 = {lam / 10:.1f} mm, lambda/4 = {lam / 4:.1f} mm')
+    ant_old = box(CX - ANT_W / 2, CX + ANT_W / 2, FPCW_Y1 + 0.05, FPCW_Y1 + 0.05 + ANT_T, 106.5, 106.5 + ANT_L).val()
+    cand = {'camera head (metal VCM/shield)': objs['camera'], 'camera FPC ribbon (copper)': objs['fpc'],
+            'cell tops (steel cans, holder top z=97)': objs['holder'], 'XIAO + expansion board': objs['xiao'],
+            'main switch (steel/brass)': objs['switch'], 'radar PCB': objs['radar']}
+    for n, s in xparts:
+        if 'USB' in n and 'PORT (1)' in n:
+            cand['USB-C shell'] = s
+        if n.startswith('Shield'):
+            cand['XIAO RF shield can'] = s
+    ant_new = objs['antenna']
+    rows = []
+    for k, s in cand.items():
+        dn, do = dist(ant_new, s), dist(ant_old, s)
+        rows.append((k, do, dn))
+        out(f'    antenna to {k:42s} old position {do:6.1f}  new position {dn:6.1f} mm')
+    R['wifi'] = [dict(item=k, old=do, new=dn) for k, do, dn in rows]
+    rib = [r for r in rows if 'ribbon' in r[0]][0]
+    cam = [r for r in rows if 'camera head' in r[0]][0]
+    cells = [r for r in rows if 'cell tops' in r[0]][0]
+    check('antenna >= lambda/10 (12.2 mm) from camera head and camera ribbon', rib[2] >= lam / 10 and cam[2] >= lam / 10,
+          f'ribbon {rib[2]:.1f}, head {cam[2]:.1f} (was {rib[1]:.1f} / {cam[1]:.1f})')
+    out(f'    cell tops are {cells[2]:.1f} mm below the antenna (was {cells[1]:.1f}): below lambda/10; cannot be raised further '
+        f'(antenna top z {ANT_Z0 + ANT_L:.1f}, faceplate rim z {Z_RIM}); range test decides.')
+    out(f'    antenna to sleeve cavity wall (+y): {CAV_Y1 - (ANT_Y0 + ANT_T):.1f} mm of printed resin/air, no metal')
+    # 10e. heat proximity (resin HDT 60 C, Tg 61-68 C)
+    hot = {n: s for n, s in xparts if n.startswith('Shield') or n.startswith('=>')}
+    out('  heat: nearest printed surface to the hottest XIAO parts (forum-reported 80-95 C while streaming):')
+    for nm, s in hot.items():
+        dd = min((dist(s, objs[n]), n) for n in printed_parts)
+        out(f'    {("RF shield can" if nm.startswith("Shield") else "XIAO main PCB"):15s} -> {dd[1]:9s} {dd[0]:.2f} mm')
+    R['heat'] = {nm: min(dist(s, objs[n]) for n in printed_parts) for nm, s in hot.items()}
+    for L_ in (71.7, 23.9):
+        out(f'    thermal growth of a {L_} mm resin dimension at +40 K (CTE 90-103e-6/K): {L_ * 103e-6 * 40:.2f} mm '
+            f'(our nominal gaps are {G_FACE:.2f}-{G_PLUG:.2f}; same-resin parts grow together, a different resin sleeve does not)')
+    # 10f. free volume and swelling margins
+    prism = rrect(CAV_X0, CAV_X1, CAV_Y0, CAV_Y1, 0.0, LIP_Z1, CAV_R)
+    free = prism.val().cut(objs['sleeve'])
+    for n in ['plug', 'insert', 'keeper_a', 'keeper_b', 'keeper_c', 'holder', 'carrier', 'switch', 'radar', 'camera', 'fpc', 'ph']:
+        free = free.cut(objs[n])
+    xb = objs['xiao'].BoundingBox()
+    free = free.cut(box(xb.xmin, xb.xmax, xb.ymin, xb.ymax, xb.zmin, xb.zmax).val())
+    vfree = free.Volume() / 1000.0
+    out(f'  free internal volume (cavity below the lip top minus all bodies, XIAO as its bounding box): {vfree:.0f} cm3 = {vfree / 1000:.3f} L')
+    for ah in (2.5, 3.5):
+        gas = 3 * ah * 2.0
+        out(f'    if three {ah} Ah cells all vented at 2 L/Ah (UCL/Sandia figure): {gas:.0f} L = {gas / (vfree / 1000):.0f}x the free volume; '
+            f'one cell: {gas / 3:.1f} L = {gas / 3 / (vfree / 1000):.0f}x')
+    out(f'  swelling room around the 20 x 61 holder: x {(CAV_X1 - CAV_X0 - HOLDER_X) / 2:.1f} mm per side, '
+        f'y {(CAV_Y1 - CAV_Y0 - HOLDER_Y) / 2:.1f} mm per end, z {finfo["loop_bottom"] - (HOLDER_Z0 + HOLDER_Z):.1f} mm above (FPC loop bottom)')
+    R['free_volume_cm3'] = vfree
+    R['er_note'] = '9000HE er 3.2-4.0 at 1 MHz; no value at 2.4 or 24 GHz is published'
 
 if __name__ == '__main__':
     sys.exit(1 if main() else 0)

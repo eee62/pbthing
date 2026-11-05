@@ -148,13 +148,15 @@ def button_wires():
 
 
 # battery / switch harness ---------------------------------------------------
-HOLDER_RED = (16.0, CY - HOLDER_Y / 2 - 0.05, 25.0)    # [GUESS] lead exits on the -y end face
-HOLDER_BLK = (12.0, CY - HOLDER_Y / 2 - 0.05, 25.0)
+HOLDER_RED = (12.5, CY - HOLDER_Y / 2 - 0.05, 24.5)    # [GUESS] lead exits on the -y end face
+HOLDER_BLK = (20.0, CY - HOLDER_Y / 2 - 0.05, 24.5)
 Y_RISER = 4.6                                           # wires run up the -y end gap
 Z_SW_WIRE = None                                        # set per switch height
 
 
 def switch_wires(h=SW_H_DEFAULT):
+    """Battery harness. Solid-wire runs end on the faces of the JST-PH pair (plug zone P1) in the -y end
+    column; with PB_RCY=1 the XIAO-side run also passes through a 23.3 mm RCY splice."""
     pins = C.switch_pin_xy()
     tip = SW_RECESS_OUT + h + SW_PIN_L
     zw = max(tip + 0.45, 18.6)            # wire level above the pocket roof (17.95)
@@ -165,29 +167,39 @@ def switch_wires(h=SW_H_DEFAULT):
         out.append(_wire(f'jumper pin{a}-pin{b}', [(xa, ya + 0.6, zw), (xb, yb - 0.6, zw)], group='power'))
     x2, y2 = pins[2]
     x3, y3 = pins[3]
-    # holder red (+) -> pin 2
+    # holder red (+) -> pin 2 (stays inside the plug module)
     rx, ry, rz = HOLDER_RED
     out.append(_wire('holder B+ (red) -> switch pin 2',
                      [(rx, ry, rz), (rx, Y_RISER, rz), (rx, Y_RISER, zw), (x2, Y_RISER + 6.0, zw), (x2, y2 - 0.6, zw)],
                      group='power'))
-    # pin 3 -> XIAO BAT+
-    bx, bz = PADS['BAT+']
-    out.append(_wire('switch pin 3 -> XIAO BAT+',
-                     [(x3, y3 - 0.6, zw), (x3, Y_RISER, zw), (x3, Y_RISER, 110.0), (bx, Y_WIRE - 6.0, 110.0),
-                      (bx, Y_WIRE, 110.0), (bx, Y_WIRE, bz)], group='power'))
-    # holder black (-) -> XIAO BAT-
+    pb, pn = PH_PIN_X                      # PH pin x: B+ (switched) and B-
+    z_in = PH_Z0 - 0.02                    # wire ends touch the tail ends
+    z_out = PH_Z0 + PH_L + 0.02
+    # plug-module side of the PH pair (header tails)
+    out.append(_wire('switch pin 3 -> PH tail B+ (plug module)',
+                     [(x3, y3 - 0.6, zw), (pb, 14.0, zw), (pb, PH_YC, zw), (pb, PH_YC, z_in)], group='power'))
     kx, ky, kz = HOLDER_BLK
+    out.append(_wire('holder B- (black) -> PH tail B- (plug module)',
+                     [(kx, ky, kz), (kx, PH_YC, kz), (kx, PH_YC, z_in)], group='power'))
+    # XIAO side (PHR housing pigtails) up the -y column, then along the bay to the BAT pads
+    bx, bz = PADS['BAT+']
     nx, nz = PADS['BAT-']
-    out.append(_wire('holder B- (black) -> XIAO BAT-',
-                     [(kx, ky, kz), (kx, Y_RISER, kz), (kx, Y_RISER, 107.8), (nx, Y_WIRE - 6.0, 107.8),
-                      (nx, Y_WIRE, 107.8), (nx, Y_WIRE, nz)], group='power'))
+    for nm, px, lane, tx, tz in (('B+ -> XIAO BAT+', pb, 110.0, bx, bz), ('B- -> XIAO BAT-', pn, 107.8, nx, nz)):
+        upper = [(px, PH_YC, lane), (px, Y_WIRE - 6.0, lane), (tx, Y_WIRE, lane), (tx, Y_WIRE, tz)]
+        if RCY_SPLICE:
+            z_r0, z_r1 = RCY_Z0 - 0.02, RCY_Z0 + RCY_L + 0.02
+            out.append(_wire(f'PH housing {nm} (lower, to RCY)', [(px, PH_YC, z_out), (px, PH_YC, z_r0)], group='power'))
+            out.append(_wire(f'RCY {nm} (upper, to XIAO)', [(px, PH_YC, z_r1)] + upper, group='power'))
+        else:
+            out.append(_wire(f'PH housing {nm}', [(px, PH_YC, z_out)] + upper, group='power'))
     return out
 
 
 def coax():
+    """U.FL -> antenna on the +y end wall. Runs under the FPC guide wall (z 102) then up its -y face."""
     x = 19.4
     start = (x, ys2y(2.4), xs2z(-8.45) + XIAO_DZ)
-    yy = ANT_Y0 + ANT_T + 1.1
+    yy = ANT_Y0 - COAX_D / 2 - 0.6
     pts = [start, (x, ys2y(2.4), 102.0), (x, yy - 4.4, 102.0), (CX, yy, 102.0), (CX, yy, ANT_Z0 - 0.5)]
     return _wire('U.FL coax -> antenna', pts, r=2.5, d=COAX_D, group='rf')
 
