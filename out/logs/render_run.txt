@@ -1,0 +1,6 @@
+[0m[33m2026-11-05 11:45:13.805 (   0.801s) [    7F6103C49740]vtkXOpenGLRenderWindow.:1460  WARN| bad X server connection. DISPLAY=[0m
+renders written to /home/user/pbthing/out/img
+
+real	0m9.380s
+user	0m12.355s
+sys	0m0.478s

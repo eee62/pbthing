@@ -126,6 +126,28 @@ def build_world(slack_signal=6.0, quick=False, xiao_stage=6.0, kb='keeper_b'):
     return B, flex, stage
 
 
+def dress_radar_wires(flex, hold_mm=10.0):
+    """Assembler lays the four radar wires straight into keeper A's slot before keeper A is lowered: the first `hold_mm` of
+    every radar wire is held on the straight lane leaving its J2 hole (down, -z, at the pad's x,y). Returns the handles to release."""
+    held = []
+    for f in flex:
+        if not f.name.startswith('radar'):
+            continue
+        seg = np.linalg.norm(np.diff(f.pos, axis=0), axis=1); cum = np.concatenate([[0.0], np.cumsum(seg)])
+        idx = np.where(cum <= hold_mm)[0]
+        p0 = f.pos[0]
+        tgt = np.array([[p0[0], p0[1], p0[2] - c] for c in cum[idx]])
+        f.anchors.append((idx, ('fixed', tgt), None)); w_old = f.w[idx].copy(); f.w[idx] = 0.0
+        held.append((f, idx, w_old))
+    return held
+
+
+def release_dressed(held):
+    for f, idx, w_old in held:
+        f.anchors = [a for a in f.anchors if not (isinstance(a[1], tuple) and a[1][0] == 'fixed' and a[0] is idx)]
+        f.w[idx] = np.where(idx == 0, 0.0, 1.0)
+
+
 def env_list(B):
     return [B[k] for k in ['insert', 'radar', 'tact', 'keeper_a', 'camera', 'keeper_b', 'xiao', 'keeper_c', 'sleeve']]
 
@@ -182,7 +204,7 @@ def do_step(label, body, B, flex, env, rec, t, x0, xf, speed, n_settle, quick, h
         if k >= n_move and info['err'] > hand.jam_mm:
             worst['jam'] = True
         if k % 3 == 0:
-            track(worst, flex, env, t)
+            track(worst, flex, active, t)          # hit-body indices refer to the ACTIVE list
         if k % 6 == 0 or k == n_move + n_settle - 1:
             i2 = dict(info); i2['label'] = label; rec.snap(label, t, i2)
     worst['wall_s'] = time.time() - t_wall
@@ -196,7 +218,7 @@ def do_step(label, body, B, flex, env, rec, t, x0, xf, speed, n_settle, quick, h
     return t
 
 
-def run(slack=6.0, quick=False, out=None, xiao_stage=6.0, kb='keeper_b', speed=None):
+def run(slack=6.0, quick=False, out=None, xiao_stage=6.0, kb='keeper_b', speed=None, dress=False):
     B, flex, stage = build_world(slack, quick, xiao_stage, kb)
     env = env_list(B)
     Hand.bodies_for_contact = env
@@ -215,7 +237,14 @@ def run(slack=6.0, quick=False, out=None, xiao_stage=6.0, kb='keeper_b', speed=N
     settle = 60 if quick else 150
     for label, name, dist, sp0 in order:
         b = B[name]; b.active = True
+        held = dress_radar_wires(flex) if (dress and name == 'keeper_a') else None
+        if held:
+            for k in range(120):                                  # lay the wires straight, then lower keeper A with them held in the slot
+                for f in flex:
+                    f.step(DT, [e for e in env if e.active], iters=(30 if f.kind == 'ribbon' else 12), gq=getattr(f, 'gq', 0.0))
         t = do_step(label, b, B, flex, env, rec, t, b.x.copy(), b.com.copy(), (speed or sp0), settle, quick)
+        if held:
+            release_dressed(held)
     b = B['sleeve']; b.active = True
     b.translate_from_final((0, 0, -50.0))
     t = do_step('S8 sleeve over module', b, B, flex, env, rec, t, b.x.copy(), b.com.copy(), (speed or 20.0), settle, quick)
@@ -234,6 +263,7 @@ if __name__ == '__main__':
     ap.add_argument('--out', default=None)
     ap.add_argument('--xiao-stage', type=float, default=6.0)
     ap.add_argument('--kb', default='keeper_b')
+    ap.add_argument('--dress', action='store_true', help='lay the radar wires straight into keeper A slot before S3')
     ap.add_argument('--speed', type=float, default=None, help='hand speed in mm/s for every step (default: 5-20 mm/s per step)')
     a = ap.parse_args()
-    run(a.slack, a.quick, a.out, a.xiao_stage, a.kb, a.speed)
+    run(a.slack, a.quick, a.out, a.xiao_stage, a.kb, a.speed, a.dress)
