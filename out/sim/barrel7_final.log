@@ -4,3 +4,8 @@ S1 radar                 rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.83
 S2 tact switch           rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.14 | wire Rmin 4.80 | max strain 0.1% (button leg B -> XIAO D9 (driven LOW)) | max squeeze 0.00 (ribbon) [84s]
 S3 keeper A              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.27 | wire Rmin 1.18 | max strain 40.9% (radar 3V3 -> XIAO 3V3) | max squeeze 0.30 (radar GND -> XIAO GND) [141s]
 S4 camera + heatsink     rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.35 | wire Rmin 1.55 | max strain 14.2% (radar GND -> XIAO GND) | max squeeze 0.30 (radar GND -> XIAO GND) [153s]
+S5 keeper B              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.31 | wire Rmin 1.76 | max strain 11.5% (radar GND -> XIAO GND) | max squeeze 0.30 (radar GND -> XIAO GND) [155s]
+S6 XIAO stack            rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 1.76 | max strain 11.5% (radar GND -> XIAO GND) | max squeeze 0.30 (radar GND -> XIAO GND) [161s]
+S7 keeper C              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.55 | wire Rmin 1.76 | max strain 2.2% (radar 3V3 -> XIAO 3V3) | max squeeze 0.30 (radar GND -> XIAO GND) [182s]
+S8 sleeve over module    rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.97 | wire Rmin 1.76 | max strain 2.2% (radar 3V3 -> XIAO 3V3) | max squeeze 0.30 (radar GND -> XIAO GND) [663s]
+saved out/sim/barrel7_final_h14_s16_dress.pkl 2025 frames

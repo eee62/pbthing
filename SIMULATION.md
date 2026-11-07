@@ -3,7 +3,15 @@
 Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm (base bottom to lens top), heatsink
 **7.0 mm (x) × 7.1 mm (y) × 6.0 mm high**, centred on the base (offset 0 in x and y: base centre x 14.70, y 50.725; heatsink x 11.20–18.20,
 y 47.175–54.275), glued behind the base with a **0.1 mm pad** (same footprint as the heatsink, footprint assumed). Total
-5.6 + 0.1 + 6.0 = **11.7 mm**, z 127.2–138.9 (unchanged). Fins are not modelled (solid envelope). Ribbon exit: out of the head's +y edge, 65 mm, minimum bend radius 2.0 mm, route in
+5.6 + 0.1 + 6.0 = **11.7 mm**, z 127.2–138.9 (unchanged). Fins are not modelled (solid envelope).
+
+**Latest camera update:** lens barrel Ø7 × 3.45 mm (was Ø3.8 × 1.0), lens-holder block 8.65 × 8.65 × 1.75 mm (was 4.2), front glass Ø3.5, ribbon
+6 mm wide (was 13), faceplate lens hole Ø7.6 (0.3 mm per side, hole tolerance ±0.3). Re-run (`out/sim/barrel7_*`): rigid parts still never jam or collide;
+ribbon and wire results match the table below to within 0.1 mm (S4 2.35, S5 2.31, S6 **1.56**, S8 1.97 mm; wire strain and squeeze identical); hold-off scan:
+11 mm still fails at S5 (0.52 mm), 12.5 mm clean (2.17 mm, S6 1.54 mm), so **12.5 mm hold-off and the S6 dip are unchanged**. (`out/sim/hold_*.json` now hold this run; the
+previous scan is in git history.) The narrower ribbon changes nothing because the route and its minimum radius are the same.
+
+Ribbon exit: out of the head's +y edge, 65 mm, minimum bend radius 2.0 mm, route in
 `src/wires.py` (verified numerically: no pinch, radius ≥ 2.0 mm, 111 PASS / 0 FAIL in `out/logs/verify.txt`).
 
 ## 1. Bottom line

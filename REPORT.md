@@ -327,3 +327,7 @@ Renders: `out/img/front.png`, `front_caps_off.png`, `bottom.png`, `exploded.png`
   through the opening, but it then needs a new bottom-loaded retainer. 9000HE εr is 3.2–4.0 (datasheet, 1 MHz), not 2.6–3.8.
 * **Simulation limits:** quasi-static solver with qualitative stiffness, 0.1 mm fields, frictionless rigid contacts, assumed heatsink and radar-component sizes,
   undressed wires, plug not simulated.
+* **Camera update (Ø7 barrel):** barrel Ø7.0 × 3.45 mm, lens-holder block 1.75 mm, front glass Ø3.5, ribbon 6 mm wide, faceplate lens hole Ø7.6 (0.3 mm per side;
+  worst-case clearance +0.05 mm with hole ±0.3 and barrel ±0.2). Cap pocket stays Ø11 × 1.2 (1.7 mm land beside the hole); barrel top still 1.6 mm below the face.
+  FOV: unvignetted 133.8° (cap pocket now the limit; was 132.1°). Keeper B geometry did not need to change. Verify: 0 failed checks. Note: the 6 mm ribbon
+  is half the 12.5 mm stock tail measured in the STEP; check it fits the 24-pin connector.
