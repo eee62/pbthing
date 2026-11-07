@@ -5,6 +5,15 @@ Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm
 y 47.175–54.275), glued behind the base with a **0.1 mm pad** (same footprint as the heatsink, footprint assumed). Total
 5.6 + 0.1 + 6.0 = **11.7 mm**, z 127.2–138.9 (unchanged). Fins are not modelled (solid envelope).
 
+**Latest (radar header kept, wires soldered to the pin tips):** run `out/sim/header_final_h14_s16_dress.*` (XIAO 14 mm aside, slack 16, dressed) and `header_final_nodress.*`.
+No rigid jam or collision; ribbon identical (S4 2.35, S5 2.31, S6 **1.56**, S8 1.97 mm; hold-off 12.5 mm unchanged: the header is on the radar, far from the ribbon). Wires:
+* **Dressed:** S4–S8 clean (squeeze 0.00, wire strain ≤ 3.8 %, S3 end 0.1 %), better than before the header (a 0.30 mm squeeze of the GND wire persisted S3–S8). But during keeper A's descent (S3)
+  the GND and 3V3 wires are **momentarily squeezed 1.34 / 1.27 mm** at y ≈ 30–31: keeper A's tact bridge (x 12.2–22.6, y 29.2–32.4, z 131.6–132.4) comes from −z and sweeps through the
+  wire level (GND run z 130.9, 3V3 z 130.2) before it reaches its seat above them. They are pushed aside and recover; in practice guide them clear of the bridge while keeper A goes down.
+  (The GND wire already ran at this level before the header; the header does not cause it.)
+* **Undressed:** the GND wire stays caught between the tact switch and keeper A from S3 to S8 (1.10 mm squeeze, 14 % strain); 3V3 0.30 mm.
+* The radar wires are now 19–27 mm long (7.3 mm shorter than from the J2 holes) and no longer pass between the radar back components and keeper A's plate.
+
 **Latest (lens hole Ø8.0, USB-C pocket 13.3 × 7.4):** re-run `out/sim/lens8_*`: identical to the Ø7.6 run (S4 2.35, S5 2.31, S6 1.56, S8 1.97 mm; no rigid jam/collision; wire numbers
 identical; 12.5 mm hold-off clean 2.17 mm, S6 1.54 mm). Neither the hole nor the pocket touches anything that moves in the simulation. The radar header is not simulated (`HEADER_STUDY.md`).
 

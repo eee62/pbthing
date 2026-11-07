@@ -1,2 +1,11 @@
 bodies ready 6s
 flex bodies: 10, particles 446  6s
+S1 radar                 rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.83 | wire Rmin 4.72 | max strain 0.3% (radar OT1 -> XIAO D7) | max squeeze 0.00 (ribbon) [82s]
+S2 tact switch           rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.14 | wire Rmin 3.62 | max strain 0.8% (radar GND -> XIAO GND) | max squeeze 0.00 (ribbon) [73s]
+S3 keeper A              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.27 | wire Rmin 2.54 | max strain 0.1% (radar GND -> XIAO GND) | max squeeze 1.34 (radar GND -> XIAO GND) [111s]
+S4 camera + heatsink     rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.35 | wire Rmin 3.20 | max strain 3.8% (ribbon) | max squeeze 0.00 (ribbon) [130s]
+S5 keeper B              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 2.31 | wire Rmin 6.66 | max strain 0.3% (ribbon) | max squeeze 0.00 (ribbon) [133s]
+S6 XIAO stack            rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.56 | wire Rmin 2.88 | max strain 2.3% (ribbon) | max squeeze 0.00 (ribbon) [138s]
+S7 keeper C              rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.55 | wire Rmin 4.06 | max strain 1.7% (U.FL coax) | max squeeze 0.00 (ribbon) [159s]
+S8 sleeve over module    rigid depth 0.000 lag 0.02 jam False | ribbon Rmin 1.97 | wire Rmin 3.93 | max strain 0.1% (ribbon) | max squeeze 0.00 (ribbon) [567s]
+saved out/sim/header_final_h14_s16_dress.pkl 2025 frames
