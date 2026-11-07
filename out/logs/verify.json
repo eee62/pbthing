@@ -6,7 +6,7 @@
  },
  "parts": {
   "insert": {
-   "volume": 4057.3210345345597,
+   "volume": 4037.1340191567956,
    "bbox": [
     23.9,
     71.7,
@@ -22,7 +22,7 @@
    ]
   },
   "tray": {
-   "volume": 10442.964761658204,
+   "volume": 10441.771735028437,
    "bbox": [
     100.25000000000001,
     63.200000000000045,
@@ -30,7 +30,7 @@
    ]
   },
   "coupon": {
-   "volume": 4274.259239191299,
+   "volume": 4254.072223813537,
    "bbox": [
     23.9,
     73.97500000000001,
@@ -118,10 +118,10 @@
    ]
   },
   "usb_cover_A": {
-   "volume": 123.31111485475917,
+   "volume": 135.37111485475913,
    "bbox": [
-    12.8,
-    6.900000000000001,
+    13.200000000000001,
+    7.300000000000002,
     1.5
    ]
   },
@@ -134,10 +134,10 @@
    ]
   },
   "usb_cover_B": {
-   "volume": 118.07916814417449,
+   "volume": 129.89916814417447,
    "bbox": [
-    12.600000000000001,
-    6.700000000000001,
+    13.0,
+    7.100000000000001,
     1.5
    ]
   },
@@ -150,10 +150,10 @@
    ]
   },
   "usb_cover_C": {
-   "volume": 112.94146921319754,
+   "volume": 124.52146921319755,
    "bbox": [
-    12.400000000000002,
-    6.500000000000001,
+    12.8,
+    6.900000000000001,
     1.5
    ]
   }
@@ -194,7 +194,7 @@
  "walls": {
   "insert": {
    "min_wall": 0.7998877929687467,
-   "min_gap": 0.7989440884567949
+   "min_gap": 0.7982391603862831
   },
   "plug": {
    "min_wall": 0.799900011920929,
@@ -226,7 +226,7 @@
   },
   "coupon": {
    "min_wall": 0.7998877929687467,
-   "min_gap": 0.7985499227718602
+   "min_gap": 0.7985441834852035
   }
  },
  "tolerances": [
@@ -384,12 +384,12 @@
    "note": "head size [GUESS]"
   },
   {
-   "fit": "lens barrel to lens opening (hole \u00d87.6, per side)",
-   "nominal": 0.2999999999999998,
+   "fit": "lens barrel to lens opening (hole \u00d88.0, per side)",
+   "nominal": 0.5,
    "tolA": 0.3,
    "tolB": 0.2,
    "extra": 0.0,
-   "worst": 0.04999999999999982,
+   "worst": 0.25,
    "note": "hole tol +-0.3 [USER], barrel +-0.2 [GUESS]"
   },
   {
@@ -462,13 +462,22 @@
    "friction": false
   },
   {
-   "fit": "cable overmold 12.35 x 6.5 [GUESS] in pocket (per side, short side)",
-   "nominal": 0.25,
+   "fit": "cable overmold 12.5 x 6.6 in pocket (per side, short side)",
+   "nominal": 0.40000000000000036,
    "tolA": 0.3,
    "tolB": 0.0,
    "extra": 0.0,
-   "worst": 0.1,
-   "note": ""
+   "worst": 0.25000000000000033,
+   "note": "largest spec-compliant overmold [USER]"
+  },
+  {
+   "fit": "cable overmold 12.5 x 6.6 in pocket (per side, long side)",
+   "nominal": 0.40000000000000036,
+   "tolA": 0.3,
+   "tolB": 0.0,
+   "extra": 0.0,
+   "worst": 0.25000000000000033,
+   "note": "largest spec-compliant overmold [USER]"
   },
   {
    "fit": "holder to plug cradle walls (per side)",

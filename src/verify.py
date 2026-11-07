@@ -389,6 +389,11 @@ def main():
     check(f'lens FOV not vignetted up to {LENS_FOV_DEG:.0f} deg (assumed lens)', fov >= LENS_FOV_DEG,
           f'unvignetted full angle {fov:.1f} deg (cap pocket limit {2 * a_cb:.1f}, opening limit {2 * a_op:.1f})')
     RES['optics'] = dict(radar_H=h_air, fov=fov)
+    w_cap = (CAM_Y - CAP_POCKET_D / 2) - (USB_Y + OVM_H / 2)
+    w_head = (CAM_Y0 - CAM_POCKET_CLR) - (USB_Y + OVM_H / 2)
+    w_btn = (USB_Y - OVM_H / 2) - (BTN_Y + BTN_D / 2) if 'BTN_D' in globals() else None
+    check('USB-C pocket %.1f x %.1f: wall to cap pocket >= 0.8 mm' % (OVM_W, OVM_H), w_cap >= 0.8, f'{w_cap:.2f} mm (cap pocket, y); to camera head pocket {w_head:.2f} mm')
+    check('lens hole land ring (cap pocket minus lens hole) >= 1.5 mm', (CAP_POCKET_D - LENS_OPEN_D) / 2 >= 1.5, f'{(CAP_POCKET_D - LENS_OPEN_D) / 2:.2f} mm per side')
 
     # ---------------------------------------------------------------- summary
     out('\n' + '=' * 78)
@@ -512,7 +517,8 @@ def tolerance_table(g):
         rows[-1]['friction'] = v != 'C'
         r(f'USB cover {v} in overmold pocket (per side)', c, H, T, note='friction fit')
         rows[-1]['friction'] = v != 'C'
-    r('cable overmold 12.35 x 6.5 [GUESS] in pocket (per side, short side)', (OVM_H - 6.5) / 2, H, 0.0)
+    r(f'cable overmold {CABLE_W} x {CABLE_H} in pocket (per side, short side)', (OVM_H - CABLE_H) / 2, H, 0.0, note='largest spec-compliant overmold [USER]')
+    r(f'cable overmold {CABLE_W} x {CABLE_H} in pocket (per side, long side)', (OVM_W - CABLE_W) / 2, H, 0.0, note='largest spec-compliant overmold [USER]')
     r('holder to plug cradle walls (per side)', HOLDER_CLR, T, T, note='holder tol [GUESS] +-0.2')
     r('plug to cavity wall (glue line, per side)', G_PLUG, T, T)
     r('switch carrier to plug pocket (per side, y)', P.POCKET_CLR, T, T)

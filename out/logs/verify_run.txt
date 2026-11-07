@@ -7,13 +7,13 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] sleeve rebuild matches STL 
 
 1. Printed parts: single watertight solid (B-rep + exported STL)
-  [PASS] insert           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4057.3 bbox=23.9x71.7x34.5
+  [PASS] insert           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4037.1 bbox=23.9x71.7x34.5
   [PASS] insert           min build size >= 5 mm (smallest bbox side 23.9)
   [PASS] plug             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=7412.1 bbox=23.9x71.7x27.0
   [PASS] plug             min build size >= 5 mm (smallest bbox side 23.9)
-  [PASS] tray             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=10443.0 bbox=100.3x63.2x27.8
+  [PASS] tray             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=10441.8 bbox=100.3x63.2x27.8
   [PASS] tray             min build size >= 5 mm (smallest bbox side 27.8)
-  [PASS] coupon           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4274.3 bbox=23.9x74.0x18.0
+  [PASS] coupon           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4254.1 bbox=23.9x74.0x18.0
   [PASS] coupon           min build size >= 5 mm (smallest bbox side 18.0)
   [PASS] keeper_a         brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=444.1 bbox=23.6x27.2x6.7
   [PASS] keeper_b         brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=284.1 bbox=23.6x8.6x11.9
@@ -25,11 +25,11 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] carrier_H13.5    brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=875.4 bbox=17.2x10.4x15.7
   [PASS] carrier_H14      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=875.4 bbox=17.2x10.4x15.7
   [PASS] lens_cap_A       brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=110.8 bbox=10.9x10.9x1.2
-  [PASS] usb_cover_A      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=123.3 bbox=12.8x6.9x1.5
+  [PASS] usb_cover_A      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=135.4 bbox=13.2x7.3x1.5
   [PASS] lens_cap_B       brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=106.8 bbox=10.7x10.7x1.2
-  [PASS] usb_cover_B      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=118.1 bbox=12.6x6.7x1.5
+  [PASS] usb_cover_B      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=129.9 bbox=13.0x7.1x1.5
   [PASS] lens_cap_C       brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=102.8 bbox=10.5x10.5x1.2
-  [PASS] usb_cover_C      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=112.9 bbox=12.4x6.5x1.5
+  [PASS] usb_cover_C      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=124.5 bbox=12.8x6.9x1.5
 
 2. Interference, exact boolean volume, every pair of placed bodies (default switch H)
   [PASS] all 406 pairs of 29 bodies max overlap volume = 0.000000 mm3
@@ -79,7 +79,7 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
 
 4. Wall thickness and minimum features (ray casting on exported STL, opposite-face rays only)
   [PASS] insert         min wall 0.800 >= 0.8 
-  [PASS] insert         min internal gap/slot 0.799 >= 0.8 (no slot that could fuse shut) 
+  [PASS] insert         min internal gap/slot 0.798 >= 0.8 (no slot that could fuse shut) 
   [PASS] plug           min wall 0.800 >= 0.8 
   [PASS] plug           min internal gap/slot 2.618 >= 0.8 (no slot that could fuse shut) 
   [PASS] keeper_a       min wall 0.800 >= 0.8 
@@ -115,7 +115,7 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] XIAO bottom face to keeper C -y wall                       nominal 0.200  tolA 0.2  tolB 0.2  worst +0.000
   [PASS] XIAO connector housing to keeper C +y lip                  nominal 0.220  tolA 0.2  tolB 0.2  worst +0.020
   [PASS] camera head to pocket (per side)                           nominal 0.250  tolA 0.2  tolB 0.2  worst +0.050
-  [PASS] lens barrel to lens opening (hole Ø7.6, per side)          nominal 0.300  tolA 0.3  tolB 0.2  worst +0.050
+  [PASS] lens barrel to lens opening (hole Ø8.0, per side)          nominal 0.500  tolA 0.3  tolB 0.2  worst +0.250
   [PASS] lens barrel top to cap underside (z)                       nominal 0.400  tolA 0.2  tolB 0.2  worst +0.100
   [INFO] lens cap A in cap pocket (hole, per side)                  nominal 0.050  worst -0.200  (friction option, see variant check below)
   [INFO] USB cover A in overmold pocket (per side)                  nominal 0.050  worst -0.200  (friction option, see variant check below)
@@ -123,7 +123,8 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [INFO] USB cover B in overmold pocket (per side)                  nominal 0.150  worst -0.100  (friction option, see variant check below)
   [PASS] lens cap C in cap pocket (hole, per side)                  nominal 0.250  tolA 0.3  tolB 0.2  worst +0.000
   [PASS] USB cover C in overmold pocket (per side)                  nominal 0.250  tolA 0.3  tolB 0.2  worst +0.000
-  [PASS] cable overmold 12.35 x 6.5 [GUESS] in pocket (per side, short side) nominal 0.250  tolA 0.3  tolB 0.0  worst +0.100
+  [PASS] cable overmold 12.5 x 6.6 in pocket (per side, short side) nominal 0.400  tolA 0.3  tolB 0.0  worst +0.250
+  [PASS] cable overmold 12.5 x 6.6 in pocket (per side, long side)  nominal 0.400  tolA 0.3  tolB 0.0  worst +0.250
   [PASS] holder to plug cradle walls (per side)                     nominal 0.250  tolA 0.2  tolB 0.2  worst +0.050
   [PASS] plug to cavity wall (glue line, per side)                  nominal 0.250  tolA 0.2  tolB 0.2  worst +0.050
   [PASS] switch carrier to plug pocket (per side, y)                nominal 0.250  tolA 0.2  tolB 0.2  worst +0.050
@@ -177,8 +178,10 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   er=3.4: lambda/8 in resin = 0.84 mm  -> window 0.8 <= lambda/8
   er=3.8: lambda/8 in resin = 0.80 mm  -> window 0.8 > lambda/8
   antenna plane to window inner surface H = 1.00 mm (Hi-Link guide prefers 6.2 / 12.4; <6.2 needs testing) -> RISK, coupon includes the real window for a range test
-  [PASS] lens FOV not vignetted up to 120 deg (assumed lens) unvignetted full angle 133.8 deg (cap pocket limit 133.8, opening limit 157.9)
+  [PASS] lens FOV not vignetted up to 120 deg (assumed lens) unvignetted full angle 133.8 deg (cap pocket limit 133.8, opening limit 159.8)
+  [PASS] USB-C pocket 13.3 x 7.4: wall to cap pocket >= 0.8 mm 0.90 mm (cap pocket, y); to camera head pocket 1.82 mm
+  [PASS] lens hole land ring (cap pocket minus lens hole) >= 1.5 mm 1.50 mm per side
 
 ==============================================================================
 FAILED CHECKS: 0
-run time 264 s
+run time 261 s

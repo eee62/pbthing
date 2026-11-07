@@ -72,7 +72,7 @@ into the head (r 2). The loop depth is solved from the FPC length; 40–85 mm al
 (loop bottom z 124.8 … 102.3, holder top z 97).
 
 **Front layout** (y along the face): radar window (blank) 5.3–25.3 · button Ø7 at 30.75 ·
-USB-C pocket 12.9 x 7.0 at 40.63 · lens cap Ø11 at 50.8 · FPC guide wall + antenna. The three
+USB-C pocket 13.3 x 7.4 at 40.63 · lens cap Ø11 at 50.8 · FPC guide wall + antenna. The three
 visible features cluster around the face centre (38.6).
 
 **Button.** Flush Ø7 pad in a 0.8 mm visible ring seam, on a hidden cantilever beam
@@ -158,7 +158,7 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | XIAO bottom face to keeper C -y wall | 0.200 | 0.2 | 0.2 | 0.0 | **+0.000** |  |
 | XIAO connector housing to keeper C +y lip | 0.220 | 0.2 | 0.2 | 0.0 | **+0.020** |  |
 | camera head to pocket (per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** | head size [GUESS] |
-| lens barrel to lens opening (hole, per side) | 0.250 | 0.3 | 0.2 | 0.0 | **+0.000** |  |
+| lens barrel to lens opening (hole Ø8.0, per side) | 0.500 | 0.3 | 0.2 | 0.0 | **+0.250** | hole tol +-0.3 [USER], barrel +-0.2 [GUESS] |
 | lens barrel top to cap underside (z) | 0.400 | 0.2 | 0.2 | 0.1 | **+0.100** |  |
 | lens cap A in cap pocket (hole, per side) (friction option) | 0.050 | 0.3 | 0.2 | 0.0 | **-0.200** | friction fit: pick the variant that holds |
 | USB cover A in overmold pocket (per side) (friction option) | 0.050 | 0.3 | 0.2 | 0.0 | **-0.200** | friction fit |
@@ -166,7 +166,8 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | USB cover B in overmold pocket (per side) (friction option) | 0.150 | 0.3 | 0.2 | 0.0 | **-0.100** | friction fit |
 | lens cap C in cap pocket (hole, per side) | 0.250 | 0.3 | 0.2 | 0.0 | **+0.000** | friction fit: pick the variant that holds |
 | USB cover C in overmold pocket (per side) | 0.250 | 0.3 | 0.2 | 0.0 | **+0.000** | friction fit |
-| cable overmold 12.35 x 6.5 [GUESS] in pocket (per side, short side) | 0.250 | 0.3 | 0.0 | 0.0 | **+0.100** |  |
+| cable overmold 12.5 x 6.6 in pocket (per side, short side) | 0.400 | 0.3 | 0.0 | 0.0 | **+0.250** | largest spec-compliant overmold [USER] |
+| cable overmold 12.5 x 6.6 in pocket (per side, long side) | 0.400 | 0.3 | 0.0 | 0.0 | **+0.250** | largest spec-compliant overmold [USER] |
 | holder to plug cradle walls (per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** | holder tol [GUESS] +-0.2 |
 | plug to cavity wall (glue line, per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** |  |
 | switch carrier to plug pocket (per side, y) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** |  |
@@ -178,7 +179,7 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 
 | Wire / ribbon | Length mm | Min bend r | Clearance to solids | Clearance to other wires |
 |---|---:|---:|---:|---:|
-| camera FPC 13.0 x 0.15 | 65.0 | 2.0 | 0.000 | 6.165 |
+| camera FPC 6 x 0.15 | 65.0 | 2.0 | 0.000 | 2.686 |
 | radar RX -> XIAO D8 | 28.5 | 2.0 | 0.000 | 1.440 |
 | radar OT1 -> XIAO D7 | 33.6 | 2.0 | 0.000 | 1.440 |
 | radar GND -> XIAO GND | 24.1 | 2.0 | 0.000 | 0.850 |
@@ -194,12 +195,12 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 
 | Part | Volume mm3 | Bounding box mm | Min wall | Min internal gap |
 |---|---:|---|---:|---:|
-| insert | 4062 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
+| insert | 4037 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
 | plug | 7412 | 23.9 x 71.7 x 27.0 | 0.80 | 2.62 |
-| tray | 10375 | 100.3 x 63.2 x 27.8 | nan | nan |
-| coupon | 4284 | 23.9 x 74.1 x 18.0 | 0.80 | 0.80 |
+| tray | 10442 | 100.3 x 63.2 x 27.8 | nan | nan |
+| coupon | 4254 | 23.9 x 74.0 x 18.0 | 0.80 | 0.80 |
 | keeper_a | 444 | 23.6 x 27.2 x 6.7 | 0.80 | 2.10 |
-| keeper_b | 216 | 23.6 x 8.4 x 6.2 | 0.80 | nan |
+| keeper_b | 284 | 23.6 x 8.6 x 11.9 | 0.80 | nan |
 | keeper_c | 749 | 23.6 x 13.7 x 24.8 | 0.80 | nan |
 | carrier_H10 | 875 | 17.2 x 10.4 x 15.7 | nan | nan |
 | carrier_H11 | 875 | 17.2 x 10.4 x 15.7 | nan | nan |
@@ -208,11 +209,11 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | carrier_H13.5 | 875 | 17.2 x 10.4 x 15.7 | 0.95 | nan |
 | carrier_H14 | 875 | 17.2 x 10.4 x 15.7 | nan | nan |
 | lens_cap_A | 111 | 10.9 x 10.9 x 1.2 | 1.20 | 1.20 |
-| usb_cover_A | 123 | 12.8 x 6.9 x 1.5 | 1.50 | 1.20 |
+| usb_cover_A | 135 | 13.2 x 7.3 x 1.5 | 1.50 | 1.20 |
 | lens_cap_B | 107 | 10.7 x 10.7 x 1.2 | nan | nan |
-| usb_cover_B | 118 | 12.6 x 6.7 x 1.5 | nan | nan |
+| usb_cover_B | 130 | 13.0 x 7.1 x 1.5 | nan | nan |
 | lens_cap_C | 103 | 10.5 x 10.5 x 1.2 | nan | nan |
-| usb_cover_C | 113 | 12.4 x 6.5 x 1.5 | nan | nan |
+| usb_cover_C | 125 | 12.8 x 6.9 x 1.5 | nan | nan |
 
 | Switch H (body+knob) | Recess released | Recess latched | Recess full press | Pin tip z | Room to holder |
 |---:|---:|---:|---:|---:|---:|
@@ -237,7 +238,7 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | G7 | Tact switch: body 3.5 + Ø3.5 actuator, legs 6.5 x 4.5, travel 0.25 | `TACT_*` | coupon step 2 |
 | G8 | Your switch knob height H; latched-closed contacts 2-3 / 5-6 | carrier variants | calipers, multimeter |
 | G9 | Holder 76 x 61 x 20 ±0.2; leads leave its −y end face near the bottom (z 25) | `HOLDER_*` | look at the holder; re-route if not |
-| G10 | USB-C cable overmold ≤ 12.35 x 6.5 mm (spec maximum, not verified) | `OVM_*` | coupon step 3 with your cables |
+| G10 | USB-C cable overmold ≤ 12.5 x 6.6 mm (largest spec-compliant, [USER]) | `OVM_*` | coupon step 3 with your cables |
 | G11 | Antenna FPC 30 x 8 x 0.3 with Ø1.13 coax, ≥ 40 mm | `ANT_*` | the antenna in the box |
 | G12 | XIAO BAT+ / BAT− pads = the two 0.76 x 1.78 pads (BAT− nearer the USB-C) | wires | silkscreen / meter |
 | G13 | Wire OD 1.1 (28–30 AWG silicone, max) | `WIRE_D` | — |
@@ -289,7 +290,7 @@ Every number is in `src/params.py` (or the top of `src/parts.py`). After a chang
 | Radar range poor | see risk 1 (no fix inside this sleeve) |
 | Button too stiff / cracks | `BEAM_W` 2.0 → 1.5; too soft: `BEAM_W` 2.5 |
 | USB-C shell tight in collar | `COLLAR_CLR` 0.30 → 0.40 |
-| Cable overmold does not seat | `OVM_W`, `OVM_H` (wall to lens pocket is 1.2 mm on +y) |
+| Cable overmold does not seat | `OVM_W`, `OVM_H` (wall to the cap pocket is 0.9 mm on +y) |
 | Camera head tight / loose | `CAM_W`, `CAM_POCKET_CLR`; barrel `CAM_BARREL_D`, `LENS_OPEN_D`; height `CAM_BODY_H` |
 | FPC length or width differs | `FPC_LEN` (loop re-solves), `FPC_W` |
 | Caps all loose / all tight | shift `CAP_VARIANTS` by the measured error (keep 0.10 steps) |
@@ -331,3 +332,6 @@ Renders: `out/img/front.png`, `front_caps_off.png`, `bottom.png`, `exploded.png`
   worst-case clearance +0.05 mm with hole ±0.3 and barrel ±0.2). Cap pocket stays Ø11 × 1.2 (1.7 mm land beside the hole); barrel top still 1.6 mm below the face.
   FOV: unvignetted 133.8° (cap pocket now the limit; was 132.1°). Keeper B geometry did not need to change. Verify: 0 failed checks. Note: the 6 mm ribbon
   is half the 12.5 mm stock tail measured in the STEP; check it fits the 24-pin connector.
+* **Lens hole Ø8.0, USB-C pocket 13.3 × 7.4:** lens hole 0.5 mm per side around the Ø7 barrel (worst case +0.25 mm with hole ±0.3, barrel ±0.2); cap-pocket land 1.50 mm
+  (limit 1.5, no spare). USB-C pocket fits the 12.5 × 6.6 mm overmold with +0.25 mm per side worst case; walls: 0.90 mm to the cap pocket (y), 1.82 mm to the
+  camera head pocket, 5.3 mm to each side of the insert, 2.68 mm to the button pad. FOV 133.8° (cap pocket limit). Verify: 0 failed, 114 PASS.
