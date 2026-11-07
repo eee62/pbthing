@@ -292,7 +292,7 @@ def main():
     out('\n6. Wires and ribbon: swept at real diameter, zero overlap with every body, minimum bend radius')
     RES['wires'] = []
     solids_all = {k: v for k, v in objs.items() if not k.startswith('W:') and k != 'fpc'}
-    items = [dict(name='camera FPC 13.0 x 0.15', solid=fpc, min_radius=finfo['min_radius'], length=finfo['length'],
+    items = [dict(name=f'camera FPC {FPC_W:g} x {FPC_T:g}', solid=fpc, min_radius=finfo['min_radius'], length=finfo['length'],
                   d=FPC_T)] + wires
     for w in items:
         wb = w['solid'].BoundingBox()
@@ -505,7 +505,7 @@ def tolerance_table(g):
     r('XIAO bottom face to keeper C -y wall', 0.20, T, 0.2)
     r('XIAO connector housing to keeper C +y lip', P.LIP_Y0_ - ys2y(7.18), T, 0.2)
     r('camera head to pocket (per side)', CAM_POCKET_CLR, T, 0.2, note='head size [GUESS]')
-    r('lens barrel to lens opening (hole, per side)', (LENS_OPEN_D - CAM_BARREL_D) / 2, H, 0.2)
+    r('lens barrel to lens opening (hole Ø%.1f, per side)' % LENS_OPEN_D, (LENS_OPEN_D - CAM_BARREL_D) / 2, LENS_HOLE_TOL, 0.2, note='hole tol +-0.3 [USER], barrel +-0.2 [GUESS]')
     r('lens barrel top to cap underside (z)', CAP_UNDER_GAP, T, T, extra=0.1)
     for v, c in CAP_VARIANTS.items():
         r(f'lens cap {v} in cap pocket (hole, per side)', c, H, T, note='friction fit: pick the variant that holds')

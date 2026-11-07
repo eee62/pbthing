@@ -6,7 +6,7 @@
  },
  "parts": {
   "insert": {
-   "volume": 4079.1362539210836,
+   "volume": 4057.3210345345597,
    "bbox": [
     23.9,
     71.7,
@@ -30,7 +30,7 @@
    ]
   },
   "coupon": {
-   "volume": 4296.074458577826,
+   "volume": 4274.259239191299,
    "bbox": [
     23.9,
     73.97500000000001,
@@ -177,10 +177,10 @@
   "insert-camera": 0.25,
   "keeper_b-camera": 0.0,
   "insert-tact": 0.19999999999998863,
-  "fpc-xiao": 0.053105571855553535,
-  "fpc-insert": 0.125,
+  "fpc-xiao": 0.18288030779039202,
+  "fpc-insert": 0.5250000000000057,
   "fpc-keeper_b": 1.8207540990160236,
-  "fpc-camera": 8.526512829121202e-14,
+  "fpc-camera": 6.394884621840902e-14,
   "fpc-holder": 8.073052083641201,
   "carrier-plug": 0.0,
   "switch-carrier": 0.0,
@@ -194,7 +194,7 @@
  "walls": {
   "insert": {
    "min_wall": 0.7998877929687467,
-   "min_gap": 0.7990410067918906
+   "min_gap": 0.7989440884567949
   },
   "plug": {
    "min_wall": 0.799900011920929,
@@ -226,7 +226,7 @@
   },
   "coupon": {
    "min_wall": 0.7998877929687467,
-   "min_gap": 0.7988384646623643
+   "min_gap": 0.7985499227718602
   }
  },
  "tolerances": [
@@ -384,13 +384,13 @@
    "note": "head size [GUESS]"
   },
   {
-   "fit": "lens barrel to lens opening (hole, per side)",
-   "nominal": 0.5,
+   "fit": "lens barrel to lens opening (hole \u00d87.6, per side)",
+   "nominal": 0.2999999999999998,
    "tolA": 0.3,
    "tolB": 0.2,
    "extra": 0.0,
-   "worst": 0.25,
-   "note": ""
+   "worst": 0.04999999999999982,
+   "note": "hole tol +-0.3 [USER], barrel +-0.2 [GUESS]"
   },
   {
    "fit": "lens barrel top to cap underside (z)",
@@ -548,8 +548,8 @@
    "name": "camera FPC 13.0 x 0.15",
    "length": 65.00000000000003,
    "min_radius": 2.0,
-   "clear": 8.526512829121202e-14,
-   "clear_wires": 2.5080520836412035
+   "clear": 6.394884621840902e-14,
+   "clear_wires": 2.685730550010499
   },
   {
    "name": "radar RX -> XIAO D8",
@@ -708,6 +708,6 @@
  },
  "optics": {
   "radar_H": 1.0,
-  "fov": 132.07502205084305
+  "fov": 133.787346283457
  }
 }

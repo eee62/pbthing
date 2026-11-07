@@ -229,7 +229,7 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | # | Assumption [GUESS] | Value used (param) | Confirmed by |
 |---|---|---|---|
 | G1 | OV5640 head 8.5 x 8.5, base 0.3 + body 4.7 + barrel Ø7.9 x 1.0 (total 6.0) | `CAM_*` | coupon step 4; calipers |
-| G2 | Camera FPC 13.0 x 0.15 x 65 mm, leaves the head edge in-plane toward +y, bendable at r 2 | `FPC_*` | measure; loop auto-solves for 30–85 mm |
+| G2 | Camera FPC 6.0 x 0.15 x 65 mm [USER width], leaves the head edge in-plane toward +y, bendable at r 2 | `FPC_*` | measure; loop auto-solves for 30–85 mm |
 | G3 | Lens front glass Ø5, FOV 120° | `LENS_*` | coupon; unvignetted limit computed |
 | G4 | Radar front components ≤ 0.85 mm; back components ≤ 1.1 mm and ≥ 1.5 mm from the edge at the 3 keeper posts | `RAD_FRONT_H`, posts | coupon step 1; calipers |
 | G5 | Radar J2 hole 1.27 from the edge, pin order OT2-RX-OT1-GND-3V3 from the −x end | `RAD_PIN_*` | look at the board |

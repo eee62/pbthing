@@ -40,9 +40,10 @@ the real geometry.
    0.3 mm per side), then plug your real cable into the overmold pocket (12.9 x 7.0, 1.97 deep
    above the receptacle). If the cable's overmold does not reach the receptacle, the pocket
    is too small for that cable (REPORT risk 3).
-4. **Camera**: drop the camera head into its 9.0 x 9.0 pocket with the lens barrel in the
-   Ø8.4 opening (cap pocket above it is Ø11 x 1.2). Measure the barrel top: it must sit 1.6 mm below the face (cap depth 1.2 +
-   0.4 gap).
+4. **Camera**: drop the camera head (8.65 x 8.65 base, 1.75 mm lens-holder block, Ø7 x 3.45 mm barrel, Ø3.5 front glass, heatsink
+   7.0 x 7.1 x 6.0) into its 9.15 x 9.15 pocket (8.65 + 0.25 clearance per side) with the barrel in the Ø7.6 lens hole (0.3 mm per side;
+   hole tolerance ±0.3). The cap pocket above is Ø11 x 1.2 (1.7 mm land beside the hole). Measure the barrel top: it must sit 1.6 mm below
+   the face (cap depth 1.2 + 0.4 gap). The ribbon is 6 mm wide.
 5. **Caps / covers**: try lens caps A, B, C and USB covers A, B, C (nominal clearance per side
    0.05 / 0.15 / 0.25). Keep the tightest one that still goes in fully by thumb pressure
    without cracking. C always fits; A may not.
@@ -137,7 +138,7 @@ in from the inside and later glued only by its ears in the insert seam.
 | 4.2 | radar, face-down into its pocket, J2 edge toward the button | +z into pocket | radar fits pocket (§2, §5) |
 | 4.3 | tact switch, actuator down onto the button nub | +z | tact fits pocket |
 | 4.4 | **keeper A**: first lay the 4 radar wires straight down their lane (out of the J2 holes, no loops under the plate) and hold them there; the wire slot (open to +y) slides around them; 3 posts land on the radar back, cup on the tact switch. The gap between the plate top (z 135.7) and the radar back components (z 136.4) is only 0.7 mm: a wire left under the plate is squeezed (simulated 0.40 mm) | +z | keeper_a install path: no hits; wire squeeze: `SIMULATION.md` |
-| 4.5 | camera head with heatsink, lens into the Ø8.4 opening, FPC trailing toward +y. **Keep the XIAO stack (wires soldered, FPC plugged in) at least 12.5 mm above the seat and beside the work (simulated: 14 mm) until keeper B is in, and do not pre-dress the FPC loop**: with the XIAO 11 mm up or less, keeper B's floor drags the ribbon through a 0.5–0.7 mm radius (`SIMULATION.md` §3b; keeper B's floor underside, not the heatsink, sets the 12.1 mm minimum). Heatsink: 7.0 × 7.1 × 6.0 mm on a 0.1 mm pad, centred on the base | +z | camera install path in `SIMULATION.md` |
+| 4.5 | camera head with heatsink, barrel into the Ø7.6 lens hole, FPC trailing toward +y. **Keep the XIAO stack (wires soldered, FPC plugged in) at least 12.5 mm above the seat and beside the work (simulated: 14 mm) until keeper B is in, and do not pre-dress the FPC loop**: with the XIAO 11 mm up or less, keeper B's floor drags the ribbon through a 0.5–0.7 mm radius (`SIMULATION.md` §3b; keeper B's floor underside, not the heatsink, sets the 12.1 mm minimum). Heatsink: 7.0 × 7.1 × 6.0 mm on a 0.1 mm pad, centred on the base | +z | camera install path in `SIMULATION.md` |
 | 4.6 | **keeper B** onto the head base | +z | keeper_b install path: no hits |
 | 4.7 | XIAO stack, USB-C first into the closed collar; dress the FPC: out of the connector toward the USB end, kink outward (r 2) just below the SD socket, up past the socket, 180° fold under keeper B, down, U-loop (bottom ≈ z 112), up and 90° into the head (see `out/img/section_top_x14.7.png`). Lay the signal wires into their lanes (straight toward the XIAO edge). Lower the XIAO slowly and guide the ribbon with tweezers during the last 10 mm: its first bend below the connector tightens to about 1.6 mm (limit 2.0 mm) in the simulation and relaxes to 1.96 mm when seated. | +z | XIAO install path: no hits |
 | 4.8 | **keeper C** (first move every radar-wire loop away from the U-foot and its arms: in one simulation run keeper C caught a radar wire, 0.18 mm squeeze, 51 % strain): U-foot under the XIAO bottom end; the battery leads pass its −y-open notch, the coax its +y-open notch | +z | keeper_c install path: no hits (wires already in place) |
