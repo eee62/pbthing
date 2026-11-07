@@ -5,6 +5,9 @@ Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm
 y 47.175–54.275), glued behind the base with a **0.1 mm pad** (same footprint as the heatsink, footprint assumed). Total
 5.6 + 0.1 + 6.0 = **11.7 mm**, z 127.2–138.9 (unchanged). Fins are not modelled (solid envelope).
 
+**Latest (lens hole Ø8.0, USB-C pocket 13.3 × 7.4):** re-run `out/sim/lens8_*`: identical to the Ø7.6 run (S4 2.35, S5 2.31, S6 1.56, S8 1.97 mm; no rigid jam/collision; wire numbers
+identical; 12.5 mm hold-off clean 2.17 mm, S6 1.54 mm). Neither the hole nor the pocket touches anything that moves in the simulation. The radar header is not simulated (`HEADER_STUDY.md`).
+
 **Latest camera update:** lens barrel Ø7 × 3.45 mm (was Ø3.8 × 1.0), lens-holder block 8.65 × 8.65 × 1.75 mm (was 4.2), front glass Ø3.5, ribbon
 6 mm wide (was 13), faceplate lens hole Ø7.6 (0.3 mm per side, hole tolerance ±0.3). Re-run (`out/sim/barrel7_*`): rigid parts still never jam or collide;
 ribbon and wire results match the table below to within 0.1 mm (S4 2.35, S5 2.31, S6 **1.56**, S8 1.97 mm; wire strain and squeeze identical); hold-off scan:
