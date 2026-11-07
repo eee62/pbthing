@@ -518,6 +518,11 @@ def tolerance_table(g):
         r(f'USB cover {v} in overmold pocket (per side)', c, H, T, note='friction fit')
         rows[-1]['friction'] = v != 'C'
     r(f'cable overmold {CABLE_W} x {CABLE_H} in pocket (per side, short side)', (OVM_H - CABLE_H) / 2, H, 0.0, note='largest spec-compliant overmold [USER]')
+    _xs = C.radar_pin_xs()
+    r('radar header plastic underside to keeper A plate (z)', (RAD_Z0 - HDR_SPACER_T) - P.KA_Z1, T, T, note='header dims [USER 8.3 / 1.35], plastic [GUESS]')
+    r('radar header pins to keeper A slot (per side)', min((_xs[1] - HDR_PIN_T / 2) - KA_SLOT_X0, KA_SLOT_X1 - (_xs[-1] + HDR_PIN_T / 2)), T, T, note='pin 0.64 [GUESS]')
+    r('radar header plastic (trimmed edge) to sleeve lip opening (x)', (_xs[1] - RAD_PIN_PITCH / 2) - LIP_X0, T, T, note='pin 1 clipped, plastic trimmed at pin 2 cell')
+    r('radar header plastic to radar pocket wall (y)', RAD_POCKET_CLR + (RAD_PIN_EDGE - HDR_PLASTIC_W / 2), T, T, note='plastic width [GUESS]')
     r(f'cable overmold {CABLE_W} x {CABLE_H} in pocket (per side, long side)', (OVM_W - CABLE_W) / 2, H, 0.0, note='largest spec-compliant overmold [USER]')
     r('holder to plug cradle walls (per side)', HOLDER_CLR, T, T, note='holder tol [GUESS] +-0.2')
     r('plug to cavity wall (glue line, per side)', G_PLUG, T, T)

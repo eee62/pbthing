@@ -117,23 +117,27 @@ def _lane(name, x_lane, start, z_run, dest):
 
 
 def radar_wires():
+    """Wires soldered to the tips of header pins 2-5 (RX, OT1, GND, 3V3), HDR_SOLDER_Z above the tip."""
     xs = C.radar_pin_xs()
-    yp = C.radar_pin_y()
-    z0 = RAD_Z0 - 1.0                      # below the J2 solder joint
-    plan = {'RX': 'D8', 'OT1': 'D7', 'GND': 'GND', '3V3': '3V3'}   # OT2 not used
+    yp = C.radar_pin_y() + HDR_PIN_T / 2 + WIRE_D / 2 + 0.05     # wire lies against the +y face of the pin (solder joint), 0.05 gap
+    zs = RAD_Z0 - HDR_H + HDR_SOLDER_Z      # solder point on the pin
+    plan = {'RX': 'D8', 'OT1': 'D7', 'GND': 'GND', '3V3': '3V3'}   # OT2 pin clipped
     out = []
     for i, pin in enumerate(RAD_PINS):
         if pin not in plan:
             continue
         dest = plan[pin]
+        px, pz = PADS[dest]
         if pin == 'GND':
             # runs 1.2 mm under keeper A's tact bridge, then climbs gently onto the GND pad
-            px, pz = PADS[dest]
             zr = KA_LOW_Z0_W
-            pts = [(xs[i], yp, z0), (xs[i], yp, zr), (xs[i], Y_WIRE, zr), (xs[i] - 2.6, Y_WIRE, zr), (px, Y_WIRE, pz)]
+            pts = [(xs[i], yp, zr), (xs[i], Y_WIRE, zr), (xs[i] - 2.6, Y_WIRE, zr), (px, Y_WIRE, pz)]
             out.append(_wire(f'radar {pin} -> XIAO {dest}', pts))
+        elif pz > zs - WR:
+            # pad too close below the pin: leave toward +y at the solder level, slope down onto the pad
+            out.append(_wire(f'radar {pin} -> XIAO {dest}', [(xs[i], yp, zs), (xs[i], Y_WIRE, zs), (px, Y_WIRE, pz)]))
         else:
-            out.append(_lane(f'radar {pin} -> XIAO {dest}', xs[i], (xs[i], yp, z0), PADS[dest][1], dest))
+            out.append(_lane(f'radar {pin} -> XIAO {dest}', xs[i], (xs[i], yp, zs), pz, dest))
     return out
 
 

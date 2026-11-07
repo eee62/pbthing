@@ -61,8 +61,7 @@ pads float 0.25 mm under the lip in epoxy) instead of relying on the ±0.2 mm pr
 
 **Radar sits above the lip.** It is 20.0 wide and the lip opening is 19.4, so it overhangs the
 lip by 0.3 per side and must stay in the 3.5 mm bore zone: PCB back at z 137.5 (0.5 above the
-lip top), window 0.8 mm, front components assumed ≤ 0.85 mm. The factory 5-pin header must be
-removed (its plastic would hit the lip and the keeper).
+lip top), window 0.8 mm, front components assumed ≤ 0.85 mm. The factory 5-pin header is kept: pin 1 (OT2, unused) is clipped and the plastic trimmed to start at pin 2's cell; the header hangs 8.3 mm below the PCB back through the lip opening (pin tips z 129.2) and the four wires are soldered to the pin tips (see HEADER_STUDY.md).
 
 **XIAO orientation.** Board width (17.8) across x, stack thickness along y, USB-C up. This puts
 USB-C and lens on the centre line and lets the 12.5–13 mm FPC run with all bends about one
@@ -335,3 +334,7 @@ Renders: `out/img/front.png`, `front_caps_off.png`, `bottom.png`, `exploded.png`
 * **Lens hole Ø8.0, USB-C pocket 13.3 × 7.4:** lens hole 0.5 mm per side around the Ø7 barrel (worst case +0.25 mm with hole ±0.3, barrel ±0.2); cap-pocket land 1.50 mm
   (limit 1.5, no spare). USB-C pocket fits the 12.5 × 6.6 mm overmold with +0.25 mm per side worst case; walls: 0.90 mm to the cap pocket (y), 1.82 mm to the
   camera head pocket, 5.3 mm to each side of the insert, 2.68 mm to the button pad. FOV 133.8° (cap pocket limit). Verify: 0 failed, 114 PASS.
+* **Radar header kept** (`HDR_*` in `params.py`, defaults plastic 12.7 × 2.54, pin 0.64 square are [GUESS] until you send measurements; 8.3 and 1.35 are [USER]): pin 1 clipped,
+  plastic trimmed at pin 2's cell, four wires soldered to the pin tips (7.3 mm shorter lanes, 4–6 mm below keeper A's plate). Clearances: plastic to keeper A plate 0.45 mm (z),
+  pins to the keeper A slot 0.80 mm, trimmed plastic edge to the sleeve opening 2.59 mm, plastic to radar pocket wall 0.30 mm. Plastic +0.3 mm in length/width changes none of keeper A or
+  sleeve clearance (only the pocket wall 0.30 → 0.15 mm for +0.3 width); spacer thickness +0.3 takes keeper A from 0.45 to 0.15 mm; pin +0.3 takes the slot margin 0.80 → 0.65 mm.

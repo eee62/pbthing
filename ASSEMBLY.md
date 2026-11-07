@@ -16,7 +16,7 @@ bottom face z = 0. "−y end" = the end where the radar sits.
 | Printed first: `coupon.stl` + `tray.stl` | 1 each | fit test before the big order (section 1) |
 | XIAO ESP32-S3 Sense + its U.FL FPC antenna | 1 | stock camera removed |
 | OV5640 AF camera, 24-pin 0.5 mm FPC (~65 mm) | 1 | |
-| HLK-LD2410S | 1 | factory J2 header must be removed |
+| HLK-LD2410S | 1 | keep the factory 5-pin header: clip pin 1 (OT2), trim the plastic (step 3.2) |
 | G-Switch PB-22E08-LC (8x8 self-locking DPDT) | 1 (buy 3) | |
 | 6x6x4.3 mm THT tact switch | 1 | |
 | 3x18650 parallel holder 76x61x20 with leads + 3 protected cells | 1 | |
@@ -29,7 +29,7 @@ bottom face z = 0. "−y end" = the end where the radar sits.
 `coupon.stl` is cut directly out of the production insert and plug, so every pocket is
 the real geometry.
 
-1. **Radar**: drop the radar (header removed) face-down into the 20.6 mm pocket. It must
+1. **Radar**: drop the radar (header kept, pin 1 clipped, plastic trimmed) face-down into the 20.6 mm pocket. It must
    lie flat on the 4 ledges; nothing on the front may touch the 0.8 mm window
    (front components are assumed ≤ 0.85 mm tall). Power it and compare detection range
    through the coupon window with open air (the antenna-to-window distance is only 1 mm;
@@ -77,7 +77,7 @@ plug.
                  (pad nearer the board end     (pad nearer the USB-C)
                   away from USB-C)
 
- HLK-LD2410S J2 (back side, wires soldered straight into the holes, header removed)
+ HLK-LD2410S J2 header (back side, wires soldered to the pin TIPS of pins 2-5; pin 1 / OT2 clipped)
    3V3  ---------------------------------  XIAO 3V3   (castellation, 5V/GND/3V3 side)
    GND  ---------------------------------  XIAO GND
    OT1 (UART TX)  -----------------------  XIAO D7  = GPIO44 (UART RX)
@@ -113,16 +113,17 @@ leaves loops that the next part catches. Every wire loop must be moved out of th
 
 1. Flash the firmware over USB-C. Test camera, radar UART (115200 baud), button, WiFi.
    BOOT/RESET will not be reachable later.
-2. Radar: cut the plastic spacer of the factory 5-pin header and desolder the pins one by
-   one. Clean the holes.
+2. Radar: keep the factory 5-pin header (8.3 mm from the PCB back, plastic spacer 1.35 mm). **Clip pin 1 (OT2, unused) flush at the plastic, then
+   trim the plastic spacer with a flush cutter so it starts at pin 2's cell (cut 2.54 mm from the end, x 7.59 on the module).** Untrimmed, the plastic end is 0.05 mm from
+   the sleeve opening and pin 1 cuts through keeper A's plate. Check with calipers: trimmed plastic ~10.2 mm long, 2.54 wide, pin tips 8.3 mm below the PCB back.
 3. Tact switch: cut the 4 legs to 3.5 mm.
 4. Main switch: identify the latched-closed pins (see notes above). Solder the two short
    jumpers 2–5 and 3–6 on the pin tips.
 5. Solder to the XIAO bottom pads, all wires leaving toward the board's long edge that
    faces away from the antenna connector, lying flat:
-   radar 3V3/GND/OT1/RX (≈ 30 mm each + slack), button D10/D9 (≈ 20 mm + slack),
+   radar 3V3/GND/OT1/RX (≈ 19–27 mm each + slack), button D10/D9 (≈ 20 mm + slack),
    BAT+ and BAT− (≈ 150 mm each; they will be spliced to the plug harness at step 7.2).
-6. Solder the other ends to the radar J2 holes and the tact-switch legs.
+6. Solder the other ends to the radar header pin tips (pins 2–5, lower 2 mm of each pin, wire against the +y face of the pin; pin order from the −x end after the clipped pin 1: RX, OT1, GND, 3V3) and the tact-switch legs.
 7. Plug the camera FPC into the Sense connector (latch closed) and the antenna U.FL.
 8. Power the whole harness from a bench supply on BAT+/BAT− (3.7 V) and test again.
 
@@ -137,7 +138,7 @@ in from the inside and later glued only by its ears in the insert seam.
 | 4.1 | insert face-down on glass, rim side up | — | — |
 | 4.2 | radar, face-down into its pocket, J2 edge toward the button | +z into pocket | radar fits pocket (§2, §5) |
 | 4.3 | tact switch, actuator down onto the button nub | +z | tact fits pocket |
-| 4.4 | **keeper A**: first lay the 4 radar wires straight down their lane (out of the J2 holes, no loops under the plate) and hold them there; the wire slot (open to +y) slides around them; 3 posts land on the radar back, cup on the tact switch. The gap between the plate top (z 135.7) and the radar back components (z 136.4) is only 0.7 mm: a wire left under the plate is squeezed (simulated 0.40 mm) | +z | keeper_a install path: no hits; wire squeeze: `SIMULATION.md` |
+| 4.4 | **keeper A**: first lay the 4 radar wires straight down their lane (out of the pin tips, no loops under the plate) and hold them there; the wire slot (open to +y) slides around them; 3 posts land on the radar back, cup on the tact switch. The gap between the plate top (z 135.7) and the radar back components (z 136.4) is only 0.7 mm: a wire left under the plate is squeezed (simulated 0.40 mm) | +z | keeper_a install path: no hits; wire squeeze: `SIMULATION.md` |
 | 4.5 | camera head with heatsink, barrel into the Ø8.0 lens hole, FPC trailing toward +y. **Keep the XIAO stack (wires soldered, FPC plugged in) at least 12.5 mm above the seat and beside the work (simulated: 14 mm) until keeper B is in, and do not pre-dress the FPC loop**: with the XIAO 11 mm up or less, keeper B's floor drags the ribbon through a 0.5–0.7 mm radius (`SIMULATION.md` §3b; keeper B's floor underside, not the heatsink, sets the 12.1 mm minimum). Heatsink: 7.0 × 7.1 × 6.0 mm on a 0.1 mm pad, centred on the base | +z | camera install path in `SIMULATION.md` |
 | 4.6 | **keeper B** onto the head base | +z | keeper_b install path: no hits |
 | 4.7 | XIAO stack, USB-C first into the closed collar; dress the FPC: out of the connector toward the USB end, kink outward (r 2) just below the SD socket, up past the socket, 180° fold under keeper B, down, U-loop (bottom ≈ z 112), up and 90° into the head (see `out/img/section_top_x14.7.png`). Lay the signal wires into their lanes (straight toward the XIAO edge). Lower the XIAO slowly and guide the ribbon with tweezers during the last 10 mm: its first bend below the connector tightens to about 1.6 mm (limit 2.0 mm) in the simulation and relaxes to 1.96 mm when seated. | +z | XIAO install path: no hits |

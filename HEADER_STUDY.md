@@ -1,4 +1,18 @@
-# Keeping the radar's factory 5-pin header (study only, the design is NOT changed)
+# Keeping the radar's factory 5-pin header (APPLIED to the design in the commit after this study)
+
+The changes below are now in the design (`HDR_*` parameters, `radar_header()`, tip-soldered wire routes, ASSEMBLY step 3.2). Sensitivity to the plastic size (`python src/header_study.py`):
+
+| header variant | keeper A | sleeve | insert / pocket wall | pin-to-slot |
+|---|---|---|---|---|
+| nominal (12.7 × 2.54, spacer 1.35, pin 0.64) | 0.450 | 2.590 | 0.300 | 0.800 |
+| plastic length +0.3 | 0.450 | 2.590 | 0.300 | 0.800 |
+| plastic width +0.3 | 0.450 | 2.590 | 0.150 | 0.800 |
+| spacer thickness +0.3 | **0.150** | 2.590 | 0.300 | 0.800 |
+| pin thickness +0.3 | 0.450 | 2.590 | 0.300 | **0.650** |
+| all +0.3 | 0.150 | 2.590 | 0.150 | 0.650 |
+
+Plastic length/width +0.3 does not change the keeper A or sleeve clearance: the sleeve gap is set by the trimmed edge (pin 2's cell, x 7.59), keeper A's gap is the spacer underside to the plate (z). Width +0.3 halves the pocket-wall margin.
+
 
 Inputs: header 8.3 mm total height from the PCB back, plastic spacer 1.35 mm. Assumed (not given): 5 pins at 2.54 mm pitch (matches
 `RAD_PIN_PITCH`), plastic 12.7 × 2.54 mm, pins 0.64 mm square. Script: `python src/header_study.py` (exact B-rep booleans and distances against

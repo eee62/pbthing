@@ -163,7 +163,7 @@ def keeper_a():
     ry1 = RAD_Y0 + RAD_W
     yp = C.radar_pin_y()
     plate = box(x0, x1, IN_Y0 + 0.05, ry1 + 0.15, KA_Z0, KA_Z1)
-    plate = plate.cut(box(7.6, 17.6, yp - 1.0, ry1 + 1.0, 120, 140))      # open to +y
+    plate = plate.cut(box(KA_SLOT_X0, KA_SLOT_X1, yp - 1.0, ry1 + 1.0, 120, 140))      # open to +y
     py0 = RAD_Y0 + 0.15
     py1 = RAD_Y0 + RAD_W - 1.4
     # 3 posts in the 1.5 mm component-free border of the radar back [GUESS], clear of the

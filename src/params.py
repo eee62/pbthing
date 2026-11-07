@@ -58,6 +58,14 @@ RAD_PIN_EDGE = 1.27          # [GUESS] J2 hole centre to +y edge
 RAD_PIN_X0 = RAD_X0 + 1.62   # [DS] first hole 1.62 from corner, 2.54 pitch
 RAD_PIN_PITCH = 2.54
 RAD_PINS = ['OT2', 'RX', 'OT1', 'GND', '3V3']   # [DS fig 3-1, orientation GUESS]
+# factory 5-pin header kept on the radar back (pin 1 / OT2 clipped, plastic trimmed to start at pin 2's cell)
+HDR_H = 8.3                  # [USER] header total height from the PCB back (pin tips)
+HDR_SPACER_T = 1.35          # [USER] plastic spacer thickness
+HDR_PLASTIC_L = 12.7         # [GUESS] plastic length (x), full 5-pin body; send measurements
+HDR_PLASTIC_W = 2.54         # [GUESS] plastic width (y)
+HDR_PIN_T = 0.64             # [GUESS] square pin thickness
+HDR_SOLDER_Z = 1.0           # wire solder point above the pin tip
+KA_SLOT_X0, KA_SLOT_X1 = 7.6, 17.6      # keeper A wire slot (x), open to +y
 
 # ---------------- front button [USER] / [DES] -------------------------------
 BTN_X, BTN_Y = CX, 30.75

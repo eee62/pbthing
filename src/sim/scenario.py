@@ -134,9 +134,11 @@ def dress_radar_wires(flex, hold_mm=10.0):
         if not f.name.startswith('radar'):
             continue
         seg = np.linalg.norm(np.diff(f.pos, axis=0), axis=1); cum = np.concatenate([[0.0], np.cumsum(seg)])
-        idx = np.where(cum <= hold_mm)[0]
+        cad = [w for w in W.radar_wires() if w['name'] == f.name][0]['pts']
+        dvec = np.array(cad[1], float) - np.array(cad[0], float); seg0 = np.linalg.norm(dvec); dvec /= seg0
+        idx = np.where(cum <= min(hold_mm, seg0 - 2.0))[0]          # straight along the first leg of the designed route
         p0 = f.pos[0]
-        tgt = np.array([[p0[0], p0[1], p0[2] - c] for c in cum[idx]])
+        tgt = np.array([p0 + dvec * c for c in cum[idx]])
         f.anchors.append((idx, ('fixed', tgt), None)); w_old = f.w[idx].copy(); f.w[idx] = 0.0
         held.append((f, idx, w_old))
     return held

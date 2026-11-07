@@ -46,8 +46,18 @@ def radar():
     mb = 1.5  # [GUESS] keep-out margin of the back components at the 3 support corners
     back = box(RAD_X0 + mb, RAD_X0 + RAD_W - mb, RAD_Y0 + mb, RAD_Y0 + RAD_W - 2.0,   # 2.0 at the J2 edge
                RAD_Z0 - RAD_BACK_H, RAD_Z0)
-    joints = [cyl(x, radar_pin_y(), RAD_Z0 - 1.0, RAD_Z0, 1.6) for x in radar_pin_xs()]
-    return union_all([pcb, front, back] + joints)
+    return union_all([pcb, front, back, radar_header()])
+
+
+def radar_header():
+    """Factory 5-pin header, pin 1 (OT2, unused) clipped flush and the plastic trimmed to start at pin 2's cell.
+    Plastic spacer on the PCB back, four square pins down to the tip at RAD_Z0 - HDR_H."""
+    xs = radar_pin_xs(); yp = radar_pin_y(); xc = xs[2]
+    x0 = max(xc - HDR_PLASTIC_L / 2, xs[1] - RAD_PIN_PITCH / 2)
+    x1 = xc + HDR_PLASTIC_L / 2
+    body = box(x0, x1, yp - HDR_PLASTIC_W / 2, yp + HDR_PLASTIC_W / 2, RAD_Z0 - HDR_SPACER_T, RAD_Z0)
+    pins = [box(x - HDR_PIN_T / 2, x + HDR_PIN_T / 2, yp - HDR_PIN_T / 2, yp + HDR_PIN_T / 2, RAD_Z0 - HDR_H, RAD_Z0) for x in xs[1:]]
+    return union_all([body] + pins)
 
 
 def radar_pin_xs():
