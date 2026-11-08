@@ -5,6 +5,11 @@ Camera as modelled now: lens Ø3.8 mm, base 8.65 × 8.65 mm, base-to-lens 5.6 mm
 y 47.175–54.275), glued behind the base with a **0.1 mm pad** (same footprint as the heatsink, footprint assumed). Total
 5.6 + 0.1 + 6.0 = **11.7 mm**, z 127.2–138.9 (unchanged). Fins are not modelled (solid envelope).
 
+**Latest (front tact switch, keeper A cup/bridge and D9/D10 wires removed; holder 62 × 76 × 20; 24 AWG battery path; protection board):** runs `out/sim/notact_final_h14_s16_dress.*` (dressed) and `notact_final_nodress.*`
+(XIAO 14 mm aside, slack 16, 3 mm/s). Step S2 (tact switch) no longer exists, the other step names are unchanged. **Nothing fails:** no rigid jam or collision, **every wire squeeze is 0.00 mm, dressed and undressed** (the persistent 0.30 mm / 1.10 mm GND-wire pinches
+of the earlier runs came from keeper A's tact bridge and cup, which are gone), wire strain ≤ 0.8 %, ribbon S4 2.30, S5 2.29, S8 1.97 mm. **The S6 ribbon dip is unchanged: 1.55 mm** (limit 2.0), recovering to 1.97 mm. Not in the simulation: the holder, protection board, plug and the 24 AWG wires
+(they sit in the lower module, z < 100, and are checked numerically in verify: 0 overlaps, 0.85 mm board-to-wall, 1.85 mm board-to-holder, wire lane 1.05 mm from the wall); the sim's BAT wires are the 28–30 AWG pigtails.
+
 **Latest (radar header kept, wires soldered to the pin tips):** run `out/sim/header_final_h14_s16_dress.*` (XIAO 14 mm aside, slack 16, dressed) and `header_final_nodress.*`.
 No rigid jam or collision; ribbon identical (S4 2.35, S5 2.31, S6 **1.56**, S8 1.97 mm; hold-off 12.5 mm unchanged: the header is on the radar, far from the ribbon). Wires:
 * **Dressed:** S4–S8 clean (squeeze 0.00, wire strain ≤ 3.8 %, S3 end 0.1 %), better than before the header (a 0.30 mm squeeze of the GND wire persisted S3–S8). But during keeper A's descent (S3)
