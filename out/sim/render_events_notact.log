@@ -1,0 +1,8 @@
+[0m[33m2026-11-08 08:02:49.711 (   3.300s) [    7F048876B740]vtkXOpenGLRenderWindow.:1460  WARN| bad X server connection. DISPLAY=[0m
+S1 radar Rmin 1.83 squeeze 0.0
+S3 keeper A Rmin 2.16 squeeze 0.0
+S4 camera + heatsink Rmin 2.3 squeeze 0.0
+S5 keeper B Rmin 2.29 squeeze 0.0
+S6 XIAO stack Rmin 1.55 squeeze 0.0
+S7 keeper C Rmin 1.55 squeeze 0.0
+S8 sleeve over module Rmin 1.97 squeeze 0.0
