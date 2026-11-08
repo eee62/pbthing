@@ -17,20 +17,18 @@ SHELL_X0, SHELL_X1 = CX - USB_W / 2 - COLLAR_CLR, CX + USB_W / 2 + COLLAR_CLR
 SHELL_Y0 = ys2y(USB_YS0) - COLLAR_CLR
 SHELL_Y1 = ys2y(USB_YS1)                         # open side, closed by keeper B tongue
 TONGUE_Y0, TONGUE_Y1 = SHELL_Y1 + 0.10, SHELL_Y1 + 1.10
-TACT_IN = 3.9                                    # tact pocket half width in x (legs)
-TACT_WALL = 0.8
+SKIRT_Y1 = 26.75                                 # radar skirt ends here (wall past the radar pocket)
 EAR_Z1 = Z_RIM - HOVER
 EAR_Z0 = EAR_Z1 - EAR_T
 KA_Z0, KA_Z1 = 134.9, 135.7                      # keeper A radar plate
 FPCW_Z0 = 106.0
 KA_EY0 = RAD_Y0 + RAD_W + RAD_POCKET_CLR + 0.8 + 0.4   # keeper A ears clear of radar skirt
 KA_EY1 = BB_Y0 - 1.5
-KA_LOW_Z0 = TACT_Z0 - 1.6                       # keeper A lower bridge (tact support)
 KB_EY0 = CAM_Y0
 KB_EY1 = CAM_Y0 + 7.2
 
 # backbone wire windows (x0, x1, z0, z1)
-BB_Z0 = 132.6                                    # short backbone: tact pocket wall + top rib only
+BB_Z0 = 132.6                                    # short backbone: top rib only
 FOOT_Z0 = 113.5
 FOOT_WALL_Z = 117.7                              # keeper C -y wall top (wires run above 118.2)
 ARM_Y0, ARM_Y1 = BB_Y0 - 1.2, BB_Y0 - 0.1        # keeper C arms just -y of the backbone
@@ -53,7 +51,7 @@ def insert():
 
     # --- radar skirt (rests on the lip, carries the radar pocket walls)
     skirt = rrect(FP_X0, FP_X1, FP_Y0, FP_Y1, LIP_Z1 + G_GLUE, Z_RIM + 0.01, FP_R).intersect(
-        box(0, 30, 0, BTN_Y - TACT_W / 2 - 0.25 - TACT_WALL + 0.05, 130, 140))   # skirt meets the tact pocket wall
+        box(0, 30, 0, SKIRT_Y1, 130, 140))
     body = fp.union(skirt)
 
     # --- pads on the rim (sand-to-flush datum), clear of keeper ears
@@ -74,13 +72,6 @@ def insert():
                              (rx0 - 0.01, RAD_X0 + 0.8, ycm - 0.75, ycm + 0.75),
                              (RAD_X0 + RAD_W - 0.8, rx1 + 0.01, ycm - 0.75, ycm + 0.75)]:
         body = body.union(box(x0, x1, y0, y1, zl0, zl1))
-
-    # --- tact switch pocket (open below), its +y wall is the backbone
-    tx0, tx1 = BTN_X - TACT_IN - TACT_WALL, BTN_X + TACT_IN + TACT_WALL
-    ty0 = BTN_Y - TACT_W / 2 - 0.25 - TACT_WALL
-    tp = box(tx0, tx1, ty0, BB_Y0 + 0.01, TACT_Z0, Z_RIM + 0.01).cut(
-        box(BTN_X - TACT_IN, BTN_X + TACT_IN, BTN_Y - TACT_W / 2 - 0.25, BB_Y0 + 0.02, TACT_Z0 - 1, Z_RIM + 0.02))
-    body = body.union(tp)
 
     # --- backbone with wire windows, bay ribs, shelf (cradle) with +y lip
     bb = box(6.3, 23.1, BB_Y0, BB_Y1, BB_Z0, Z_RIM + 0.01)   # narrow: keeper C ear walls pass beside it
@@ -110,45 +101,9 @@ def insert():
     # --- FPC guide wall (+ antenna on its +y face)
     body = body.union(box(IN_X0, IN_X1, FPCW_Y0, FPCW_Y1, FPCW_Z0, Z_RIM + 0.01))
 
-    # --- front button: ring seam, hidden cantilever beam, pad, nub, engraved icon
-    body = body.cut(cyl(BTN_X, BTN_Y, Z_RIM - 0.05, Z_FRONT + 0.1, BTN_D + 2 * BTN_SLOT))   # visible ring seam
-    rb = BTN_D / 2 + BTN_SLOT                                                              # clear walls next to the pad
-    body = body.cut(box(min(BTN_X - rb, tx0 - 0.01), max(BTN_X + rb, tx1 + 0.01), BTN_Y - rb, BB_Y1 - 0.02,
-                        TACT_Z1 - 0.3, Z_RIM + 0.01))
-    beam_top = BTN_PAD_Z0 + BEAM_T
-    body = body.cut(box(BTN_X + BTN_D / 2 - 0.5, BEAM_ROOT_X - 0.8, BTN_Y - BEAM_W / 2 - 0.8,
-                        BTN_Y + BEAM_W / 2 + 0.8, Z_RIM - 0.05, beam_top + BEAM_TOP_GAP))
-    beam = box(BTN_X + 1.0, BEAM_ROOT_X + 0.1, BTN_Y - BEAM_W / 2, BTN_Y + BEAM_W / 2,
-               BTN_PAD_Z0, beam_top)
-    pad = cyl(BTN_X, BTN_Y, BTN_PAD_Z0, Z_FRONT, BTN_D)
-    nub = cyl(BTN_X, BTN_Y, BTN_PAD_Z0 - BTN_NUB_H, BTN_PAD_Z0 + 0.01, BTN_NUB_D)
-    root = box(BEAM_ROOT_X - 0.8, BEAM_ROOT_X + 0.2, BTN_Y - 2.0, BTN_Y + 2.0, BTN_PAD_Z0 - 0.2, Z_RIM + 0.01)
-    body = body.union(beam).union(pad).union(nub).union(root)
-    body = body.cut(power_icon())
     return body.intersect(lip_envelope())
 
 
-def power_icon(depth=MIN_ENGRAVE, r_in=1.6, r_out=2.4, gap_deg=50.0):
-    """Power symbol, bar toward +x. Line width 0.8 (= r_out - r_in), depth 0.8."""
-    z0, z1 = Z_FRONT - depth, Z_FRONT + 0.1
-    ringc = cyl(BTN_X, BTN_Y, z0, z1, 2 * r_out).cut(cyl(BTN_X, BTN_Y, z0 - 1, z1 + 1, 2 * r_in))
-    # wedge gap around +x
-    L = 5.0
-    a = math.radians(gap_deg)
-    wedge = (cq.Workplane('XY', origin=(0, 0, z0 - 0.5))
-             .polyline([(BTN_X, BTN_Y), (BTN_X + L * math.cos(a), BTN_Y + L * math.sin(a)),
-                        (BTN_X + L, BTN_Y), (BTN_X + L * math.cos(a), BTN_Y - L * math.sin(a))])
-             .close().extrude(z1 - z0 + 1))
-    ringc = ringc.cut(wedge)
-    bar = box(BTN_X + 0.0, BTN_X + 2.6, BTN_Y - 0.4, BTN_Y + 0.4, z0, z1)
-    return ringc.union(bar)
-
-
-# ======================================================================== keepers
-# Three keepers, each installed from the inside (insert face-down on a glass plate) AFTER the
-# parts it holds, each with ears that end up between faceplate rim and lip (the insert glue
-# seam). Their install direction is +z (device frame) and their footprints avoid every wire
-# laid before them (checked in verify.py).
 def _ears(k, ey0, ey1, zlow):
     for (sx0, sx1, ex0, ex1) in [(5.3, 6.1, FP_X0 + 0.15, 5.3 + 0.01), (23.3, 24.1, 24.1 - 0.01, FP_X1 - 0.15)]:
         k = k.union(box(sx0, sx1, ey0, ey1, zlow, EAR_Z1))
@@ -157,8 +112,8 @@ def _ears(k, ey0, ey1, zlow):
 
 
 def keeper_a():
-    """Radar + front-button keeper: 3 posts under the radar PCB corners, cup under the tact
-    switch. Wire slot open to +y so the plate passes the radar wires."""
+    """Radar keeper: 3 posts under the radar PCB corners and a plate with a wire slot open to +y so the plate
+    passes the radar header pins and wires."""
     x0, x1 = IN_X0 + 0.05, IN_X1 - 0.05
     ry1 = RAD_Y0 + RAD_W
     yp = C.radar_pin_y()
@@ -171,13 +126,7 @@ def keeper_a():
     posts = [box(9.0, 9.8, py0, py0 + 0.8, KA_Z1 - 0.01, RAD_Z0),
              box(19.6, 20.4, py0, py0 + 0.8, KA_Z1 - 0.01, RAD_Z0),
              box(23.2, 24.0, py1, py1 + 0.8, KA_Z1 - 0.01, RAD_Z0)]
-    riser = box(18.8, 22.6, ry1 - 4.0, ry1 + 0.15, KA_LOW_Z0, KA_Z1)
-    lower = box(18.8, 22.6, ry1 - 4.0, BTN_Y + 1.6, KA_LOW_Z0, KA_LOW_Z0 + 0.8)
-    bridge = box(BTN_X - 2.5, 22.6, BTN_Y - 1.6, BTN_Y + 1.6, KA_LOW_Z0, KA_LOW_Z0 + 0.8)
-    cup = box(BTN_X - 2.5, BTN_X + 2.5, BTN_Y - 1.6, BTN_Y + 1.6, KA_LOW_Z0 + 0.79, TACT_Z0)
-    k = union_all([plate] + posts + [riser, lower, bridge, cup])
-    for (lx, ly) in C.tact_leg_points():
-        k = k.cut(box(lx - 0.75, lx + 0.75, ly - 0.6, ly + 0.6, 120, 140))
+    k = union_all([plate] + posts)
     for (sx0, sx1) in [(5.3, 6.1), (23.3, 24.1)]:
         k = k.union(box(sx0, sx1, ry1 + 0.05, KA_EY1, KA_Z0, KA_Z1))
     k = _ears(k, KA_EY0, KA_EY1, KA_Z0)
@@ -312,7 +261,7 @@ def usb_cover(c, at_origin=True):
 # ======================================================================== coupon
 def coupon():
     """Fit coupon = exact crops of the production insert (front end) and plug (switch area),
-    joined by a bar. Tests: radar pocket+window, button flexure+tact pocket, USB collar +
+    joined by a bar. Tests: radar pocket+window, USB collar +
     overmold pocket + cover, camera head pocket + lens opening + cap, switch carrier pocket +
     knob hole + dimple."""
     yc = max(CAM_Y1 + CAM_POCKET_CLR + 0.8 + 0.9, CAM_Y + CAP_POCKET_D / 2 + 0.9)   # >= 0.8 strip past every pocket

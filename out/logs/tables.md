@@ -8,10 +8,10 @@
 | radar PCB to radar pocket walls (per side) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** | radar 20.0 +-0.1 [GUESS tol] |
 | radar PCB back to lip top (z, PCB overhangs lip 0.3) | 0.500 | 0.2 | 0.2 | 0.12 | **+0.180** |  |
 | radar front components to window (z) | 0.150 | 0.2 | 0.0 | 0.0 | **+0.050** | component height is [GUESS] |
-| tact switch to its pocket (per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** |  |
-| button nub to tact actuator (pre-travel) | 0.200 | 0.2 | 0.2 | 0.0 | **+0.000** |  |
-| button pad ring slot (single part, stays open) | 0.800 | 0.2 | 0.2 | 0.0 | **+0.600** |  |
-| hidden beam to skin gap (single part, stays open) | 0.800 | 0.2 | 0.2 | 0.0 | **+0.600** |  |
+| protection board to cavity -y wall (y) | 1.050 | 0.2 | 0.2 | 0.0 | **+0.850** | board 30 x 4 x 2 [USER] |
+| protection board to holder end face (y) | 2.050 | 0.2 | 0.2 | 0.0 | **+1.850** | holder 62 x 76 x 20 [USER] |
+| 24 AWG wire (OD 2.0) centre line to cavity -y wall (per side) | 1.050 | 0.2 | 0.2 | 0.0 | **+0.850** | OD 2.0 [USER], bend r 3.0 [GUESS] |
+| 24 AWG wire to holder end face (per side) | 2.050 | 0.2 | 0.2 | 0.0 | **+1.850** |  |
 | USB-C shell to collar opening (hole, per side) | 0.300 | 0.3 | 0.2 | 0.0 | **+0.050** |  |
 | XIAO bottom face to top rib (backup stop) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** |  |
 | XIAO bottom face to keeper C -y wall | 0.200 | 0.2 | 0.2 | 0.0 | **+0.000** |  |
@@ -26,6 +26,10 @@
 | lens cap C in cap pocket (hole, per side) | 0.250 | 0.3 | 0.2 | 0.0 | **+0.000** | friction fit: pick the variant that holds |
 | USB cover C in overmold pocket (per side) | 0.250 | 0.3 | 0.2 | 0.0 | **+0.000** | friction fit |
 | cable overmold 12.5 x 6.6 in pocket (per side, short side) | 0.400 | 0.3 | 0.0 | 0.0 | **+0.250** | largest spec-compliant overmold [USER] |
+| radar header plastic underside to keeper A plate (z) | 0.450 | 0.2 | 0.2 | 0.0 | **+0.250** | header dims [USER 8.3 / 1.35], plastic [GUESS] |
+| radar header pins to keeper A slot (per side) | 0.800 | 0.2 | 0.2 | 0.0 | **+0.600** | pin 0.64 [GUESS] |
+| radar header plastic (trimmed edge) to sleeve lip opening (x) | 2.590 | 0.2 | 0.2 | 0.0 | **+2.390** | pin 1 clipped, plastic trimmed at pin 2 cell |
+| radar header plastic to radar pocket wall (y) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** | plastic width [GUESS] |
 | cable overmold 12.5 x 6.6 in pocket (per side, long side) | 0.400 | 0.3 | 0.0 | 0.0 | **+0.250** | largest spec-compliant overmold [USER] |
 | holder to plug cradle walls (per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** | holder tol [GUESS] +-0.2 |
 | plug to cavity wall (glue line, per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** |  |
@@ -39,26 +43,28 @@
 | Wire / ribbon | Length mm | Min bend r | Clearance to solids | Clearance to other wires |
 |---|---:|---:|---:|---:|
 | camera FPC 6 x 0.15 | 65.0 | 2.0 | 0.000 | 2.686 |
-| radar RX -> XIAO D8 | 28.5 | 2.0 | 0.000 | 1.440 |
-| radar OT1 -> XIAO D7 | 33.6 | 2.0 | 0.000 | 1.440 |
-| radar GND -> XIAO GND | 24.1 | 2.0 | 0.000 | 0.850 |
-| radar 3V3 -> XIAO 3V3 | 28.5 | 2.0 | 0.000 | 0.420 |
-| button leg A -> XIAO D10 (input, pull-up) | 14.4 | 2.0 | 0.250 | 1.440 |
-| button leg B -> XIAO D9 (driven LOW) | 19.1 | 2.0 | 0.250 | 0.180 |
-| jumper pin2-pin5 | 4.8 | None | 0.453 | 1.200 |
-| jumper pin3-pin6 | 4.8 | None | 0.453 | 1.200 |
-| holder B+ (red) -> switch pin 2 | 38.7 | 2.0 | 0.050 | 0.100 |
-| switch pin 3 -> XIAO BAT+ | 168.5 | 2.0 | 0.100 | 0.100 |
-| holder B- (black) -> XIAO BAT- | 138.1 | 2.0 | 0.050 | 0.100 |
+| radar RX -> XIAO D8 | 21.3 | 2.0 | 0.050 | 1.440 |
+| radar OT1 -> XIAO D7 | 26.4 | 2.0 | 0.050 | 1.440 |
+| radar GND -> XIAO GND | 18.4 | 2.0 | 0.250 | 0.572 |
+| radar 3V3 -> XIAO 3V3 | 21.0 | 2.0 | 0.250 | 0.572 |
+| jumper pin2-pin5 | 4.8 | None | 0.450 | 0.500 |
+| jumper pin3-pin6 | 4.8 | None | 0.450 | 0.500 |
+| holder black (B-) -> board B- | 9.7 | 3.0 | 0.050 | 0.100 |
+| holder red (B+) -> board B+ | 9.7 | 3.0 | 0.050 | 0.100 |
+| board P+ -> switch pin 2 | 82.6 | 3.0 | 0.050 | 0.100 |
+| switch pin 3 -> BAT+ splice | 145.4 | 3.0 | 0.050 | 0.000 |
+| BAT+ splice -> XIAO BAT+ (28-30 AWG) | 21.9 | 2.0 | 0.250 | 0.000 |
+| board P- -> BAT- splice | 73.0 | 3.0 | 0.050 | 0.000 |
+| BAT- splice -> XIAO BAT- (28-30 AWG) | 26.0 | 2.0 | 0.250 | 0.000 |
 | U.FL coax -> antenna | 37.8 | 2.5 | 0.498 | 2.358 |
 
 | Part | Volume mm3 | Bounding box mm | Min wall | Min internal gap |
 |---|---:|---|---:|---:|
-| insert | 4037 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
-| plug | 7412 | 23.9 x 71.7 x 27.0 | 0.80 | 2.62 |
-| tray | 10442 | 100.3 x 63.2 x 27.8 | nan | nan |
-| coupon | 4254 | 23.9 x 74.0 x 18.0 | 0.80 | 0.80 |
-| keeper_a | 444 | 23.6 x 27.2 x 6.7 | 0.80 | 2.10 |
+| insert | 4018 | 23.9 x 71.7 x 34.5 | 0.80 | 1.49 |
+| plug | 7412 | 23.9 x 71.7 x 27.0 | 0.80 | 2.09 |
+| tray | 10422 | 100.3 x 63.2 x 27.8 | nan | nan |
+| coupon | 4235 | 23.9 x 74.0 x 18.0 | 0.80 | 1.49 |
+| keeper_a | 341 | 23.6 x 27.2 x 3.4 | 0.80 | 2.10 |
 | keeper_b | 284 | 23.6 x 8.6 x 11.9 | 0.80 | nan |
 | keeper_c | 749 | 23.6 x 13.7 x 24.8 | 0.80 | nan |
 | carrier_H10 | 875 | 17.2 x 10.4 x 15.7 | nan | nan |

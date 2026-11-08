@@ -35,13 +35,13 @@ def sample_poly(pts, ds):
 
 def build_world(slack_signal=6.0, quick=False, xiao_stage=6.0, kb='keeper_b'):
     t0 = time.time()
-    names = ['insert', 'radar', 'tact', 'keeper_a', 'camera', 'keeper_b', 'xiao', 'keeper_c']
+    names = ['insert', 'radar', 'keeper_a', 'camera', 'keeper_b', 'xiao', 'keeper_c']
     B = {}
     for n in names:
         mn = kb if n == 'keeper_b' else n
         m = meshes.get(mn)
         S = sdf.build(mn, m, 0.1, margin=1.5)
-        ns = {'xiao': 5000, 'insert': 10, 'radar': 2500, 'tact': 800, 'camera': 2000}.get(n, 2000)
+        ns = {'xiao': 5000, 'insert': 10, 'radar': 2500, 'camera': 2000}.get(n, 2000)
         B[n] = Rigid(n, m, S, nsamp=ns if n != 'insert' else 10, sample=(n != 'insert'))
     ms = meshes.get('sleeve'); lo, hi = ms.bounds.copy(); lo[2] = 85.0
     S = sdf.build('sleeve', ms, 0.15, margin=1.0, bounds=(lo, hi), tag='_z85')
@@ -50,7 +50,7 @@ def build_world(slack_signal=6.0, quick=False, xiao_stage=6.0, kb='keeper_b'):
     pts = ms.sample(40000); pts = pts[pts[:, 2] > 100.0]
     B['sleeve'].pb = pts[::4] - B['sleeve'].com
     # staging offsets (mm toward -z = "above" in the face-down world)
-    stage = {'radar': 10, 'tact': 8, 'keeper_a': 12, 'camera': 14, 'keeper_b': 14, 'xiao': xiao_stage, 'keeper_c': 14}
+    stage = {'radar': 10, 'keeper_a': 12, 'camera': 14, 'keeper_b': 14, 'xiao': xiao_stage, 'keeper_c': 14}
     for n, d in stage.items():
         B[n].translate_from_final((0, 0, -d))
         B[n].active = (n == 'xiao')                   # XIAO is held beside the work from the start; others sit on the bench
@@ -108,8 +108,6 @@ def build_world(slack_signal=6.0, quick=False, xiao_stage=6.0, kb='keeper_b'):
         return f
     for w in W.radar_wires():
         flex.append(wire(w['name'], w['pts'], B['radar'], stage['radar'], X, dX, slack_signal, '#d62828'))
-    for w in W.button_wires():
-        flex.append(wire(w['name'], w['pts'], B['tact'], stage['tact'], X, dX, slack_signal, '#f77f00'))
     cx = W.coax()
     flex.append(wire('U.FL coax', cx['pts'], X, dX, None, 0, dX + 4.0, '#ffbe0b', hand_end=cx['pts'][-1], r=0.57))   # service slack is fed through as the XIAO lowers
     for nm, (px, pz) in (('BAT+', W.PADS['BAT+']), ('BAT-', W.PADS['BAT-'])):
@@ -151,7 +149,7 @@ def release_dressed(held):
 
 
 def env_list(B):
-    return [B[k] for k in ['insert', 'radar', 'tact', 'keeper_a', 'camera', 'keeper_b', 'xiao', 'keeper_c', 'sleeve']]
+    return [B[k] for k in ['insert', 'radar', 'keeper_a', 'camera', 'keeper_b', 'xiao', 'keeper_c', 'sleeve']]
 
 
 class Recorder:
@@ -233,7 +231,7 @@ def run(slack=6.0, quick=False, out=None, xiao_stage=6.0, kb='keeper_b', speed=N
             f.step(DT, [b for b in env if b.active], iters=(30 if f.kind == 'ribbon' else 12), gq=getattr(f, 'gq', 0.0))
         t += DT
     rec.snap('stage', t, {})
-    order = [('S1 radar', 'radar', 10, 12.0), ('S2 tact switch', 'tact', 8, 12.0), ('S3 keeper A', 'keeper_a', 12, 12.0),
+    order = [('S1 radar', 'radar', 10, 12.0), ('S3 keeper A', 'keeper_a', 12, 12.0),
              ('S4 camera + heatsink', 'camera', 14, 10.0), ('S5 keeper B', 'keeper_b', 14, 12.0),
              ('S6 XIAO stack', 'xiao', xiao_stage, 6.0), ('S7 keeper C', 'keeper_c', 14, 12.0)]
     settle = 60 if quick else 150

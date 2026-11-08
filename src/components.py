@@ -68,22 +68,6 @@ def radar_pin_y():
     return RAD_Y0 + RAD_W - RAD_PIN_EDGE
 
 
-def tact():
-    b = box(BTN_X - 3, BTN_X + 3, BTN_Y - 3, BTN_Y + 3, TACT_Z0, TACT_Z0 + TACT_BODY_H)
-    a = cyl(BTN_X, BTN_Y, TACT_Z0 + TACT_BODY_H, TACT_Z1, TACT_ACT_D)
-    legs = []
-    for sx in (-1, 1):
-        for sy in (-1, 1):
-            x0 = BTN_X + sx * 2.95 if sx > 0 else BTN_X - 3.65
-            legs.append(box(x0, x0 + 0.7, BTN_Y + sy * 2.25 - 0.15, BTN_Y + sy * 2.25 + 0.15,
-                            TACT_Z0 - TACT_LEG_L, TACT_Z0 + 0.8))
-    return union_all([b, a] + legs)
-
-
-def tact_leg_points():
-    return [(BTN_X + sx * 3.3, BTN_Y + sy * 2.25) for sx in (-1, 1) for sy in (-1, 1)]
-
-
 def camera():
     """OV5640 module: base PCB, square lens-holder block, Ø3.8 barrel, and the heatsink glued behind the base.
     Axis +z (lens toward the front face). Total lens-top to heatsink-bottom = 5.6 + 0.1 pad + 6.0 heatsink = 11.7 mm."""
@@ -119,6 +103,19 @@ def switch_pin_xy():
     return {n: (SW_X + i * SW_PIN_PITCH, SW_Y + sy * SW_ROW / 2)
             for n, (i, sy) in {1: (-1, -1), 2: (0, -1), 3: (1, -1),
                                4: (-1, 1), 5: (0, 1), 6: (1, 1)}.items()}
+
+
+def bms():
+    """1S protection board (DW01A + FS8205A style), standing in the -y end gap beside the holder:
+    long axis z, width x, thickness y, centred on the wire riser line."""
+    return box(BMS_X0, BMS_X0 + BMS_W, Y_RISER - BMS_T / 2, Y_RISER + BMS_T / 2, BMS_Z0, BMS_Z0 + BMS_L)
+
+
+def bms_pads():
+    """Solder pad centres (wires butt against the board end faces): B-/B+ at the lower end, P-/P+ at the upper end."""
+    xc = BMS_X0 + BMS_W / 2
+    return {'B-': (xc - 1.05, Y_RISER, BMS_Z0), 'B+': (xc + 1.05, Y_RISER, BMS_Z0),
+            'P-': (xc - 1.05, Y_RISER, BMS_Z0 + BMS_L), 'P+': (xc + 1.05, Y_RISER, BMS_Z0 + BMS_L)}
 
 
 def holder():

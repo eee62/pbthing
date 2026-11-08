@@ -67,25 +67,7 @@ HDR_PIN_T = 0.64             # [GUESS] square pin thickness
 HDR_SOLDER_Z = 1.0           # wire solder point above the pin tip
 KA_SLOT_X0, KA_SLOT_X1 = 7.6, 17.6      # keeper A wire slot (x), open to +y
 
-# ---------------- front button [USER] / [DES] -------------------------------
-BTN_X, BTN_Y = CX, 30.75
-BTN_D = 7.0                  # pad diameter
-BTN_SLOT = 0.8               # visible ring seam (through slot) = min printable gap
-BTN_PAD_Z0 = Z_FRONT - 0.8 - 0.8 - 0.8   # pad underside: skin + gap + beam (138.1)
-BTN_NUB_D, BTN_NUB_H = 2.5, 0.4
-BTN_PRE = 0.20               # nub to actuator gap (pre-travel)
-BEAM_T, BEAM_W = 0.8, 2.0
-BEAM_ROOT_X = 23.0           # beam anchored into a root boss here
-SKIN_T = 0.8                 # skin over the hidden beam
-BEAM_TOP_GAP = 0.8           # beam to skin, = min printable gap
-TACT_W, TACT_H = 6.0, 4.3    # [USER] 6 x 6 x 4.3
-TACT_BODY_H = 3.5            # [GUESS] body without actuator
-TACT_ACT_D = 3.5             # [GUESS] actuator diameter
-TACT_TRAVEL = 0.25           # [GUESS] typical
-TACT_LEG_PX, TACT_LEG_PY = 6.5, 4.5   # [GUESS] typical THT leg spacing
-TACT_LEG_L = 3.5
-TACT_Z1 = BTN_PAD_Z0 - BTN_NUB_H - BTN_PRE          # actuator top 138.0
-TACT_Z0 = TACT_Z1 - TACT_H                          # body bottom 133.7
+# front tact switch, flexure and power icon REMOVED [USER]: the only button is the latching PB-22E08 on the bottom plug.
 
 # ---------------- XIAO stack (from STEP) -----------------------------------
 # STEP frame: X_s along board (USB at +X_s), Y_s stack (+ = components / expansion board),
@@ -94,8 +76,7 @@ XS_PCB_TOP = 12.28           # [MEAS] XIAO PCB edge at the USB end
 ZS_CENTRE = -6.11            # [MEAS] board centre across width
 BAY = 2.6                    # wire bay between XIAO bottom face and backbone (one layer of 1.1 wire + bends)
 BB_T = 1.2                   # backbone thickness
-TACT_POCKET_Y1 = BTN_Y + TACT_W / 2 + 0.25           # +y face of tact pocket
-BB_Y0 = TACT_POCKET_Y1                               # backbone (also tact pocket wall)
+BB_Y0 = 34.0                                         # backbone -y face (was the tact pocket wall; kept so the USB collar and XIAO bay do not move)
 BB_Y1 = BB_Y0 + BB_T
 Y_S0 = BB_Y1 + BAY + 0.25    # y of STEP Y_s = 0 (XIAO bottom face is Y_s = -0.25)
 Z_PT = LIP_Z1                # z of the collar stop face (XIAO PCB top edge) 137.0
@@ -190,7 +171,7 @@ PLUG_SKIN = 0.8              # floor under the hidden knob channel
 DIMPLE_D, DIMPLE_DEPTH = 9.0, 1.0   # conical finger dimple around the knob hole
 KNOB_HOLE_D = 6.2            # clears the 3.9 square knob diagonal (5.52)
 
-HOLDER_X, HOLDER_Y, HOLDER_Z = 20.0, 61.0, 76.0   # [USER] 76 x 61 x 20 standing on end
+HOLDER_X, HOLDER_Y, HOLDER_Z = 20.0, 62.0, 76.0   # [USER] 62 x 76 x 20 standing on end: 62 along y, 76 along z (height), 20 along x
 HOLDER_Z0 = 21.0             # holder bottom (above the switch, wires and pocket roof)
 HOLDER_CLR = 0.25
 
@@ -221,3 +202,11 @@ FPCW_Y0 = FPC_Y_UP2 + 0.6               # FPC guide wall
 FPCW_Y1 = FPCW_Y0 + 1.2
 ANT_Y0 = FPCW_Y1 + 0.05                 # antenna FPC on the +y face of the guide wall
 ANT_Z0 = 106.5
+
+# battery path: 24 AWG [USER], protection board [USER size, parameterized]
+WIRE_BAT_D = 2.0             # [USER] 24 AWG silicone outer diameter for the battery path
+WIRE_BAT_R = 3.0             # [GUESS] minimum static bend radius = 1.5 x OD (silicone 24 AWG)
+BMS_L, BMS_W, BMS_T = 30.0, 4.0, 2.0     # [USER] 1S protection board (DW01A + FS8205A style): length (z), width (x), thickness incl. parts (y)
+BMS_X0 = 5.65                # board x range 5.65..9.65, in the -y end gap beside the holder
+BMS_Z0 = 33.0                # board z range 33..63
+Y_RISER = 4.55               # wire centre line in the -y end gap (2.5 wall + 1.05 + wire radius; 3.0 mm from the holder end face = one bend radius)

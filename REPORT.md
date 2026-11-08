@@ -9,10 +9,10 @@
   the radar's component heights and its RF behaviour behind a 1 mm air gap, and the cable
   overmold. All of them are on the fit coupon, which should be ordered first.
 * **Three things differ from the brief**, each forced by the measured geometry (details below):
-  1. The XIAO, camera, radar and button go in **with the insert from the top** (the module is
+  1. The XIAO, camera and radar go in **with the insert from the top** (the module is
      assembled face-down on glass, then the sleeve is lowered over it). Only the holder and plug
      enter from the bottom.
-  2. Three small **keepers** (on the tray) hold the radar/button, camera and XIAO; they are glued
+  2. Three small **keepers** (on the tray) hold the radar, camera and XIAO; they are glued
      only in the insert seam. One more glue point is listed: holder base to plug (G3).
   3. The XIAO ESP32-S3 has **no on-board antenna** (U.FL only). The facts file does not mention
      it; I added a mounting face for the supplied FPC antenna.
@@ -50,7 +50,7 @@ The sleeve was rebuilt as an exact B-rep from these numbers; all 352 STL vertice
 
 **Top module enters from the top, not "boards from the bottom".** The camera FPC must be
 latched into the expansion-board connector on the bench, so board and camera are one harness;
-the radar and button are wired to the same board. The 19.4 mm lip opening passes the 17.8 mm
+the radar is wired to the same board. The 19.4 mm lip opening passes the 17.8 mm
 XIAO stack (0.55 mm per side after 0.25 clearance) — verified as a swept volume. Docking the
 XIAO blind 115 mm deep from the bottom could not be guided or checked.
 
@@ -70,14 +70,11 @@ under the camera (r 2), down, U-loop (r 2.35, bottom z 112.2 for a 65 mm FPC), u
 into the head (r 2). The loop depth is solved from the FPC length; 40–85 mm all fit
 (loop bottom z 124.8 … 102.3, holder top z 97).
 
-**Front layout** (y along the face): radar window (blank) 5.3–25.3 · button Ø7 at 30.75 ·
+**Front layout** (y along the face): radar window (blank) 5.3–25.3 ·
 USB-C pocket 13.3 x 7.4 at 40.63 · lens cap Ø11 at 50.8 · FPC guide wall + antenna. The three
 visible features cluster around the face centre (38.6).
 
-**Button.** Flush Ø7 pad in a 0.8 mm visible ring seam, on a hidden cantilever beam
-(4.8 x 2.0 x 0.8, lever 8.3 mm) under a 0.8 mm skin with a 0.8 mm gap. Full travel 0.45 mm
-(0.2 pre-travel + 0.25 switch) gives 0.85 % root strain and 0.54 N beam force; the tact switch
-body is the hard stop. Engraved power icon: 0.8 lines, 0.8 deep, ≥ 0.83 land.
+**Front tact switch removed [USER].** No button, ring seam, flexure, tact pocket, keeper A cup or engraved icon: the front face has only the radar window, the lens opening and the USB-C pocket. The only button is the latching PB-22E08 on the bottom plug; D9 and D10 are unused.
 
 **XIAO retention.** USB-C shell in a closed collar (0.30 per side), collar underside is the
 stop for the PCB edge (takes cable pull-out), keeper C's U-foot takes cable insertion and
@@ -100,7 +97,7 @@ Both poles are paralleled with jumpers 2–5 and 3–6 in the battery-positive l
 |---|---|---|---|
 | `out/stl/coupon.stl` | fit coupon: exact crops of the insert front end and plug switch area | 1 | 1st |
 | `out/stl/tray.stl` | keepers A, B, C; switch carriers H10/11/12/13/13.5/14; lens caps A/B/C; USB covers A/B/C, on one frame with Ø1.0 snap-off posts | 1 | 1st (re-order with order 2 only if parameters change) |
-| `out/stl/insert.stl` (+ `out/step/insert.step`) | one-piece faceplate + tray: radar pocket and window, button flexure, USB-C collar and overmold pocket, camera pocket, cap pocket, backbone, FPC guide wall, antenna face | 1 | 2nd |
+| `out/stl/insert.stl` (+ `out/step/insert.step`) | one-piece faceplate + tray: radar pocket and window, USB-C collar and overmold pocket, camera pocket, cap pocket, backbone, FPC guide wall, antenna face | 1 | 2nd |
 | `out/stl/plug.stl` (+ `out/step/plug.step`) | flush bottom plug: dimple + knob hole, carrier pocket, holder cradle | 1 | 2nd |
 | `out/stl/tray_parts/*.stl`, `out/step/keeper_*.step` | the tray parts individually (reference only, do not order separately) | – | – |
 
@@ -114,18 +111,18 @@ ASSEMBLY §0.
 |---|---|
 | Sleeve rebuilt as exact B-rep vs STL | 352/352 vertices on surface (max dev 0.0000 mm), volume +0.09 % |
 | Every printed part one valid watertight solid (B-rep and STL) | 4 print files + 19 tray parts: all 1 body |
-| Interference, exact boolean volume | 406 pairs of 29 bodies (sleeve, insert, 3 keepers, plug, carrier, XIAO from STEP, radar, tact, camera, switch, holder, antenna, caps, FPC, 12 wires): max overlap 0.000000 mm3 |
+| Interference, exact boolean volume | 406 pairs of 29 bodies (sleeve, insert, 3 keepers, plug, carrier, XIAO from STEP, radar, protection board, camera, switch, holder, antenna, caps, FPC, 14 wires): max overlap 0.000000 mm3 |
 | Top module passes the 19.4 x 67.2 lip | 0.000 mm3 outside; min clearance to lip 0.250 |
 | Top module above the lip inside the bore | 0.000 mm3 outside |
 | Install sweeps (exact prisms): keeper A, keeper B, keeper C, caps; XIAO (+z, boxes/prisms); carrier along +x; plug sub-assembly from below | all 0.000 mm3 |
 | Carrier captured by sleeve wall | 0.35 mm play, 4 mm engagement |
 | Min wall (ray casting, opposite faces) | insert 0.80, plug 0.80, keepers 0.80, carrier 0.95, caps 1.20, coupon 0.80 (rule 0.8) |
-| Min internal slot/gap that must stay open | insert 0.80 (button ring seam, beam gap), coupon 0.80 (rule 0.8) |
+| Min internal slot/gap that must stay open | insert 0.80 (internal slots), coupon 0.80 (rule 0.8) |
 | Worst-case clearances | all fits ≥ 0 (table 5.1); caps: variant C always fits |
 | Wires: 12 wires + FPC swept at real size | 0 overlaps; min bend r 2.0 (wires, FPC), 2.5 (coax) |
 | FPC 65 mm | loop bottom z 112.2, 15.2 above holder; 40–85 mm lengths also fit |
 | Main switch, H = 10…14 | no overlap in released/latched/full states; recess 1.00 / 2.50 / 3.50 for every H |
-| Front button | icon depth 0.80, line 0.80, land 0.83; flexure strain 0.85 % at 0.45 mm, force 0.54 N |
+| Front face | exactly 2 openings (lens/cap pocket, USB-C pocket); no button, seam or icon |
 | Radar window | 0.8 mm vs λ/8 = 0.78–0.87 mm for εr 4.0–3.2 (9000HE datasheet: 3.2–4.0 at 1 MHz, no 24 GHz value): marginal at εr = 4.0; antenna-to-window H = 1.00 mm (risk) |
 | Lens field of view | 123.9° unvignetted (assumed Ø5 front glass) |
 
@@ -148,10 +145,10 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | radar PCB to radar pocket walls (per side) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** | radar 20.0 +-0.1 [GUESS tol] |
 | radar PCB back to lip top (z, PCB overhangs lip 0.3) | 0.500 | 0.2 | 0.2 | 0.12 | **+0.180** |  |
 | radar front components to window (z) | 0.150 | 0.2 | 0.0 | 0.0 | **+0.050** | component height is [GUESS] |
-| tact switch to its pocket (per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** |  |
-| button nub to tact actuator (pre-travel) | 0.200 | 0.2 | 0.2 | 0.0 | **+0.000** |  |
-| button pad ring slot (single part, stays open) | 0.800 | 0.2 | 0.2 | 0.0 | **+0.600** |  |
-| hidden beam to skin gap (single part, stays open) | 0.800 | 0.2 | 0.2 | 0.0 | **+0.600** |  |
+| protection board to cavity -y wall (y) | 1.050 | 0.2 | 0.2 | 0.0 | **+0.850** | board 30 x 4 x 2 [USER] |
+| protection board to holder end face (y) | 2.050 | 0.2 | 0.2 | 0.0 | **+1.850** | holder 62 x 76 x 20 [USER] |
+| 24 AWG wire (OD 2.0) centre line to cavity -y wall (per side) | 1.050 | 0.2 | 0.2 | 0.0 | **+0.850** | OD 2.0 [USER], bend r 3.0 [GUESS] |
+| 24 AWG wire to holder end face (per side) | 2.050 | 0.2 | 0.2 | 0.0 | **+1.850** |  |
 | USB-C shell to collar opening (hole, per side) | 0.300 | 0.3 | 0.2 | 0.0 | **+0.050** |  |
 | XIAO bottom face to top rib (backup stop) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** |  |
 | XIAO bottom face to keeper C -y wall | 0.200 | 0.2 | 0.2 | 0.0 | **+0.000** |  |
@@ -166,6 +163,10 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | lens cap C in cap pocket (hole, per side) | 0.250 | 0.3 | 0.2 | 0.0 | **+0.000** | friction fit: pick the variant that holds |
 | USB cover C in overmold pocket (per side) | 0.250 | 0.3 | 0.2 | 0.0 | **+0.000** | friction fit |
 | cable overmold 12.5 x 6.6 in pocket (per side, short side) | 0.400 | 0.3 | 0.0 | 0.0 | **+0.250** | largest spec-compliant overmold [USER] |
+| radar header plastic underside to keeper A plate (z) | 0.450 | 0.2 | 0.2 | 0.0 | **+0.250** | header dims [USER 8.3 / 1.35], plastic [GUESS] |
+| radar header pins to keeper A slot (per side) | 0.800 | 0.2 | 0.2 | 0.0 | **+0.600** | pin 0.64 [GUESS] |
+| radar header plastic (trimmed edge) to sleeve lip opening (x) | 2.590 | 0.2 | 0.2 | 0.0 | **+2.390** | pin 1 clipped, plastic trimmed at pin 2 cell |
+| radar header plastic to radar pocket wall (y) | 0.300 | 0.2 | 0.2 | 0.0 | **+0.100** | plastic width [GUESS] |
 | cable overmold 12.5 x 6.6 in pocket (per side, long side) | 0.400 | 0.3 | 0.0 | 0.0 | **+0.250** | largest spec-compliant overmold [USER] |
 | holder to plug cradle walls (per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** | holder tol [GUESS] +-0.2 |
 | plug to cavity wall (glue line, per side) | 0.250 | 0.2 | 0.2 | 0.0 | **+0.050** |  |
@@ -179,26 +180,28 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | Wire / ribbon | Length mm | Min bend r | Clearance to solids | Clearance to other wires |
 |---|---:|---:|---:|---:|
 | camera FPC 6 x 0.15 | 65.0 | 2.0 | 0.000 | 2.686 |
-| radar RX -> XIAO D8 | 28.5 | 2.0 | 0.000 | 1.440 |
-| radar OT1 -> XIAO D7 | 33.6 | 2.0 | 0.000 | 1.440 |
-| radar GND -> XIAO GND | 24.1 | 2.0 | 0.000 | 0.850 |
-| radar 3V3 -> XIAO 3V3 | 28.5 | 2.0 | 0.000 | 0.420 |
-| button leg A -> XIAO D10 (input, pull-up) | 14.4 | 2.0 | 0.250 | 1.440 |
-| button leg B -> XIAO D9 (driven LOW) | 19.1 | 2.0 | 0.250 | 0.180 |
-| jumper pin2-pin5 | 4.8 | None | 0.453 | 1.200 |
-| jumper pin3-pin6 | 4.8 | None | 0.453 | 1.200 |
-| holder B+ (red) -> switch pin 2 | 38.7 | 2.0 | 0.050 | 0.100 |
-| switch pin 3 -> XIAO BAT+ | 168.5 | 2.0 | 0.100 | 0.100 |
-| holder B- (black) -> XIAO BAT- | 138.1 | 2.0 | 0.050 | 0.100 |
+| radar RX -> XIAO D8 | 21.3 | 2.0 | 0.050 | 1.440 |
+| radar OT1 -> XIAO D7 | 26.4 | 2.0 | 0.050 | 1.440 |
+| radar GND -> XIAO GND | 18.4 | 2.0 | 0.250 | 0.572 |
+| radar 3V3 -> XIAO 3V3 | 21.0 | 2.0 | 0.250 | 0.572 |
+| jumper pin2-pin5 | 4.8 | None | 0.450 | 0.500 |
+| jumper pin3-pin6 | 4.8 | None | 0.450 | 0.500 |
+| holder black (B-) -> board B- | 9.7 | 3.0 | 0.050 | 0.100 |
+| holder red (B+) -> board B+ | 9.7 | 3.0 | 0.050 | 0.100 |
+| board P+ -> switch pin 2 | 82.6 | 3.0 | 0.050 | 0.100 |
+| switch pin 3 -> BAT+ splice | 145.4 | 3.0 | 0.050 | 0.000 |
+| BAT+ splice -> XIAO BAT+ (28-30 AWG) | 21.9 | 2.0 | 0.250 | 0.000 |
+| board P- -> BAT- splice | 73.0 | 3.0 | 0.050 | 0.000 |
+| BAT- splice -> XIAO BAT- (28-30 AWG) | 26.0 | 2.0 | 0.250 | 0.000 |
 | U.FL coax -> antenna | 37.8 | 2.5 | 0.498 | 2.358 |
 
 | Part | Volume mm3 | Bounding box mm | Min wall | Min internal gap |
 |---|---:|---|---:|---:|
-| insert | 4037 | 23.9 x 71.7 x 34.5 | 0.80 | 0.80 |
-| plug | 7412 | 23.9 x 71.7 x 27.0 | 0.80 | 2.62 |
-| tray | 10442 | 100.3 x 63.2 x 27.8 | nan | nan |
-| coupon | 4254 | 23.9 x 74.0 x 18.0 | 0.80 | 0.80 |
-| keeper_a | 444 | 23.6 x 27.2 x 6.7 | 0.80 | 2.10 |
+| insert | 4018 | 23.9 x 71.7 x 34.5 | 0.80 | 1.49 |
+| plug | 7412 | 23.9 x 71.7 x 27.0 | 0.80 | 2.09 |
+| tray | 10422 | 100.3 x 63.2 x 27.8 | nan | nan |
+| coupon | 4235 | 23.9 x 74.0 x 18.0 | 0.80 | 1.49 |
+| keeper_a | 341 | 23.6 x 27.2 x 3.4 | 0.80 | 2.10 |
 | keeper_b | 284 | 23.6 x 8.6 x 11.9 | 0.80 | nan |
 | keeper_c | 749 | 23.6 x 13.7 x 24.8 | 0.80 | nan |
 | carrier_H10 | 875 | 17.2 x 10.4 x 15.7 | nan | nan |
@@ -234,16 +237,16 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 | G4 | Radar front components ≤ 0.85 mm; back components ≤ 1.1 mm and ≥ 1.5 mm from the edge at the 3 keeper posts | `RAD_FRONT_H`, posts | coupon step 1; calipers |
 | G5 | Radar J2 hole 1.27 from the edge, pin order OT2-RX-OT1-GND-3V3 from the −x end | `RAD_PIN_*` | look at the board |
 | G6 | 9000HE relative permittivity 3.2–4.0 (datasheet value at 1 MHz; the 24 GHz value is unknown; the earlier 2.6–3.8 was wrong) | window 0.8 | radar range test on the coupon |
-| G7 | Tact switch: body 3.5 + Ø3.5 actuator, legs 6.5 x 4.5, travel 0.25 | `TACT_*` | coupon step 2 |
+| G7 | (front tact switch removed) | | |
 | G8 | Your switch knob height H; latched-closed contacts 2-3 / 5-6 | carrier variants | calipers, multimeter |
-| G9 | Holder 76 x 61 x 20 ±0.2; leads leave its −y end face near the bottom (z 25) | `HOLDER_*` | look at the holder; re-route if not |
+| G9 | Holder 62 x 76 x 20 ±0.2; leads leave its −y end face near the bottom (z 25) | `HOLDER_*` | look at the holder; re-route if not |
 | G10 | USB-C cable overmold ≤ 12.5 x 6.6 mm (largest spec-compliant, [USER]) | `OVM_*` | coupon step 3 with your cables |
 | G11 | Antenna FPC 30 x 8 x 0.3 with Ø1.13 coax, ≥ 40 mm | `ANT_*` | the antenna in the box |
 | G12 | XIAO BAT+ / BAT− pads = the two 0.76 x 1.78 pads (BAT− nearer the USB-C) | wires | silkscreen / meter |
-| G13 | Wire OD 1.1 (28–30 AWG silicone, max) | `WIRE_D` | — |
-| G14 | Resin flexural modulus 2.5 GPa; < 1 % strain is safe | flexure | coupon button test |
+| G13 | Signal wire OD 1.1 (28–30 AWG silicone, max); battery wire 24 AWG OD 2.0, static bend radius 3.0 | `WIRE_D`, `WIRE_BAT_*` | — |
+| G14 | (flexure removed) | | |
 | G15 | Purchased-part tolerances ±0.1–0.2 where no datasheet | tolerance table | — |
-| G16 | D8/D9/D10 free without an SD card (pull-ups harmless) | wiring | firmware test |
+| G16 | D7/D8 radar UART; D9/D10 unused | wiring | firmware test |
 
 ---------------------------------------------------------------------------------------
 ## 7. Not verified numerically
@@ -257,7 +260,6 @@ may not go in at the worst case; variant C always fits (worst ≥ 0).
 * Solder-joint sizes on the castellations (only 0.55 mm per side to the lip opening).
 * Heat (charging, WiFi, camera) against the 60 °C deflection temperature.
 * Drop / shock; brittleness of the 0.8 mm features.
-* Resin drainage from the 0.8 mm gap under the button skin.
 * No acoustic path for the microphone was designed (the seams are the only openings).
 * That a fingertip can operate the main switch (pen tip / nail assumed).
 
@@ -287,7 +289,6 @@ Every number is in `src/params.py` (or the top of `src/parts.py`). After a chang
 | Insert body will not pass the lip | `G_LIP` 0.25 → 0.35 |
 | Radar does not seat / touches window | measure front height → `RAD_FRONT_H`; pocket → `RAD_POCKET_CLR` |
 | Radar range poor | see risk 1 (no fix inside this sleeve) |
-| Button too stiff / cracks | `BEAM_W` 2.0 → 1.5; too soft: `BEAM_W` 2.5 |
 | USB-C shell tight in collar | `COLLAR_CLR` 0.30 → 0.40 |
 | Cable overmold does not seat | `OVM_W`, `OVM_H` (wall to the cap pocket is 0.9 mm on +y) |
 | Camera head tight / loose | `CAM_W`, `CAM_POCKET_CLR`; barrel `CAM_BARREL_D`, `LENS_OPEN_D`; height `CAM_BODY_H` |
@@ -309,8 +310,8 @@ Every number is in `src/params.py` (or the top of `src/parts.py`). After a chang
 * `inputs/` the supplied files plus the switch datasheet and radome guide that were used
 
 Renders: `out/img/front.png`, `front_caps_off.png`, `bottom.png`, `exploded.png`,
-`section_top_x14.7.png` (radar, button, USB-C, camera, FPC), `section_bottom_x14.7.png`
-(switch, carrier, plug, holder), `section_y38.6_switch.png`, `section_y30.45_button.png`,
+`section_top_x14.7.png` (radar, USB-C, camera, FPC), `section_bottom_x14.7.png`
+(switch, carrier, plug, holder), `section_y38.6_switch.png`, 
 `section_full_x14.7.png`, `wires_all.png`, `wires_top.png`, `wires_top_side.png`,
 `print_coupon.png`, `print_tray.png`, `insert_from_below.png`.
 
@@ -333,8 +334,13 @@ Renders: `out/img/front.png`, `front_caps_off.png`, `bottom.png`, `exploded.png`
   is half the 12.5 mm stock tail measured in the STEP; check it fits the 24-pin connector.
 * **Lens hole Ø8.0, USB-C pocket 13.3 × 7.4:** lens hole 0.5 mm per side around the Ø7 barrel (worst case +0.25 mm with hole ±0.3, barrel ±0.2); cap-pocket land 1.50 mm
   (limit 1.5, no spare). USB-C pocket fits the 12.5 × 6.6 mm overmold with +0.25 mm per side worst case; walls: 0.90 mm to the cap pocket (y), 1.82 mm to the
-  camera head pocket, 5.3 mm to each side of the insert, 2.68 mm to the button pad. FOV 133.8° (cap pocket limit). Verify: 0 failed, 114 PASS.
+  camera head pocket, 5.3 mm to each side of the insert. FOV 133.8° (cap pocket limit). Verify: 0 failed, 114 PASS.
 * **Radar header kept** (`HDR_*` in `params.py`, defaults plastic 12.7 × 2.54, pin 0.64 square are [GUESS] until you send measurements; 8.3 and 1.35 are [USER]): pin 1 clipped,
   plastic trimmed at pin 2's cell, four wires soldered to the pin tips (7.3 mm shorter lanes, 4–6 mm below keeper A's plate). Clearances: plastic to keeper A plate 0.45 mm (z),
   pins to the keeper A slot 0.80 mm, trimmed plastic edge to the sleeve opening 2.59 mm, plastic to radar pocket wall 0.30 mm. Plastic +0.3 mm in length/width changes none of keeper A or
   sleeve clearance (only the pocket wall 0.30 → 0.15 mm for +0.3 width); spacer thickness +0.3 takes keeper A from 0.45 to 0.15 mm; pin +0.3 takes the slot margin 0.80 → 0.65 mm.
+
+* **Four input changes (latest):** (1) holder 62 × 76 × 20 (62 along y, 76 along z, 20 along x): +1 mm in y, holder-to-cradle clearance and the end gap re-verified. (2) Battery path in 24 AWG, OD 2.0, static bend radius 3.0 mm [GUESS]:
+  lane at y 4.55 in the 5.1 mm end gap (1.05 mm to the wall, 2.05 mm to the holder end face), plug thin-wall passage 8 × 4 mm holds the two 2.0 mm wires at z 19.0 ± 1.0; the XIAO BAT pads (1.2 × 1.9 mm apart) cannot take 2.0 mm wires,
+  so 24 AWG ends at splices above the holder (z 110 / 107.8) with 28–30 AWG pigtails. (3) Cells are UNPROTECTED: 1S protection board 30 × 4 × 2 (`BMS_*`) stands in the −y end gap, x 5.65–9.65, y 3.55–5.55, z 33–63
+  (0.85 mm from the wall, 1.85 mm from the holder end face, no overlap with sleeve, holder, plug, wires); holder leads → B−/B+, P+ → switch pin 2, switch pin 3 and P− → splices. (4) Front tact switch, flexure, power icon, tact pocket, keeper A cup, D9/D10 wires removed.

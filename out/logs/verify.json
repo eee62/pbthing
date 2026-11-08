@@ -6,7 +6,7 @@
  },
  "parts": {
   "insert": {
-   "volume": 4037.1340191567956,
+   "volume": 4018.4857059455535,
    "bbox": [
     23.9,
     71.7,
@@ -14,7 +14,7 @@
    ]
   },
   "plug": {
-   "volume": 7412.0941065746065,
+   "volume": 7412.049142412055,
    "bbox": [
     23.9,
     71.7,
@@ -22,7 +22,7 @@
    ]
   },
   "tray": {
-   "volume": 10441.771735028437,
+   "volume": 10421.846934348145,
    "bbox": [
     100.25000000000001,
     63.200000000000045,
@@ -30,7 +30,7 @@
    ]
   },
   "coupon": {
-   "volume": 4254.072223813537,
+   "volume": 4235.423910602297,
    "bbox": [
     23.9,
     73.97500000000001,
@@ -38,11 +38,11 @@
    ]
   },
   "keeper_a": {
-   "volume": 444.11101013546727,
+   "volume": 341.3980101354665,
    "bbox": [
     23.6,
     27.200000000000042,
-    6.7000000000000455
+    3.4000000000000057
    ]
   },
   "keeper_b": {
@@ -159,8 +159,8 @@
   }
  },
  "interference": {
-  "bodies": 29,
-  "pairs": 406,
+  "bodies": 31,
+  "pairs": 463,
   "max_overlap": 0.0
  },
  "gaps": {
@@ -176,7 +176,9 @@
   "keeper_a-radar": 0.0,
   "insert-camera": 0.25,
   "keeper_b-camera": 0.0,
-  "insert-tact": 0.19999999999998863,
+  "bms-holder": 2.0500000000000016,
+  "bms-sleeve": 0.9299837133982505,
+  "bms-plug": 6.148170459575759,
   "fpc-xiao": 0.18288030779039202,
   "fpc-insert": 0.5250000000000057,
   "fpc-keeper_b": 1.8207540990160236,
@@ -193,15 +195,15 @@
  },
  "walls": {
   "insert": {
-   "min_wall": 0.7998877929687467,
-   "min_gap": 0.7982391603862831
+   "min_wall": 0.7998992370605436,
+   "min_gap": 1.4899054931640592
   },
   "plug": {
    "min_wall": 0.799900011920929,
-   "min_gap": 2.6184800243005952
+   "min_gap": 2.0892699493844304
   },
   "keeper_a": {
-   "min_wall": 0.7998877929687467,
+   "min_wall": 0.7998992370605471,
    "min_gap": 2.099898474121094
   },
   "keeper_b": {
@@ -225,8 +227,8 @@
    "min_gap": 1.1999000476837158
   },
   "coupon": {
-   "min_wall": 0.7998877929687467,
-   "min_gap": 0.7985441834852035
+   "min_wall": 0.7998992370605436,
+   "min_gap": 1.4899054931640592
   }
  },
  "tolerances": [
@@ -303,39 +305,39 @@
    "note": "component height is [GUESS]"
   },
   {
-   "fit": "tact switch to its pocket (per side)",
-   "nominal": 0.25,
+   "fit": "protection board to cavity -y wall (y)",
+   "nominal": 1.0499999999999998,
    "tolA": 0.2,
    "tolB": 0.2,
    "extra": 0.0,
-   "worst": 0.04999999999999999,
-   "note": ""
+   "worst": 0.8499999999999999,
+   "note": "board 30 x 4 x 2 [USER]"
   },
   {
-   "fit": "button nub to tact actuator (pre-travel)",
-   "nominal": 0.2,
+   "fit": "protection board to holder end face (y)",
+   "nominal": 2.0500000000000016,
    "tolA": 0.2,
    "tolB": 0.2,
    "extra": 0.0,
-   "worst": 0.0,
-   "note": ""
+   "worst": 1.8500000000000016,
+   "note": "holder 62 x 76 x 20 [USER]"
   },
   {
-   "fit": "button pad ring slot (single part, stays open)",
-   "nominal": 0.8,
+   "fit": "24 AWG wire (OD 2.0) centre line to cavity -y wall (per side)",
+   "nominal": 1.0499999999999998,
    "tolA": 0.2,
    "tolB": 0.2,
    "extra": 0.0,
-   "worst": 0.6000000000000001,
-   "note": ""
+   "worst": 0.8499999999999999,
+   "note": "OD 2.0 [USER], bend r 3.0 [GUESS]"
   },
   {
-   "fit": "hidden beam to skin gap (single part, stays open)",
-   "nominal": 0.8,
+   "fit": "24 AWG wire to holder end face (per side)",
+   "nominal": 2.0500000000000016,
    "tolA": 0.2,
    "tolB": 0.2,
    "extra": 0.0,
-   "worst": 0.6000000000000001,
+   "worst": 1.8500000000000016,
    "note": ""
   },
   {
@@ -612,66 +614,80 @@
   },
   {
    "name": "radar GND -> XIAO GND",
-   "length": 18.41900791195989,
+   "length": 18.382155913863638,
    "min_radius": 2.0,
-   "clear": 0.15000000000000568,
-   "clear_wires": 0.07623133098342906
+   "clear": 0.2500000149011583,
+   "clear_wires": 0.5724654470022464
   },
   {
    "name": "radar 3V3 -> XIAO 3V3",
    "length": 21.001556975645208,
    "min_radius": 2.0,
    "clear": 0.2500000149011583,
-   "clear_wires": 0.07623133098343937
-  },
-  {
-   "name": "button leg A -> XIAO D10 (input, pull-up)",
-   "length": 14.423185307179518,
-   "min_radius": 2.0,
-   "clear": 0.2500000149011583,
-   "clear_wires": 1.440000000000009
-  },
-  {
-   "name": "button leg B -> XIAO D9 (driven LOW)",
-   "length": 19.063185307179527,
-   "min_radius": 2.0,
-   "clear": 0.2500000149011583,
-   "clear_wires": 0.18024389337134594
+   "clear_wires": 0.5724654470022464
   },
   {
    "name": "jumper pin2-pin5",
    "length": 4.799999999999997,
    "min_radius": null,
-   "clear": 0.45276925690687375,
-   "clear_wires": 1.2000000000000028
+   "clear": 0.45000000000000284,
+   "clear_wires": 0.5
   },
   {
    "name": "jumper pin3-pin6",
    "length": 4.799999999999997,
    "min_radius": null,
-   "clear": 0.45276925690687375,
-   "clear_wires": 1.2000000000000028
+   "clear": 0.45000000000000284,
+   "clear_wires": 0.5
   },
   {
-   "name": "holder B+ (red) -> switch pin 2",
-   "length": 38.670777117310514,
-   "min_radius": 2.0,
+   "name": "holder black (B-) -> board B-",
+   "length": 9.662388980384694,
+   "min_radius": 3.0,
+   "clear": 0.04999999999999716,
+   "clear_wires": 0.10000000000000053
+  },
+  {
+   "name": "holder red (B+) -> board B+",
+   "length": 9.662388980384694,
+   "min_radius": 3.0,
+   "clear": 0.04999999999999716,
+   "clear_wires": 0.10000000000000053
+  },
+  {
+   "name": "board P+ -> switch pin 2",
+   "length": 82.63716694115408,
+   "min_radius": 3.0,
+   "clear": 0.04999999999999716,
+   "clear_wires": 0.09999999999999876
+  },
+  {
+   "name": "switch pin 3 -> BAT+ splice",
+   "length": 145.36180308629076,
+   "min_radius": 3.0,
    "clear": 0.05000000000000071,
-   "clear_wires": 0.09999999999999787
+   "clear_wires": 0.0
   },
   {
-   "name": "switch pin 3 -> XIAO BAT+",
-   "length": 168.45184831867215,
+   "name": "BAT+ splice -> XIAO BAT+ (28-30 AWG)",
+   "length": 21.931592653589796,
    "min_radius": 2.0,
-   "clear": 0.10000000000000142,
-   "clear_wires": 0.09999999999999787
+   "clear": 0.2500000149011612,
+   "clear_wires": 0.0
   },
   {
-   "name": "holder B- (black) -> XIAO BAT-",
-   "length": 138.0989608793873,
+   "name": "board P- -> BAT- splice",
+   "length": 73.02321610007132,
+   "min_radius": 3.0,
+   "clear": 0.04999999999999716,
+   "clear_wires": 5.0242958677880805e-15
+  },
+  {
+   "name": "BAT- splice -> XIAO BAT- (28-30 AWG)",
+   "length": 26.04159265358978,
    "min_radius": 2.0,
-   "clear": 0.05000000000000071,
-   "clear_wires": 0.09999999999999787
+   "clear": 0.2500000149011612,
+   "clear_wires": 5.0242958677880805e-15
   },
   {
    "name": "U.FL coax -> antenna",
@@ -744,12 +760,8 @@
    "room_to_holder": 2.5
   }
  ],
- "button": {
-  "icon_depth": 0.8000000000000114,
-  "icon_width": 0.7990679882841505,
-  "land": 0.8256978414729019,
-  "flex_strain": 0.00847399945548598,
-  "flex_force": 0.544514021236047
+ "front": {
+  "openings": 2
  },
  "optics": {
   "radar_H": 1.0,

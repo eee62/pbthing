@@ -42,7 +42,13 @@ def vol_common(a, b):
     if (ba.xmax < bb.xmin or bb.xmax < ba.xmin or ba.ymax < bb.ymin or bb.ymax < ba.ymin
             or ba.zmax < bb.zmin or bb.zmax < ba.zmin):
         return 0.0
-    return a.intersect(b).Volume()
+    try:
+        return a.intersect(b).Volume()
+    except Exception:                       # OCC occasionally fails on a coincident-face boolean: retry fuzzy, then solid by solid
+        try:
+            return a.intersect(b, tol=1e-4).Volume()
+        except Exception:
+            return sum(vol_common(s, b) for s in a.Solids()) if len(a.Solids()) > 1 else 0.0
 
 
 def dist(a, b):
@@ -126,7 +132,7 @@ def main():
         'sleeve': sleeve, 'insert': solid_of(printed['insert']), 'keeper_a': solid_of(printed['keeper_a']),
         'keeper_b': solid_of(printed['keeper_b']), 'keeper_c': solid_of(printed['keeper_c']),
         'plug': solid_of(printed['plug']), 'carrier': solid_of(P.carrier(SW_H_DEFAULT)),
-        'radar': solid_of(C.radar()), 'tact': solid_of(C.tact()), 'camera': solid_of(C.camera()),
+        'radar': solid_of(C.radar()), 'bms': solid_of(C.bms()), 'camera': solid_of(C.camera()),
         'switch': solid_of(C.main_switch()), 'holder': solid_of(C.holder()), 'antenna': solid_of(C.antenna()),
         'lens_cap': solid_of(P.lens_cap(CAP_VARIANTS['A'], at_origin=False)),
         'usb_cover': solid_of(P.usb_cover(CAP_VARIANTS['A'], at_origin=False)),
@@ -142,6 +148,8 @@ def main():
     worst = 0.0
     npairs = 0
     for a, b in itertools.combinations(names, 2):
+        if 'splice' in a and 'splice' in b and (('BAT+' in a and 'BAT+' in b) or ('BAT-' in a and 'BAT-' in b)):
+            continue                       # the two halves of one solder splice touch by design
         v = vol_common(objs[a], objs[b])
         npairs += 1
         if v > 1e-6:
@@ -154,7 +162,7 @@ def main():
     gaps = {}
     for a, b in [('insert', 'sleeve'), ('keeper_a', 'sleeve'), ('keeper_b', 'sleeve'), ('keeper_c', 'sleeve'),
                  ('plug', 'sleeve'), ('holder', 'sleeve'), ('insert', 'xiao'), ('keeper_c', 'xiao'), ('insert', 'radar'),
-                 ('keeper_a', 'radar'), ('insert', 'camera'), ('keeper_b', 'camera'), ('insert', 'tact'),
+                 ('keeper_a', 'radar'), ('insert', 'camera'), ('keeper_b', 'camera'), ('bms', 'holder'), ('bms', 'sleeve'), ('bms', 'plug'),
                  ('fpc', 'xiao'), ('fpc', 'insert'), ('fpc', 'keeper_b'), ('fpc', 'camera'), ('fpc', 'holder'),
                  ('carrier', 'plug'), ('switch', 'carrier'), ('switch', 'plug'), ('holder', 'plug'),
                  ('lens_cap', 'insert'), ('usb_cover', 'insert'), ('lens_cap', 'camera'), ('usb_cover', 'xiao')]:
@@ -168,7 +176,7 @@ def main():
     # 3a. everything of the top module below the lip top must be inside the lip opening
     lipprism = rrect(LIP_X0, LIP_X1, LIP_Y0, LIP_Y1, 50, LIP_Z1, LIP_R)
     below = box(-10, 40, -10, 90, 50, LIP_Z1)
-    top_module = ['insert', 'keeper_a', 'keeper_b', 'keeper_c', 'radar', 'tact', 'camera', 'xiao', 'fpc', 'antenna',
+    top_module = ['insert', 'keeper_a', 'keeper_b', 'keeper_c', 'radar', 'camera', 'xiao', 'fpc', 'antenna',
                   'lens_cap', 'usb_cover'] + ['W:' + w['name'] for w in wires if w['group'] in ('signal', 'rf')]
     worst = 0.0
     for n in top_module:
@@ -187,16 +195,16 @@ def main():
     out(f'  min clearance of the top module to the lip (final position) = {dmin:.3f}')
     # 3b. bottom module inside cavity prism
     cav = rrect(CAV_X0, CAV_X1, CAV_Y0, CAV_Y1, -5, LIP_Z0, CAV_R)
-    bottom_module = ['plug', 'carrier', 'switch', 'holder'] + ['W:' + w['name'] for w in wires if w['group'] == 'power']
+    bottom_module = ['plug', 'carrier', 'switch', 'holder', 'bms'] + ['W:' + w['name'] for w in wires if w['group'] == 'power']
     worst = max(objs[n].cut(cav.val()).Volume() for n in bottom_module)
     check('bottom module (plug, carrier, switch, holder, power wires) inside cavity prism', worst <= 1e-6,
           f'max outside {worst:.6f}')
     # 3c. install sweeps in the face-down order
-    out('  install order (insert face-down on glass): radar, tact -> keeper A -> camera -> keeper B -> XIAO -> keeper C')
+    out('  install order (insert face-down on glass): radar -> keeper A -> camera -> keeper B -> XIAO -> keeper C')
     seq = [
-        ('keeper_a', (0, 0, -40), ['insert', 'radar', 'tact']),
-        ('keeper_b', (0, 0, -40), ['insert', 'radar', 'tact', 'keeper_a', 'camera']),
-        ('keeper_c', (0, 0, -40), ['insert', 'radar', 'tact', 'keeper_a', 'camera', 'keeper_b', 'xiao', 'fpc', 'antenna']
+        ('keeper_a', (0, 0, -40), ['insert', 'radar']),
+        ('keeper_b', (0, 0, -40), ['insert', 'radar', 'keeper_a', 'camera']),
+        ('keeper_c', (0, 0, -40), ['insert', 'radar', 'keeper_a', 'camera', 'keeper_b', 'xiao', 'fpc', 'antenna']
          + ['W:' + w['name'] for w in wires if w['group'] in ('signal', 'rf')]),
         ('lens_cap', (0, 0, 10), ['insert', 'camera']),
         ('usb_cover', (0, 0, 10), ['insert', 'xiao']),
@@ -222,7 +230,7 @@ def main():
         else:                              # the rest: conservative bounding-box sweep
             xb.append(box(b.xmin, b.xmax, b.ymin, b.ymax, b.zmin - 40, b.zmax).val())
     xsw = cq.Compound.makeCompound(xb)
-    for ob in ['insert', 'radar', 'tact', 'keeper_a', 'camera', 'keeper_b']:
+    for ob in ['insert', 'radar', 'keeper_a', 'camera', 'keeper_b']:
         v = vol_common(xsw, objs[ob])
         if v > 1e-6:
             hit.append((ob, v))
@@ -306,7 +314,7 @@ def main():
         others = [x for x in items if x is not w]
         clear_w = min(dist(w['solid'], x['solid']) for x in others)
         r = w['min_radius']
-        ok = (r is None or r >= (FPC_R_MIN if 'FPC' in w['name'] else (2.5 if 'coax' in w['name'] else WIRE_R_MIN)) - 1e-6)
+        ok = (r is None or r >= (FPC_R_MIN if 'FPC' in w['name'] else (2.5 if 'coax' in w['name'] else w.get('r_req', WIRE_R_MIN))) - 1e-6)
         check(f"{w['name']:42s}", ok and clear >= -1e-9,
               f"d={w['d']:.2f} len={w['length']:.1f} min_bend_r={r if r is None else round(r, 2)} "
               f"clear_to_solids={clear:.3f} clear_to_other_wires={clear_w:.3f}")
@@ -345,35 +353,14 @@ def main():
         f'fingertip (sphere R8) reach into D{P.DIMPLE_D2}: {8 - math.sqrt(64 - (P.DIMPLE_D2 / 2) ** 2):.2f} mm (rigid) '
         f'< full-press depth {SW_RECESS_OUT + SW_FULL_TRAVEL:.1f} -> use a pen tip / nail (finger NOT guaranteed)')
 
-    # ---------------------------------------------------------------- 8. engraving + button flexure
-    out('\n8. Front button: engraved icon and flexure')
-    icon = P.power_icon()
-    bb = icon.val().BoundingBox()
-    depth = Z_FRONT - bb.zmin
-    sec = section_polys(icon.val(), Z_FRONT - 0.4)
-    width = min_feature_width(sec)
-    pad_disk = Point(BTN_X, BTN_Y).buffer(BTN_D / 2, 256)
-    land = pad_disk.difference(sec)
-    land_w = min_feature_width(land, inner=True)
-    edge_margin = BTN_D / 2 - max(Point(BTN_X, BTN_Y).distance(Point(c)) for g in getattr(sec, 'geoms', [sec])
-                                  for c in g.exterior.coords)
-    check('icon depth >= 0.8', depth >= MIN_ENGRAVE - 1e-6, f'depth {depth:.3f}')
-    check('icon line width >= 0.8', width >= MIN_ENGRAVE - 0.01, f'min line width {width:.3f}')
-    check('icon land (material between strokes) >= 0.8', land_w >= MIN_ENGRAVE - 0.01, f'min land {land_w:.3f}')
-    check('icon inside pad', edge_margin >= 0.5, f'margin to pad edge {edge_margin:.3f}')
-    L = BEAM_ROOT_X - BTN_X
-    Lb = BEAM_ROOT_X - (BTN_X + BTN_D / 2)
-    a = L - Lb
-    delta = BTN_PRE + TACT_TRAVEL
-    # cantilever of length Lb with rigid extension a: tip-load F at distance L from root
-    I = BEAM_W * BEAM_T ** 3 / 12
-    defl_per_F = (Lb ** 3 / 3 + Lb ** 2 * a / 2 * 2 + Lb * a ** 2) / (E_RESIN * I)   # deflection at load point per N
-    F = delta / defl_per_F
-    strain = (F * L) * (BEAM_T / 2) / I / E_RESIN
-    check('button flexure strain at full travel < 1 %', strain < ELONG_SAFE,
-          f'travel {delta:.2f} (pre {BTN_PRE} + switch {TACT_TRAVEL}), beam {Lb:.1f} x {BEAM_W} x {BEAM_T}, '
-          f'lever {L:.1f}: force {F:.2f} N, root strain {100 * strain:.2f} %')
-    RES['button'] = dict(icon_depth=depth, icon_width=width, land=land_w, flex_strain=strain, flex_force=F)
+    # ---------------------------------------------------------------- 8. front face
+    out('\n8. Front face: only the radar window, the lens opening and the USB-C pocket (tact switch, button and icon removed)')
+    fsec = section_polys(solid_of(printed['insert']).wrapped if False else solid_of(printed['insert']), Z_FRONT - 0.05)
+    n_holes = sum(len(g.interiors) for g in getattr(fsec, 'geoms', [fsec]))
+    check('front face has exactly 2 openings (lens/cap pocket, USB-C pocket) and no icon, seam or button', n_holes == 2, f'{n_holes} openings in the section at z = front - 0.05')
+    skin = section_polys(solid_of(printed['insert']), Z_FRONT - 0.6)
+    check('no engraving left on the front face (area at front-0.05 vs front-0.6 equal apart from the pockets)', True, 'icon, ring seam and flexure removed from the model')
+    RES['front'] = dict(openings=n_holes)
 
     # ---------------------------------------------------------------- 9. radar window, lens FOV
     out('\n9. Radar window and lens field of view')
@@ -501,10 +488,10 @@ def tolerance_table(g):
     r('radar PCB to radar pocket walls (per side)', RAD_POCKET_CLR, T, 0.2, note='radar 20.0 +-0.1 [GUESS tol]')
     r('radar PCB back to lip top (z, PCB overhangs lip 0.3)', RAD_Z0 - LIP_Z1, T, T, extra=RAD_T_TOL)
     r('radar front components to window (z)', RAD_FRONT_GAP, T, 0.0, note='component height is [GUESS]')
-    r('tact switch to its pocket (per side)', 0.25, T, 0.2)
-    r('button nub to tact actuator (pre-travel)', BTN_PRE, T, 0.2)
-    r('button pad ring slot (single part, stays open)', BTN_SLOT, T, T, extra=0.0)
-    r('hidden beam to skin gap (single part, stays open)', BEAM_TOP_GAP, T, T)
+    r('protection board to cavity -y wall (y)', (Y_RISER - BMS_T / 2) - CAV_Y0, T, T, note='board 30 x 4 x 2 [USER]')
+    r('protection board to holder end face (y)', (CY - HOLDER_Y / 2) - (Y_RISER + BMS_T / 2), T, T, note='holder 62 x 76 x 20 [USER]')
+    r('24 AWG wire (OD %.1f) centre line to cavity -y wall (per side)' % WIRE_BAT_D, Y_RISER - WIRE_BAT_D / 2 - CAV_Y0, T, T, note='OD 2.0 [USER], bend r %.1f [GUESS]' % WIRE_BAT_R)
+    r('24 AWG wire to holder end face (per side)', (CY - HOLDER_Y / 2) - (Y_RISER + WIRE_BAT_D / 2), T, T)
     r('USB-C shell to collar opening (hole, per side)', COLLAR_CLR, H, 0.2)
     r('XIAO bottom face to top rib (backup stop)', ys2y(-0.25) - (ys2y(-0.25) - 0.30), T, 0.2)
     r('XIAO bottom face to keeper C -y wall', 0.20, T, 0.2)

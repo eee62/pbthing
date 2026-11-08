@@ -53,7 +53,7 @@ def main():
     export(P.carrier(SW_H_DEFAULT), os.path.join(asm, 'carrier.stl'))
     export(P.lens_cap(0.1, at_origin=False), os.path.join(asm, 'lens_cap.stl'))
     export(P.usb_cover(0.1, at_origin=False), os.path.join(asm, 'usb_cover.stl'))
-    comps = {'radar': C.radar(), 'tact': C.tact(), 'camera': C.camera(), 'switch': C.main_switch(),
+    comps = {'radar': C.radar(), 'bms': C.bms(), 'camera': C.camera(), 'switch': C.main_switch(),
              'holder': C.holder(), 'antenna': C.antenna()}
     for n, wp in comps.items():
         export(wp, os.path.join(asm, f'cmp_{n}.stl'))

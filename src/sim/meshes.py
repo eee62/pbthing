@@ -30,7 +30,7 @@ def get(name):
         m = trimesh.util.concatenate(ms)
     else:
         mk = {'insert': P.insert, 'keeper_a': P.keeper_a, 'keeper_b': P.keeper_b, 'keeper_b_slot': (lambda: P.keeper_b(slot=True)), 'keeper_b_noslot': (lambda: P.keeper_b(slot=False)), 'keeper_c': P.keeper_c,
-              'radar': C.radar, 'tact': C.tact, 'camera': C.camera, 'plug': P.plug}[name]
+              'radar': C.radar, 'camera': C.camera, 'plug': P.plug}[name]
         m = _tess(solid_of(mk()))
     m.export(path)
     return m

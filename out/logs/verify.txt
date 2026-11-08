@@ -7,15 +7,15 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] sleeve rebuild matches STL 
 
 1. Printed parts: single watertight solid (B-rep + exported STL)
-  [PASS] insert           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4037.1 bbox=23.9x71.7x34.5
+  [PASS] insert           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4018.5 bbox=23.9x71.7x34.5
   [PASS] insert           min build size >= 5 mm (smallest bbox side 23.9)
-  [PASS] plug             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=7412.1 bbox=23.9x71.7x27.0
+  [PASS] plug             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=7412.0 bbox=23.9x71.7x27.0
   [PASS] plug             min build size >= 5 mm (smallest bbox side 23.9)
-  [PASS] tray             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=10441.8 bbox=100.3x63.2x27.8
+  [PASS] tray             brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=10421.8 bbox=100.3x63.2x27.8
   [PASS] tray             min build size >= 5 mm (smallest bbox side 27.8)
-  [PASS] coupon           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4254.1 bbox=23.9x74.0x18.0
+  [PASS] coupon           brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=4235.4 bbox=23.9x74.0x18.0
   [PASS] coupon           min build size >= 5 mm (smallest bbox side 18.0)
-  [PASS] keeper_a         brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=444.1 bbox=23.6x27.2x6.7
+  [PASS] keeper_a         brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=341.4 bbox=23.6x27.2x3.4
   [PASS] keeper_b         brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=284.1 bbox=23.6x8.6x11.9
   [PASS] keeper_c         brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=748.6 bbox=23.6x13.7x24.8
   [PASS] carrier_H10      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=875.4 bbox=17.2x10.4x15.7
@@ -32,7 +32,7 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] usb_cover_C      brep_solids=1 valid=True stl_watertight=True stl_bodies=1 vol=124.5 bbox=12.8x6.9x1.5
 
 2. Interference, exact boolean volume, every pair of placed bodies (default switch H)
-  [PASS] all 406 pairs of 29 bodies max overlap volume = 0.000000 mm3
+  [PASS] all 463 pairs of 31 bodies max overlap volume = 0.000000 mm3
   minimum distance between neighbours (exact):
     insert     - sleeve       0.250
     keeper_a   - sleeve       0.250
@@ -46,7 +46,9 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
     keeper_a   - radar        0.000
     insert     - camera       0.250
     keeper_b   - camera       0.000
-    insert     - tact         0.200
+    bms        - holder       2.050
+    bms        - sleeve       0.930
+    bms        - plug         6.148
     fpc        - xiao         0.183
     fpc        - insert       0.525
     fpc        - keeper_b     1.821
@@ -65,7 +67,7 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] top module passes the 19.4 x 67.2 lip opening (all bodies below z=137 inside it) max outside volume 0.000000
   min clearance of the top module to the lip (final position) = 0.250
   [PASS] bottom module (plug, carrier, switch, holder, power wires) inside cavity prism max outside 0.000000
-  install order (insert face-down on glass): radar, tact -> keeper A -> camera -> keeper B -> XIAO -> keeper C
+  install order (insert face-down on glass): radar -> keeper A -> camera -> keeper B -> XIAO -> keeper C
   [PASS] keeper_a install path (0, 0, -40) hits: none
   [PASS] keeper_b install path (0, 0, -40) hits: none
   [PASS] keeper_c install path (0, 0, -40) hits: none
@@ -79,9 +81,9 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
 
 4. Wall thickness and minimum features (ray casting on exported STL, opposite-face rays only)
   [PASS] insert         min wall 0.800 >= 0.8 
-  [PASS] insert         min internal gap/slot 0.798 >= 0.8 (no slot that could fuse shut) 
+  [PASS] insert         min internal gap/slot 1.490 >= 0.8 (no slot that could fuse shut) 
   [PASS] plug           min wall 0.800 >= 0.8 
-  [PASS] plug           min internal gap/slot 2.618 >= 0.8 (no slot that could fuse shut) 
+  [PASS] plug           min internal gap/slot 2.089 >= 0.8 (no slot that could fuse shut) 
   [PASS] keeper_a       min wall 0.800 >= 0.8 
   [PASS] keeper_a       min internal gap/slot 2.100 >= 0.8 (no slot that could fuse shut) 
   [PASS] keeper_b       min wall 0.800 >= 0.8 
@@ -95,7 +97,7 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] usb_cover_A    min wall 1.500 >= 0.8 
   [PASS] usb_cover_A    min internal gap/slot 1.200 >= 0.8 (no slot that could fuse shut) 
   [PASS] coupon         min wall 0.800 >= 0.8 
-  [PASS] coupon         min internal gap/slot 0.799 >= 0.8 (no slot that could fuse shut) 
+  [PASS] coupon         min internal gap/slot 1.490 >= 0.8 (no slot that could fuse shut) 
 
 5. Worst-case clearance per fit. Rule: worst = nominal - (tolA + tolB)/2 (- purchased-part tol)
   [PASS] faceplate edge to sleeve bore (per side)                   nominal 0.250  tolA 0.2  tolB 0.2  worst +0.050
@@ -106,10 +108,10 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] radar PCB to radar pocket walls (per side)                 nominal 0.300  tolA 0.2  tolB 0.2  worst +0.100
   [PASS] radar PCB back to lip top (z, PCB overhangs lip 0.3)       nominal 0.500  tolA 0.2  tolB 0.2  worst +0.180
   [PASS] radar front components to window (z)                       nominal 0.150  tolA 0.2  tolB 0.0  worst +0.050
-  [PASS] tact switch to its pocket (per side)                       nominal 0.250  tolA 0.2  tolB 0.2  worst +0.050
-  [PASS] button nub to tact actuator (pre-travel)                   nominal 0.200  tolA 0.2  tolB 0.2  worst +0.000
-  [PASS] button pad ring slot (single part, stays open)             nominal 0.800  tolA 0.2  tolB 0.2  worst +0.600
-  [PASS] hidden beam to skin gap (single part, stays open)          nominal 0.800  tolA 0.2  tolB 0.2  worst +0.600
+  [PASS] protection board to cavity -y wall (y)                     nominal 1.050  tolA 0.2  tolB 0.2  worst +0.850
+  [PASS] protection board to holder end face (y)                    nominal 2.050  tolA 0.2  tolB 0.2  worst +1.850
+  [PASS] 24 AWG wire (OD 2.0) centre line to cavity -y wall (per side) nominal 1.050  tolA 0.2  tolB 0.2  worst +0.850
+  [PASS] 24 AWG wire to holder end face (per side)                  nominal 2.050  tolA 0.2  tolB 0.2  worst +1.850
   [PASS] USB-C shell to collar opening (hole, per side)             nominal 0.300  tolA 0.3  tolB 0.2  worst +0.050
   [PASS] XIAO bottom face to top rib (backup stop)                  nominal 0.300  tolA 0.2  tolB 0.2  worst +0.100
   [PASS] XIAO bottom face to keeper C -y wall                       nominal 0.200  tolA 0.2  tolB 0.2  worst +0.000
@@ -143,15 +145,17 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   [PASS] camera FPC 6 x 0.15                        d=0.15 len=65.0 min_bend_r=2.0 clear_to_solids=0.000 clear_to_other_wires=2.686
   [PASS] radar RX -> XIAO D8                        d=1.10 len=21.3 min_bend_r=2.0 clear_to_solids=0.050 clear_to_other_wires=1.440
   [PASS] radar OT1 -> XIAO D7                       d=1.10 len=26.4 min_bend_r=2.0 clear_to_solids=0.050 clear_to_other_wires=1.440
-  [PASS] radar GND -> XIAO GND                      d=1.10 len=18.4 min_bend_r=2.0 clear_to_solids=0.150 clear_to_other_wires=0.076
-  [PASS] radar 3V3 -> XIAO 3V3                      d=1.10 len=21.0 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=0.076
-  [PASS] button leg A -> XIAO D10 (input, pull-up)  d=1.10 len=14.4 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=1.440
-  [PASS] button leg B -> XIAO D9 (driven LOW)       d=1.10 len=19.1 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=0.180
-  [PASS] jumper pin2-pin5                           d=1.10 len=4.8 min_bend_r=None clear_to_solids=0.453 clear_to_other_wires=1.200
-  [PASS] jumper pin3-pin6                           d=1.10 len=4.8 min_bend_r=None clear_to_solids=0.453 clear_to_other_wires=1.200
-  [PASS] holder B+ (red) -> switch pin 2            d=1.10 len=38.7 min_bend_r=2.0 clear_to_solids=0.050 clear_to_other_wires=0.100
-  [PASS] switch pin 3 -> XIAO BAT+                  d=1.10 len=168.5 min_bend_r=2.0 clear_to_solids=0.100 clear_to_other_wires=0.100
-  [PASS] holder B- (black) -> XIAO BAT-             d=1.10 len=138.1 min_bend_r=2.0 clear_to_solids=0.050 clear_to_other_wires=0.100
+  [PASS] radar GND -> XIAO GND                      d=1.10 len=18.4 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=0.572
+  [PASS] radar 3V3 -> XIAO 3V3                      d=1.10 len=21.0 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=0.572
+  [PASS] jumper pin2-pin5                           d=2.00 len=4.8 min_bend_r=None clear_to_solids=0.450 clear_to_other_wires=0.500
+  [PASS] jumper pin3-pin6                           d=2.00 len=4.8 min_bend_r=None clear_to_solids=0.450 clear_to_other_wires=0.500
+  [PASS] holder black (B-) -> board B-              d=2.00 len=9.7 min_bend_r=3.0 clear_to_solids=0.050 clear_to_other_wires=0.100
+  [PASS] holder red (B+) -> board B+                d=2.00 len=9.7 min_bend_r=3.0 clear_to_solids=0.050 clear_to_other_wires=0.100
+  [PASS] board P+ -> switch pin 2                   d=2.00 len=82.6 min_bend_r=3.0 clear_to_solids=0.050 clear_to_other_wires=0.100
+  [PASS] switch pin 3 -> BAT+ splice                d=2.00 len=145.4 min_bend_r=3.0 clear_to_solids=0.050 clear_to_other_wires=0.000
+  [PASS] BAT+ splice -> XIAO BAT+ (28-30 AWG)       d=1.10 len=21.9 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=0.000
+  [PASS] board P- -> BAT- splice                    d=2.00 len=73.0 min_bend_r=3.0 clear_to_solids=0.050 clear_to_other_wires=0.000
+  [PASS] BAT- splice -> XIAO BAT- (28-30 AWG)       d=1.10 len=26.0 min_bend_r=2.0 clear_to_solids=0.250 clear_to_other_wires=0.000
   [PASS] U.FL coax -> antenna                       d=1.13 len=37.8 min_bend_r=2.5 clear_to_solids=0.498 clear_to_other_wires=2.358
   FPC: solved loop bottom z = 105.07 for length 65.0 (holder top z = 97.0, margin 8.1)
      FPC length 40 mm -> loop bottom z 117.6
@@ -169,12 +173,9 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
   knob travel: lock 1.5 +-0.15, full 2.5 +-0.2 (datasheet); knob tip never protrudes: released recess 1.0 - tolerance 0.4 = 0.60 > 0
   finger dimple: cone D10.0 -> D7.4 over 1.0 mm; fingertip (sphere R8) reach into D10.0: 1.76 mm (rigid) < full-press depth 3.5 -> use a pen tip / nail (finger NOT guaranteed)
 
-8. Front button: engraved icon and flexure
-  [PASS] icon depth >= 0.8 depth 0.800
-  [PASS] icon line width >= 0.8 min line width 0.799
-  [PASS] icon land (material between strokes) >= 0.8 min land 0.826
-  [PASS] icon inside pad margin to pad edge 0.869
-  [PASS] button flexure strain at full travel < 1 % travel 0.45 (pre 0.2 + switch 0.25), beam 4.8 x 2.0 x 0.8, lever 8.3: force 0.54 N, root strain 0.85 %
+8. Front face: only the radar window, the lens opening and the USB-C pocket (tact switch, button and icon removed)
+  [PASS] front face has exactly 2 openings (lens/cap pocket, USB-C pocket) and no icon, seam or button 2 openings in the section at z = front - 0.05
+  [PASS] no engraving left on the front face (area at front-0.05 vs front-0.6 equal apart from the pockets) icon, ring seam and flexure removed from the model
 
 9. Radar window and lens field of view
   er=2.6: lambda/8 in resin = 0.96 mm  -> window 0.8 <= lambda/8
@@ -188,4 +189,4 @@ VERIFICATION REPORT  (all numbers in mm, mm3, degrees)
 
 ==============================================================================
 FAILED CHECKS: 0
-run time 223 s
+run time 410 s

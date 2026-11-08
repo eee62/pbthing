@@ -11,7 +11,7 @@ def run(which, speed, slack=30.0, xiao_stage=25.0):
     B, flex, stage = S.build_world(slack, False, xiao_stage, 'keeper_b')
     env = S.env_list(B); Hand.bodies_for_contact = env
     rec = S.Recorder(B, flex); t = 0.0
-    for n in ('radar', 'tact', 'keeper_a'):                      # earlier steps assumed done (final poses)
+    for n in ('radar', 'keeper_a'):                      # earlier steps assumed done (final poses)
         B[n].set_pose(B[n].com.copy(), np.eye(3)); B[n].active = True
     for f in flex: f.apply_anchors()
     for k in range(400):
@@ -40,7 +40,7 @@ def hold(xiao_stage, speed=3.0, slack=16.0, tag=''):
     B, flex, stage = S.build_world(slack, False, xiao_stage, 'keeper_b')
     env = S.env_list(B); Hand.bodies_for_contact = env
     rec = S.Recorder(B, flex); t = 0.0
-    for n in ('radar', 'tact', 'keeper_a'):
+    for n in ('radar', 'keeper_a'):
         B[n].set_pose(B[n].com.copy(), np.eye(3)); B[n].active = True
     for f in flex: f.apply_anchors()
     for k in range(400):

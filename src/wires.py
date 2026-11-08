@@ -104,7 +104,7 @@ def _wire(name, pts, r=WR, d=WIRE_D, group='signal'):
     pts = _dedupe(pts)
     edges, radii = path_edges(pts, r)
     return dict(name=name, solid=sweep_circle(edges, d), min_radius=min(radii) if radii else None,
-                length=sum(e.Length() for e in edges), pts=pts, d=d, group=group)
+                length=sum(e.Length() for e in edges), pts=pts, d=d, group=group, r_req=r)
 
 
 def _lane(name, x_lane, start, z_run, dest):
@@ -128,63 +128,59 @@ def radar_wires():
             continue
         dest = plan[pin]
         px, pz = PADS[dest]
-        if pin == 'GND':
-            # runs 1.2 mm under keeper A's tact bridge, then climbs gently onto the GND pad
-            zr = KA_LOW_Z0_W
-            pts = [(xs[i], yp, zr), (xs[i], Y_WIRE, zr), (xs[i] - 2.6, Y_WIRE, zr), (px, Y_WIRE, pz)]
-            out.append(_wire(f'radar {pin} -> XIAO {dest}', pts))
-        elif pz > zs - WR:
-            # pad too close below the pin: leave toward +y at the solder level, slope down onto the pad
-            out.append(_wire(f'radar {pin} -> XIAO {dest}', [(xs[i], yp, zs), (xs[i], Y_WIRE, zs), (px, Y_WIRE, pz)]))
+        zl = zs + (1.2 if pin == 'GND' else 0.0)      # GND solders 1.2 mm higher on its pin so its route stays above the 3V3 wire
+        if pz > zl - WR:
+            # pad too close below the pin: leave toward +y at the solder level, slope onto the pad
+            out.append(_wire(f'radar {pin} -> XIAO {dest}', [(xs[i], yp, zl), (xs[i], Y_WIRE, zl), (px, Y_WIRE, pz)]))
         else:
-            out.append(_lane(f'radar {pin} -> XIAO {dest}', xs[i], (xs[i], yp, zs), pz, dest))
+            out.append(_lane(f'radar {pin} -> XIAO {dest}', xs[i], (xs[i], yp, zl), pz, dest))
     return out
 
 
-KA_LOW_Z0_W = TACT_Z0 - 1.6 - 0.15 - WIRE_D / 2   # GND run level under keeper A bridge
-
-
-def button_wires():
-    z0 = TACT_Z0 - TACT_LEG_L - 0.3       # just below the leg tip
-    (xa, ya), _, _, (xb, yb) = C.tact_leg_points()
-    return [_lane('button leg A -> XIAO D10 (input, pull-up)', xa, (xa, ya, z0), PADS['D10'][1], 'D10'),
-            _lane('button leg B -> XIAO D9 (driven LOW)', xb, (xb, yb, z0), PADS['D9'][1], 'D9')]
-
-
 # battery / switch harness ---------------------------------------------------
-HOLDER_RED = (16.0, CY - HOLDER_Y / 2 - 0.05, 25.0)    # [GUESS] lead exits on the -y end face
-HOLDER_BLK = (12.0, CY - HOLDER_Y / 2 - 0.05, 25.0)
-Y_RISER = 4.6                                           # wires run up the -y end gap
-Z_SW_WIRE = None                                        # set per switch height
+# 24 AWG (OD WIRE_BAT_D, bend radius WIRE_BAT_R) from the holder through the protection board and the PB-22E08 to a solder splice
+# above the holder; 28-30 AWG pigtails (WIRE_D) from the splice to the XIAO BAT pads (pad pitch 1.2 x 1.9 mm cannot take 2.0 mm wires).
+_XC = BMS_X0 + BMS_W / 2
+HOLDER_BLK = (_XC - 1.05, CY - HOLDER_Y / 2 - 0.05, 25.0)   # [GUESS] holder leads exit the -y end face at z 25, lined up with the board's B- / B+ pads
+HOLDER_RED = (_XC + 1.05, CY - HOLDER_Y / 2 - 0.05, 25.0)
+SPLICE_Z = {'BAT+': 110.0, 'BAT-': 107.8}
+
+
+def _pw(name, pts):
+    return _wire(name, pts, r=WIRE_BAT_R, d=WIRE_BAT_D, group='power')
 
 
 def switch_wires(h=SW_H_DEFAULT):
     pins = C.switch_pin_xy()
     tip = SW_RECESS_OUT + h + SW_PIN_L
-    zw = max(tip + 0.45, 18.6)            # wire level above the pocket roof (17.95)
+    zw = max(tip + WIRE_BAT_D / 2, 19.0)  # 24 AWG lies on the pin tips; >= 19.0 keeps it in the plug's thin-wall passage (z 16.9..20.9)
+    R, Yr = WIRE_BAT_R, Y_RISER
+    pad = C.bms_pads()
     out = []
     # jumpers: commons 2-5, and 3-6 (the pair that closes when latched; verify with a meter)
     for a, b in ((2, 5), (3, 6)):
         (xa, ya), (xb, yb) = pins[a], pins[b]
-        out.append(_wire(f'jumper pin{a}-pin{b}', [(xa, ya + 0.6, zw), (xb, yb - 0.6, zw)], group='power'))
+        out.append(_pw(f'jumper pin{a}-pin{b}', [(xa, ya + 0.6, zw), (xb, yb - 0.6, zw)]))
     x2, y2 = pins[2]
     x3, y3 = pins[3]
-    # holder red (+) -> pin 2
-    rx, ry, rz = HOLDER_RED
-    out.append(_wire('holder B+ (red) -> switch pin 2',
-                     [(rx, ry, rz), (rx, Y_RISER, rz), (rx, Y_RISER, zw), (x2, Y_RISER + 6.0, zw), (x2, y2 - 0.6, zw)],
-                     group='power'))
-    # pin 3 -> XIAO BAT+
+    # holder black (-) and red (+) leads straight up the end gap to the board's lower end (B-, B+)
+    for nm, (lx, ly, lz), key in (('holder black (B-)', HOLDER_BLK, 'B-'), ('holder red (B+)', HOLDER_RED, 'B+')):
+        px, py, pz = pad[key]
+        out.append(_pw(f'{nm} -> board {key}', [(lx, ly, lz), (lx, Yr, lz), (px, Yr, pz - 0.05)]))
+    # board P+ (upper end) -> up 3, over to the switch lane, down to the pin 2 level, along +y to pin 2
+    px, py, pz = pad['P+']
+    out.append(_pw('board P+ -> switch pin 2', [(px, Yr, pz + 0.05), (px, Yr, pz + 0.05 + R), (x2, Yr, pz + 0.05 + R), (x2, Yr, zw), (x2, y2 - 0.6, zw)]))
+    # switch pin 3 -> splice -> 28-30 AWG pigtail to XIAO BAT+
     bx, bz = PADS['BAT+']
-    out.append(_wire('switch pin 3 -> XIAO BAT+',
-                     [(x3, y3 - 0.6, zw), (x3, Y_RISER, zw), (x3, Y_RISER, 110.0), (bx, Y_WIRE - 6.0, 110.0),
-                      (bx, Y_WIRE, 110.0), (bx, Y_WIRE, bz)], group='power'))
-    # holder black (-) -> XIAO BAT-
-    kx, ky, kz = HOLDER_BLK
+    zs = SPLICE_Z['BAT+']
+    out.append(_pw('switch pin 3 -> BAT+ splice', [(x3, y3 - 0.6, zw), (x3, Yr, zw), (x3, Yr, zs), (bx, Y_WIRE - 6.0, zs)]))
+    out.append(_wire('BAT+ splice -> XIAO BAT+ (28-30 AWG)', [(bx, Y_WIRE - 6.0, zs), (bx, Y_WIRE, zs), (bx, Y_WIRE, bz)], group='power'))
+    # board P- (upper end) straight up the gap to the splice level, then to the BAT- splice and pigtail
+    px, py, pz = pad['P-']
     nx, nz = PADS['BAT-']
-    out.append(_wire('holder B- (black) -> XIAO BAT-',
-                     [(kx, ky, kz), (kx, Y_RISER, kz), (kx, Y_RISER, 107.8), (nx, Y_WIRE - 6.0, 107.8),
-                      (nx, Y_WIRE, 107.8), (nx, Y_WIRE, nz)], group='power'))
+    zs = SPLICE_Z['BAT-']
+    out.append(_pw('board P- -> BAT- splice', [(px, Yr, pz + 0.05), (px, Yr, zs), (nx, Y_WIRE - 6.0, zs)]))
+    out.append(_wire('BAT- splice -> XIAO BAT- (28-30 AWG)', [(nx, Y_WIRE - 6.0, zs), (nx, Y_WIRE, zs), (nx, Y_WIRE, nz)], group='power'))
     return out
 
 
@@ -197,7 +193,7 @@ def coax():
 
 
 def all_wires(h=SW_H_DEFAULT):
-    return radar_wires() + button_wires() + switch_wires(h) + [coax()]
+    return radar_wires() + switch_wires(h) + [coax()]
 
 
 def _dedupe(pts):

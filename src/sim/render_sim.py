@@ -7,7 +7,7 @@ sys.path.insert(0, HERE); sys.path.insert(0, SRC)
 import meshes
 pv.global_theme.background = 'white'
 
-COL = {'insert': ('#6c8ebf', 0.28), 'radar': ('#2a9d8f', 1.0), 'tact': ('#444444', 1.0), 'keeper_a': ('#e07b39', 0.55),
+COL = {'insert': ('#6c8ebf', 0.28), 'radar': ('#2a9d8f', 1.0), 'keeper_a': ('#e07b39', 0.55),
        'camera': ('#222222', 1.0), 'keeper_b': ('#e0b339', 0.45), 'xiao': ('#2e8b57', 1.0), 'keeper_c': ('#b5412f', 0.45),
        'sleeve': ('#b0b0b0', 0.12)}
 WIRE_COL = {'radar': '#d62828', 'button': '#f77f00', 'coax': '#ffbe0b', 'BAT': '#ff006e'}
